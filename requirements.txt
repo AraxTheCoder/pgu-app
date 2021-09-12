@@ -14,4 +14,22 @@ Splash
 	- Übersicht in welchen Klasen/Stufen man sich eingeloggt hat
 		-> Ausloggen und Hinzufügen
 
+
+-------------------------------------------------------------------------
+
+Deutsch: #2e7d32
+Mathe: #0277bd
+Englisch: #d32f2f
+Geschichte: #689f38
+Erdkunde: #9e9d24
+Politik: #f4511e
+Sozialwissenschaften: #f4511e
+Physik: #ffeb3b
+Chemie: #d81b60
+Biologie: #1b5e20
+Musik: #2196f3
+Französisch: #4a148c
+Diverenzierung: #ffa000
+
+
 	
