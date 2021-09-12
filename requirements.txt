@@ -1,0 +1,17 @@
+Seiten:
+Splash
+	Einrichtung
+	- erklärung der passwort freischaltung
+	-> Zur ersten Seite (klasse hinzufügen -> muss ausgefüllt sein)
+	
+	Vertretungsseite
+	- vertretungen aufgelistet und auswahl für tages
+
+	Einstellungen
+	- Benachrichtigungen ausstellen
+
+	Klassenübersicht
+	- Übersicht in welchen Klasen/Stufen man sich eingeloggt hat
+		-> Ausloggen und Hinzufügen
+
+	
