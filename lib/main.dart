@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:pgu/pages/splash/Splash.dart';
 
 import 'behaviors/DefaultBehavior.dart';
 
@@ -49,7 +50,7 @@ class _MyAppState extends State<MyApp>{
       builder: (context, child) {
         return ScrollConfiguration(
           behavior: DefaultBehavior(),
-          child: child,
+          child: child!,
         );
       },
     );
