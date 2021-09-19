@@ -34,4 +34,7 @@ Diverenzierung: #ffa000
 https://lh5.googleusercontent.com/tf5oXbpQ5oCgamELFp6mXbTOfVrlM7lITYYzHbKOGTi4EiRF4CKUqlphuwzz9e2w8tcDLxc17YBSArQY_-aa4ouY-LFjU7J9Nj0L2z-1vIbvA0A9s3xGlTPMRCyzPkHtQuQyU0sG
 https://github.com/jonataslaw/getx
 
+
+Orientierung:
+https://dribbble.com/tags/app_ui
 	
