@@ -33,6 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: any
   crypto: any
+  flutter_svg: any
 
 dev_dependencies:
   flutter_launcher_icons: any
