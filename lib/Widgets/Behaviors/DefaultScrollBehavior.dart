@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DefaultBehavior extends ScrollBehavior {
+class DefaultScrollBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(
       BuildContext context, Widget child, AxisDirection axisDirection) {

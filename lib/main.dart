@@ -1,58 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pgu/pages/splash/Splash.dart';
+import 'package:pgu/Pages/Splash/Splash.dart';
+import 'package:pgu/Values/Design/PGUColors.dart';
+import 'package:pgu/Values/Size/SDP.dart';
+import 'package:pgu/Values/Consts/AppInfo.dart';
+import 'package:pgu/Widgets/Behaviors/DefaultScrollBehavior.dart';
 
-import 'behaviors/DefaultBehavior.dart';
+/*
+ * By: AraxTheCoder 19.03.2021
+ */
 
-void main() async{
-  runApp(MyApp());
+void main() {
+  runApp(PGUApp());
 }
 
-class MyApp extends StatefulWidget {
+class PGUApp extends StatefulWidget{
   @override
-  _MyAppState createState() => _MyAppState();
+  _PGUAppState createState() {
+    return _PGUAppState();
+  }
 }
 
-class _MyAppState extends State<MyApp>{
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  @override
-  void didChangePlatformBrightness() {
-  }
-
+class _PGUAppState extends State<PGUApp>{
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          //statusBarIconBrightness: AppTheme.getOpposite(),
-          //systemNavigationBarColor: AppTheme.background
+            statusBarColor: PGUColors.background,
+            statusBarIconBrightness: PGUColors.brightness,
+            systemNavigationBarColor: PGUColors.background
         ),
-        child: materialApp()
-    );
-    //return materialApp();
-  }
-
-  Widget materialApp(){
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Splash(),
-      // navigatorKey: navigatorKey,
-      builder: (context, child) {
-        return ScrollConfiguration(
-          behavior: DefaultBehavior(),
-          child: child!,
-        );
-      },
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: AppInfo.name,
+          home: Splash(),
+          builder: (context, child) {
+            return ScrollConfiguration(
+              behavior: DefaultScrollBehavior(),
+              child: child!,
+            );
+          },
+        )
     );
   }
 }
