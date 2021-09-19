@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="de.araxthecoder.pgu">
    <application
-        android:label="pgu"
+        android:label="PGU App"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -671,8 +671,7 @@ class _FlushbarState<K extends Object?> extends State<Flushbar>
         Padding(
           padding: EdgeInsets.only(right: buttonRightPadding),
           child: _getMainActionButton(),
-        ) ??
-            _emptyWidget,
+        )
       ];
     }
   }

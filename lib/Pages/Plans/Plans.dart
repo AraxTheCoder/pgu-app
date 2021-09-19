@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:pgu/Pages/Login/Login.dart';
-import 'package:pgu/Utils/ImageChecker.dart';
-import 'package:pgu/Values/Consts/Consts.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
 import 'package:pgu/Values/Size/TextSize.dart';
-import 'package:pgu/Widgets/Image/PlanImage.dart';
 import 'package:pgu/Widgets/Input/Button/RoundOutlinedButton.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
 
@@ -17,9 +13,6 @@ class Plans extends StatefulWidget {
 
 class _PlansState extends State<Plans> {
 
-  bool multipleToday = false;
-  bool multipleTomorrow = false;
-
   //0 = Today | 1 = Tomorrow
   int dayIndex = 0;
   int pageIndex = 0;
@@ -27,47 +20,6 @@ class _PlansState extends State<Plans> {
   @override
   void initState() {
     super.initState();
-
-    checkMultipleToday();
-    checkMultipleTomorrow();
-
-    //deleteAllImagesFromCache();
-    deleteTodayImagesFromCache();
-    deleteTomorrowImagesFromCache();
-  }
-
-  void deleteTodayImagesFromCache(){
-    NetworkImage p = NetworkImage(singleToday);
-    p.evict();
-
-    p = NetworkImage(multipleToday1);
-    p.evict();
-    p = NetworkImage(multipleToday2);
-    p.evict();
-  }
-
-  void deleteTomorrowImagesFromCache(){
-    NetworkImage p = NetworkImage(singleTomorrow);
-    p.evict();
-
-    p = NetworkImage(multipleTomorrow1);
-    p.evict();
-    p = NetworkImage(multipleTomorrow2);
-    p.evict();
-  }
-
-  void checkMultipleToday() async{
-    await ImageChecker.checkMutipleToday().then((value){
-        multipleToday = value;
-        print("Multiple Today: " + multipleToday.toString());
-    });
-  }
-
-  void checkMultipleTomorrow() async{
-    await ImageChecker.checkMutipleTomorrow().then((value){
-      multipleTomorrow = value;
-      print("Multiple Tomorrow: " + multipleTomorrow.toString());
-    });
   }
 
   @override
@@ -79,16 +31,14 @@ class _PlansState extends State<Plans> {
         body: Stack(
           children: [
             Container(
-              alignment: Alignment.center,
-                //height: Consts.IMAGE_RATIO * (SDP.width + 75),
-              //color: Colors.cyan,
+              alignment: Alignment.topLeft,
               margin: EdgeInsets.only(
-                left: SDP.sdp(10),
-                right: SDP.sdp(10),
-                top: SDP.sdp(75),
+                left: SDP.sdp(20),
+                right: SDP.sdp(20),
+                top: SDP.sdp(175),
                 bottom: SDP.sdp(100)
               ),
-              child: loadImage()
+              child: loadVertretungen()
             ),
             Container(
               width: double.infinity,
@@ -136,7 +86,7 @@ class _PlansState extends State<Plans> {
                 ),
               ),
             ),
-            pageDown()
+            // pageDown()
           ],
         )
       ),
@@ -173,36 +123,12 @@ class _PlansState extends State<Plans> {
     }
   }
 
-  static const String singleToday = "https://www.pgu.de/fileadmin/Vertretungsplan/Neu/Plaene/plan_heute_schueler.png";
-  static const String multipleToday1 = "https://www.pgu.de/fileadmin/Vertretungsplan/Neu/Plaene/plan_heute_schueler-0.png";
-  static const String multipleToday2 = "https://www.pgu.de/fileadmin/Vertretungsplan/Neu/Plaene/plan_heute_schueler-1.png";
+  Widget loadVertretungen(){
 
-  static const String singleTomorrow = "https://www.pgu.de/fileadmin/Vertretungsplan/Neu/Plaene/plan_morgen_schueler.png";
-  static const String multipleTomorrow1 = "https://www.pgu.de/fileadmin/Vertretungsplan/Neu/Plaene/plan_morgen_schueler-0.png";
-  static const String multipleTomorrow2 = "https://www.pgu.de/fileadmin/Vertretungsplan/Neu/Plaene/plan_morgen_schueler-1.png";
-
-  Widget loadImage(){
-    PlanImage.controller.reset();
     if(dayIndex == 0){
-      if(!multipleToday){
-        return PlanImage.PlanImageWidget(singleToday, refresh);
-      }else{
-        if(pageIndex == 0){
-          return PlanImage.PlanImageWidget(multipleToday1, refresh);
-        }else {
-          return PlanImage.PlanImageWidget(multipleToday2, refresh);
-        }
-      }
+      return Text("Heute", style: TextStyle(color: PGUColors.text),);
     }else{
-      if(!multipleTomorrow){
-        return PlanImage.PlanImageWidget(singleTomorrow, refresh);
-      }else{
-        if(pageIndex == 0){
-          return PlanImage.PlanImageWidget(multipleTomorrow1, refresh);
-        }else {
-          return PlanImage.PlanImageWidget(multipleTomorrow2, refresh);
-        }
-      }
+      return Text("Morgen", style: TextStyle(color: PGUColors.text),);
     }
   }
 
@@ -210,53 +136,53 @@ class _PlansState extends State<Plans> {
     NoAnimationRoute.open(context, Plans());
   }
 
-  Widget pageDown(){
-    if(dayIndex == 0 && multipleToday){
-      if(pageIndex == 0)
-        return arrow(false);
-      else
-        return arrow(true);
-    }
-
-    if(dayIndex == 1 && multipleTomorrow){
-      if(pageIndex == 0)
-        return arrow(false);
-      else
-        return arrow(true);
-    }
-
-    return Container();
-  }
-
-  Widget arrow(bool up){
-    return GestureDetector(
-      onTap: (){
-        updatePage(up);
-      },
-      child: Align(
-        alignment: Alignment.bottomRight,
-        child: Padding(
-          padding: EdgeInsets.only(
-              bottom: SDP.sdp(95),
-              right: SDP.sdp(25)
-          ),
-          child: Container(
-            width: SDP.sdp(50),
-            height: SDP.sdp(50),
-            decoration: BoxDecoration(
-                color: PGUColors.text,
-                borderRadius: BorderRadius.circular(50)
-            ),
-            child: Icon(
-              up ? Icons.arrow_upward : Icons.arrow_downward,
-              color: PGUColors.background,
-              size: SDP.sdp(25),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  // Widget pageDown(){
+  //   if(dayIndex == 0 && multipleToday){
+  //     if(pageIndex == 0)
+  //       return arrow(false);
+  //     else
+  //       return arrow(true);
+  //   }
+  //
+  //   if(dayIndex == 1 && multipleTomorrow){
+  //     if(pageIndex == 0)
+  //       return arrow(false);
+  //     else
+  //       return arrow(true);
+  //   }
+  //
+  //   return Container();
+  // }
+  //
+  // Widget arrow(bool up){
+  //   return GestureDetector(
+  //     onTap: (){
+  //       updatePage(up);
+  //     },
+  //     child: Align(
+  //       alignment: Alignment.bottomRight,
+  //       child: Padding(
+  //         padding: EdgeInsets.only(
+  //             bottom: SDP.sdp(95),
+  //             right: SDP.sdp(25)
+  //         ),
+  //         child: Container(
+  //           width: SDP.sdp(50),
+  //           height: SDP.sdp(50),
+  //           decoration: BoxDecoration(
+  //               color: PGUColors.text,
+  //               borderRadius: BorderRadius.circular(50)
+  //           ),
+  //           child: Icon(
+  //             up ? Icons.arrow_upward : Icons.arrow_downward,
+  //             color: PGUColors.background,
+  //             size: SDP.sdp(25),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
 
   void updatePage(bool up){
     setState(() {
