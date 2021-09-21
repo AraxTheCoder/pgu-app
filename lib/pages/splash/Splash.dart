@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pgu/Pages/Classes/Classes.dart';
 import 'package:pgu/Pages/Introduction/Introduction.dart';
 import 'package:pgu/Pages/Login/Login.dart';
 import 'package:pgu/Values/Consts/Consts.dart';
@@ -31,7 +32,7 @@ class _SplashState extends State<Splash> {
     super.initState();
 
     splashDelay = Timer(Duration(seconds: Consts.splashDelay), (){
-      //NoAnimationRoute.open(context, Introduction());
+      NoAnimationRoute.open(context, Classes(true));
     });
   }
 
