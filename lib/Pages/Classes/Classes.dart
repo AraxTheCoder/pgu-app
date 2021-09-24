@@ -348,17 +348,25 @@ class _ClassesState extends State<Classes> {
 
       if(response.statusCode == 200){
         print(response.data.toString());
+
+        ClassCode classCode = new ClassCode.fromJson(jsonDecode(response.data.toString()));
+
+        if(entities.indexWhere((element) => element.code == classCode.code) == -1)
+          entities.add(classCode);
+
+        print(entities.length);
+
+        Navigator.of(context).pop();
+
+        setState(() {
+
+        });
       }
     }
   }
 
   List<Widget> classItems() {
     List<Widget> classItems = [];
-
-    // entities.clear();
-    // for(int a = 0; a < 3; a++){
-    //   entities.add(new ClassCode("Q2", "34XH%F"));
-    // }
 
     for (int a = 0; a < entities.length; a++) {
       classItems.add(ClassCodeItem(entities[a]));
@@ -409,15 +417,24 @@ class _ClassesState extends State<Classes> {
             ),
           ),
           Expanded(
-            child: Container(
-              alignment: Alignment.centerRight,
-              margin: EdgeInsets.only(right: SDP.sdp(20)),
-              child: Icon(
-                Icons.delete_rounded,
-                color: PGUColors.red,
-                size: 30,
+            child: GestureDetector(
+              onTap: (){
+                entities.remove(classCode);
+
+                setState(() {
+
+                });
+              },
+              child: Container(
+                alignment: Alignment.centerRight,
+                margin: EdgeInsets.only(right: SDP.sdp(20)),
+                child: Icon(
+                  Icons.delete_rounded,
+                  color: PGUColors.red,
+                  size: 30,
+                ),
               ),
-            ),
+            )
           )
         ],
       ),
