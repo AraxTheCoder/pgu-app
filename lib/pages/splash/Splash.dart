@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Pages/Classes/Classes.dart';
 import 'package:pgu/Pages/Introduction/Introduction.dart';
 import 'package:pgu/Pages/Login/Login.dart';
+import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Consts/Consts.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
@@ -30,6 +31,8 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
+
+    StorageManager.init();
 
     splashDelay = Timer(Duration(seconds: Consts.splashDelay), (){
       NoAnimationRoute.open(context, Classes(true));

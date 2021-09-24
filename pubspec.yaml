@@ -34,6 +34,7 @@ dependencies:
   shared_preferences: any
   crypto: any
   flutter_svg: any
+  dio: any
 
 dev_dependencies:
   flutter_launcher_icons: any
