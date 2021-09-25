@@ -11,6 +11,8 @@ import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
 import 'dart:math';
 
+import 'package:pgu/Values/Size/TextSize.dart';
+
 /*
  * By: AraxTheCoder 19.03.2021
  */
@@ -82,16 +84,69 @@ class _ClassesState extends State<Classes> {
                         ]),
                   ),
                   Expanded(
-                      child: Padding(
-                    padding: EdgeInsets.only(top: SDP.sdp(30)),
-                    child: MediaQuery.removePadding(
-                      context: context,
-                      removeTop: true,
-                      child: ListView(
-                        children: classItems(),
-                      ),
-                    ),
-                  ))
+                      child: entities.isEmpty ? Container(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            bottom: SDP.sdp(110)
+                          ),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Image.asset('assets/dog_small_nb_cropped.png'),
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Stack(
+                                  children: [
+                                    Text(
+                                      "Keine Klassen",
+                                      style: TextStyle(
+                                        fontSize: TextSize.big,
+                                        fontFamily: 'Mont',
+                                        foreground: Paint()
+                                          ..style = PaintingStyle.stroke
+                                          ..strokeWidth = 5
+                                          ..color = PGUColors.background,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Keine Klassen",
+                                      style: TextStyle(
+                                        color: PGUColors.text,
+                                        fontSize: TextSize.big,
+                                        fontFamily: 'Mont',
+                                        shadows: <Shadow>[
+                                          Shadow(
+                                            offset: Offset(10.0, 10.0),
+                                            blurRadius: 3.0,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          ),
+                                          Shadow(
+                                            offset: Offset(10.0, 10.0),
+                                            blurRadius: 8.0,
+                                            color: Color.fromARGB(125, 0, 0, 0),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ) : Padding(
+                        padding: EdgeInsets.only(top: SDP.sdp(30)),
+                        child: MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: ListView(
+                            children: classItems(),
+                          ),
+                        ),
+                      )
+                  )
                 ],
               ),
             ),
@@ -356,6 +411,8 @@ class _ClassesState extends State<Classes> {
 
         print(entities.length);
 
+        StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
+
         Navigator.of(context).pop();
 
         setState(() {
@@ -420,6 +477,7 @@ class _ClassesState extends State<Classes> {
             child: GestureDetector(
               onTap: (){
                 entities.remove(classCode);
+                StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
 
                 setState(() {
 
