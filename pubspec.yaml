@@ -39,6 +39,8 @@ dependencies:
 dev_dependencies:
   flutter_launcher_icons: any
   flutter_launcher_name: any
+  #flutter pub run dart_code_metrics:metrics lib
+  dart_code_metrics: any
 
 #flutter pub get
 #flutter pub run flutter_launcher_icons:main

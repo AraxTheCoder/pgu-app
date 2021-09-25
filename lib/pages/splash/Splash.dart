@@ -85,7 +85,7 @@ class _SplashState extends State<Splash> {
                 style: TextStyle(
                     color: PGUColors.text,
                     fontFamily: 'Mont',
-                    fontSize: TextSize.medium
+                    fontSize: TextSize.small
                 ),
               ),
             ),

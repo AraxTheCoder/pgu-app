@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Models/ClassCode.dart';
+import 'package:pgu/Pages/Settings/Settings.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
@@ -12,6 +13,7 @@ import 'package:pgu/Values/Size/SDP.dart';
 import 'dart:math';
 
 import 'package:pgu/Values/Size/TextSize.dart';
+import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
 
 /*
  * By: AraxTheCoder 19.03.2021
@@ -49,7 +51,7 @@ class _ClassesState extends State<Classes> {
 
   @override
   Widget build(BuildContext context) {
-    loadClasses();
+    // loadClasses();
 
     return WillPopScope(
       onWillPop: onBackPressed,
@@ -222,10 +224,17 @@ class _ClassesState extends State<Classes> {
                         ),
                       ),
                       Expanded(
-                        child: Icon(
-                          Icons.settings_outlined,
-                          color: PGUColors.text,
-                          size: SDP.sdp(20),
+                        child: GestureDetector(
+                          onTap: openSettings,
+                          child: Container(
+                            color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
+                            padding: EdgeInsets.all(20),
+                            child: Icon(
+                              Icons.settings_outlined,
+                              color: PGUColors.text,
+                              size: SDP.sdp(20),
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -235,6 +244,10 @@ class _ClassesState extends State<Classes> {
         ),
       ),
     );
+  }
+
+  void openSettings(){
+    NoAnimationRoute.open(context, Settings());
   }
 
   void closeKeyboard(BuildContext context){
@@ -426,7 +439,7 @@ class _ClassesState extends State<Classes> {
     List<Widget> classItems = [];
 
     for (int a = 0; a < entities.length; a++) {
-      classItems.add(ClassCode.ClassCodeItem(entities[a], deleteClass));
+      classItems.add(ClassCode.item(entities[a], deleteClass));
     }
 
     return classItems;

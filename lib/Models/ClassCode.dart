@@ -20,7 +20,7 @@ class ClassCode{
     };
   }
 
-  static Widget ClassCodeItem(ClassCode classCode, Function onDelete) {
+  static Widget item(ClassCode classCode, Function onDelete) {
     return Container(
       width: double.infinity,
       height: SDP.sdp(60),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PGUColors {
+  static bool debug = false;
   static final Brightness brightness = Brightness.dark;
 
   static const Color background = Colors.black;
