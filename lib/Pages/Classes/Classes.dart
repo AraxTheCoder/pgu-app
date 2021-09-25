@@ -426,77 +426,20 @@ class _ClassesState extends State<Classes> {
     List<Widget> classItems = [];
 
     for (int a = 0; a < entities.length; a++) {
-      classItems.add(ClassCodeItem(entities[a]));
+      classItems.add(ClassCode.ClassCodeItem(entities[a], deleteClass));
     }
 
     return classItems;
   }
 
-  Widget ClassCodeItem(ClassCode classCode) {
-    return Container(
-      width: double.infinity,
-      height: SDP.sdp(60),
-      alignment: Alignment.centerLeft,
-      margin: EdgeInsets.only(bottom: SDP.sdp(10)),
-      padding: EdgeInsets.only(left: SDP.sdp(20)),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          color: PGUColors.background.withOpacity(0.075)),
-      child: Row(
-        children: [
-          RichText(
-            text: TextSpan(
-                text: "Klasse/Stufe\n",
-                style: TextStyle(
-                    fontFamily: 'Mont-normal',
-                    fontSize: 12,
-                    color: PGUColors.background),
-                children: [
-                  TextSpan(
-                      text: classCode.name,
-                      style: TextStyle(fontFamily: 'Mont', fontSize: 25))
-                ]),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: SDP.sdp(20)),
-            child: RichText(
-              text: TextSpan(
-                  text: "Code\n",
-                  style: TextStyle(
-                      fontFamily: 'Mont-normal',
-                      fontSize: 12,
-                      color: PGUColors.background),
-                  children: [
-                    TextSpan(
-                        text: classCode.code,
-                        style: TextStyle(fontFamily: 'Mont', fontSize: 25))
-                  ]),
-            ),
-          ),
-          Expanded(
-            child: GestureDetector(
-              onTap: (){
-                entities.remove(classCode);
-                StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
+  void deleteClass(ClassCode classCode){
+    print("Called");
+    entities.remove(classCode);
+    StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
 
-                setState(() {
+    setState(() {
 
-                });
-              },
-              child: Container(
-                alignment: Alignment.centerRight,
-                margin: EdgeInsets.only(right: SDP.sdp(20)),
-                child: Icon(
-                  Icons.delete_rounded,
-                  color: PGUColors.red,
-                  size: 30,
-                ),
-              ),
-            )
-          )
-        ],
-      ),
-    );
+    });
   }
 
   //Just return false -> Don't left the App
