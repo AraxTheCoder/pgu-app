@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Models/ClassCode.dart';
 import 'package:pgu/Pages/Classes/Classes.dart';
-import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
+import 'package:pgu/Pages/Settings/Settings.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
@@ -20,14 +20,14 @@ import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
  * By: AraxTheCoder 19.03.2021
  */
 
-class Settings extends StatefulWidget {
+class Vertretungen extends StatefulWidget {
   @override
-  _SettingsState createState() {
-    return _SettingsState();
+  _VertretungenState createState() {
+    return _VertretungenState();
   }
 }
 
-class _SettingsState extends State<Settings> {
+class _VertretungenState extends State<Vertretungen> {
   @override
   void initState() {
     super.initState();
@@ -62,7 +62,7 @@ class _SettingsState extends State<Settings> {
                             color: PGUColors.background),
                         children: [
                           TextSpan(
-                              text: "Einstellungen",
+                              text: "Vertretungen",
                               style:
                               TextStyle(fontFamily: 'Mont', fontSize: 32))
                         ]),
@@ -110,26 +110,23 @@ class _SettingsState extends State<Settings> {
                         ),
                       ),
                       Expanded(
+                        child: Icon(
+                          Icons.home_rounded,
+                          color: PGUColors.text,
+                          size: SDP.sdp(20),
+                        ),
+                      ),
+                      Expanded(
                         child: GestureDetector(
-                          onTap: openVertretungen,
+                          onTap: openSettings,
                           child: Container(
                             color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
                             padding: EdgeInsets.all(20),
                             child: Icon(
-                              Icons.home_outlined, //person_outline_rounded
+                              Icons.settings_outlined, //person_outline_rounded
                               color: PGUColors.text,
                               size: SDP.sdp(20),
                             ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          child: Icon(
-                            Icons.settings_rounded,
-                            color: PGUColors.text,
-                            size: SDP.sdp(20),
                           ),
                         ),
                       ),
@@ -146,8 +143,8 @@ class _SettingsState extends State<Settings> {
     NoAnimationRoute.open(context, Classes(false));
   }
 
-  void openVertretungen(){
-    NoAnimationRoute.open(context, Vertretungen());
+  void openSettings(){
+    NoAnimationRoute.open(context, Settings());
   }
 
   void closeKeyboard(BuildContext context){

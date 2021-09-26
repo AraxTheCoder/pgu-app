@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Models/ClassCode.dart';
 import 'package:pgu/Pages/Settings/Settings.dart';
+import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
@@ -217,10 +218,17 @@ class _ClassesState extends State<Classes> {
                         ),
                       ),
                       Expanded(
-                        child: Icon(
-                          Icons.home_outlined,
-                          color: PGUColors.text,
-                          size: SDP.sdp(20),
+                        child: GestureDetector(
+                          onTap: openVertretungen,
+                          child: Container(
+                            color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
+                            padding: EdgeInsets.all(20),
+                            child: Icon(
+                              Icons.home_outlined,
+                              color: PGUColors.text,
+                              size: SDP.sdp(20),
+                            ),
+                          ),
                         ),
                       ),
                       Expanded(
@@ -248,6 +256,10 @@ class _ClassesState extends State<Classes> {
 
   void openSettings(){
     NoAnimationRoute.open(context, Settings());
+  }
+
+  void openVertretungen(){
+    NoAnimationRoute.open(context, Vertretungen());
   }
 
   void closeKeyboard(BuildContext context){
