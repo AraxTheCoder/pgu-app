@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Models/ClassCode.dart';
+import 'package:pgu/Models/Vertretung.dart';
 import 'package:pgu/Pages/Classes/Classes.dart';
 import 'package:pgu/Pages/Settings/Settings.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
@@ -31,7 +32,60 @@ class _VertretungenState extends State<Vertretungen> {
   @override
   void initState() {
     super.initState();
+
+    loadCachedVertretungen();
+    loadClasses();
   }
+
+  void loadClasses() {
+    String jsonString = StorageManager.getString(StorageKeys.classes);
+
+    if (jsonString.isNotEmpty) {
+      classes = List<ClassCode>.from(
+          json.decode(jsonString).map((model) => ClassCode.fromJson(model)));
+    }
+
+    loadVertretungen();
+  }
+
+  Dio dio = new Dio();
+
+  void loadCachedVertretungen(){
+    String jsonString = StorageManager.getString(StorageKeys.vertretungen);
+
+    if (jsonString.isNotEmpty) {
+      entities = List<Vertretung>.from(
+          json.decode(jsonString).map((model) => Vertretung.fromJson(model)));
+      setState(() {
+
+      });
+    }
+  }
+
+  void loadVertretungen() async {
+    for(ClassCode classCode in classes){
+      Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
+
+      if(response.statusCode == 200){
+        // print(response.data.toString());
+
+        entities = List<Vertretung>.from(
+            json.decode(response.data.toString()).map((model) => Vertretung.fromJson(model)));
+
+        // print(entities.length);
+
+        StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
+
+        setState(() {
+
+        });
+      }
+    }
+  }
+
+  List<ClassCode> classes = [];
+
+  List<Vertretung> entities = [];
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +122,70 @@ class _VertretungenState extends State<Vertretungen> {
                         ]),
                   ),
                   Expanded(
-                      child: Container()
+                      child: entities.isEmpty ? Container(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              bottom: SDP.sdp(110)
+                          ),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Image.asset('assets/dog_small_nb_cropped.png'),
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Stack(
+                                  children: [
+                                    Text(
+                                      "Keine\nVertretungen",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: TextSize.big,
+                                        fontFamily: 'Mont',
+                                        foreground: Paint()
+                                          ..style = PaintingStyle.stroke
+                                          ..strokeWidth = 5
+                                          ..color = PGUColors.background,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Keine\nVertretungen",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: PGUColors.text,
+                                        fontSize: TextSize.big,
+                                        fontFamily: 'Mont',
+                                        shadows: <Shadow>[
+                                          Shadow(
+                                            offset: Offset(10.0, 10.0),
+                                            blurRadius: 3.0,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          ),
+                                          Shadow(
+                                            offset: Offset(10.0, 10.0),
+                                            blurRadius: 8.0,
+                                            color: Color.fromARGB(125, 0, 0, 0),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ) : Padding(
+                        padding: EdgeInsets.only(top: SDP.sdp(30)),
+                        child: MediaQuery.removePadding(
+                          context: context,
+                          removeTop: true,
+                          child: ListView(
+                            children: vertretungenItems(),
+                          ),
+                        ),
+                      )
                   )
                 ],
               ),
@@ -137,6 +254,18 @@ class _VertretungenState extends State<Vertretungen> {
         ),
       ),
     );
+  }
+
+  List<Widget> vertretungenItems() {
+    List<Widget> vertretungenItems = [];
+
+    int itemHeight = 20;
+
+    for (int a = 0; a < min(entities.length, (SDP.height - 450) / itemHeight); a++) {
+      vertretungenItems.add(Vertretung.item(entities[a]));
+    }
+
+    return vertretungenItems;
   }
 
   void openClasses(){

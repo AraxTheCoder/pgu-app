@@ -3,4 +3,5 @@ class StorageKeys{
   static const String password = "password";
 
   static const String classes = "classes";
+  static const String vertretungen = "vertretungen";
 }
