@@ -54,7 +54,7 @@ class _VertretungenState extends State<Vertretungen> {
     String jsonString = StorageManager.getString(StorageKeys.vertretungen);
 
     if (jsonString.isNotEmpty) {
-      entities = List<Vertretung>.from(
+      cachedEntities = List<Vertretung>.from(
           json.decode(jsonString).map((model) => Vertretung.fromJson(model)));
       setState(() {
 
@@ -63,29 +63,33 @@ class _VertretungenState extends State<Vertretungen> {
   }
 
   void loadVertretungen() async {
+    entities = [];
     for(ClassCode classCode in classes){
       Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
 
       if(response.statusCode == 200){
         // print(response.data.toString());
 
-        entities = List<Vertretung>.from(
+        entities += List<Vertretung>.from(
             json.decode(response.data.toString()).map((model) => Vertretung.fromJson(model)));
 
         // print(entities.length);
-
-        StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
-
-        setState(() {
-
-        });
       }
+    }
+
+    StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
+
+    if(mounted){
+      setState(() {
+
+      });
     }
   }
 
   List<ClassCode> classes = [];
 
   List<Vertretung> entities = [];
+  List<Vertretung> cachedEntities = [];
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +126,7 @@ class _VertretungenState extends State<Vertretungen> {
                         ]),
                   ),
                   Expanded(
-                      child: entities.isEmpty ? Container(
+                      child: (entities.isNotEmpty ? entities.isEmpty : cachedEntities.isEmpty) ? Container(
                         child: Padding(
                           padding: EdgeInsets.only(
                               bottom: SDP.sdp(110)
@@ -261,8 +265,8 @@ class _VertretungenState extends State<Vertretungen> {
 
     int itemHeight = 20;
 
-    for (int a = 0; a < min(entities.length, (SDP.height - 450) / itemHeight); a++) {
-      vertretungenItems.add(Vertretung.item(entities[a]));
+    for (int a = 0; a < min(entities.isNotEmpty ? entities.length : cachedEntities.length, (SDP.height - 450) / itemHeight); a++) {
+      vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a]));
     }
 
     return vertretungenItems;
