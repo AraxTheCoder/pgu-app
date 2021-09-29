@@ -1,7 +1,6 @@
 # PGU Vertretungsplan App
 
-![Alt text](./controllers_brief.svg)
-<img src="./assets/pgu.svg">
+<img src="./assets/pgu.svg" width="200">
 
 Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 
