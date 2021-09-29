@@ -77,6 +77,10 @@ class _VertretungenState extends State<Vertretungen> {
       }
     }
 
+    entities.sort((a, b){
+      return (a.datum! + a.stunde!.substring(0, 1)).compareTo((b.datum! + b.stunde!.substring(0, 1)));
+    });
+
     StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
 
     if(mounted){
@@ -277,8 +281,9 @@ class _VertretungenState extends State<Vertretungen> {
     vertretungenItems.add(SizedBox(height: 15,));
 
     int itemHeight = 20;
+    //min(entities.isNotEmpty ? entities.length : cachedEntities.length, (SDP.height - 450) / itemHeight)
 
-    for (int a = 0; a < min(entities.isNotEmpty ? entities.length : cachedEntities.length, (SDP.height - 450) / itemHeight); a++) {
+    for (int a = 0; a < (entities.isNotEmpty ? entities.length : cachedEntities.length); a++) {
       vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a]));
     }
 
