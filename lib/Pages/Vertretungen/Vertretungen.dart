@@ -78,7 +78,7 @@ class _VertretungenState extends State<Vertretungen> {
     }
 
     entities.sort((a, b){
-      return (a.datum! + a.stunde!.substring(0, 1)).compareTo((b.datum! + b.stunde!.substring(0, 1)));
+      return (a.datum! + a.stunde!.substring(0, 1)).compareTo((b.datum! + b.stunde!.substring(0, 1)));// + (b.fach!.isNotEmpty ? b.fach! : b.kurs!)
     });
 
     StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));

@@ -2,9 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pgu/Pages/Classes/Classes.dart';
-import 'package:pgu/Pages/Introduction/Introduction.dart';
-import 'package:pgu/Pages/Login/Login.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Consts/Consts.dart';
