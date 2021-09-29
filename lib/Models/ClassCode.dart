@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
+import 'package:pgu/Extensions/StringExtensions.dart';
 
 class ClassCode{
   String? name;
@@ -34,14 +35,14 @@ class ClassCode{
         children: [
           RichText(
             text: TextSpan(
-                text: "Klasse/Stufe\n",
+                text: classCode.name!.startsNumeric() ? "Klasse" : (classCode.name!.endsNumeric() ? "Stufe" : "Lehrer"),
                 style: TextStyle(
                     fontFamily: 'Mont-normal',
                     fontSize: 12,
                     color: PGUColors.background),
                 children: [
                   TextSpan(
-                      text: classCode.name,
+                      text: "\n" + classCode.name!,
                       style: TextStyle(fontFamily: 'Mont', fontSize: 25))
                 ]),
           ),

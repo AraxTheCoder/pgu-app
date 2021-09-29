@@ -181,12 +181,23 @@ class _VertretungenState extends State<Vertretungen> {
                           ),
                         ),
                       ) : Padding(
-                        padding: EdgeInsets.only(top: SDP.sdp(30)),
+                        padding: EdgeInsets.only(top: 10, bottom: 130),
                         child: MediaQuery.removePadding(
                           context: context,
                           removeTop: true,
-                          child: ListView(
-                            children: vertretungenItems(),
+                          child: ShaderMask(
+                            shaderCallback: (Rect rect) {
+                              return LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
+                                stops: [0.0, 0.05, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
+                              ).createShader(rect);
+                            },
+                            blendMode: BlendMode.dstOut,
+                            child: ListView(
+                              children: vertretungenItems(),
+                            ),
                           ),
                         ),
                       )
@@ -263,11 +274,15 @@ class _VertretungenState extends State<Vertretungen> {
   List<Widget> vertretungenItems() {
     List<Widget> vertretungenItems = [];
 
+    vertretungenItems.add(SizedBox(height: 15,));
+
     int itemHeight = 20;
 
     for (int a = 0; a < min(entities.isNotEmpty ? entities.length : cachedEntities.length, (SDP.height - 450) / itemHeight); a++) {
       vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a]));
     }
+
+    vertretungenItems.add(SizedBox(height: 15,));
 
     return vertretungenItems;
   }
