@@ -62,7 +62,7 @@ class Vertretung{
         children: [
           Container(
             width: 15,
-            color: ColorChooser.pickColor(vertretung.fach!),
+            color: ColorChooser.pickColor(vertretung.fach!.trim().isNotEmpty ? vertretung.fach! : vertretung.kurs!),
           ),
           Expanded(
             child: Container(
@@ -82,7 +82,7 @@ class Vertretung{
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                        (vertretung.fach!.trim().isNotEmpty ? vertretung.fach! : vertretung.kurs!) + " " + vertretung.vertreter!,
+                      ((vertretung.fach!.trim().isNotEmpty ? vertretung.fach! : vertretung.kurs!) + " " + vertretung.vertreter!).trim(),
                       style: TextStyle(
                           fontFamily: 'Mont',
                           fontSize: 17

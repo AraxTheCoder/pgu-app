@@ -1,12 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
+import 'package:pgu/Extensions/StringExtensions.dart';
 
 class ColorChooser{
-  Map<String, Color> colors = {
-    "BI": Color.fromARGB(255, 8, 236, 19),//Biologie
-    "SW": Color.fromARGB(255, 255, 230, 0),//Sowi
-    //"BI": fromHex("#1b5e20"),//Biologie
-  };
 
   static Color fromHex(String hexString) {
     final buffer = StringBuffer();
@@ -16,10 +12,25 @@ class ColorChooser{
   }
 
   static Color pickColor(String fach){
-    ColorChooser c = ColorChooser();//FIXME only for debug
+    fach = fach.withoutNumbers();
+
     if(fach.length >= 2){
-      fach = fach.toUpperCase().substring(0, 2);
+      switch(fach.substring(0, 2).toUpperCase()){
+        case "BI":
+          return Color.fromARGB(255, 8, 236, 19).withOpacity(0.35);
+        case "SW":
+          return Color.fromARGB(255, 255, 230, 0).withOpacity(0.35);
+        case "PH":
+          return Color.fromARGB(255, 21, 181, 220).withOpacity(0.35);
+        case "PH":
+          return Color.fromARGB(255, 21, 181, 220).withOpacity(0.35);
+        case "DL":
+          return Color.fromARGB(255, 29, 167, 52).withOpacity(0.35);
+        case "ML":
+          return Color.fromARGB(255, 5, 86, 104).withOpacity(0.35);
+      }
     }
-    return c.colors[fach] == null ? PGUColors.background.withOpacity(0.075) : c.colors[fach]!.withOpacity(0.35);
+
+    return PGUColors.background.withOpacity(0.075);
   }
 }

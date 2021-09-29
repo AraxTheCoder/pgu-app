@@ -21,4 +21,17 @@ extension StringExtensions on String{
 
     return this;
   }
+
+  String withoutNumbers(){
+    String withoutNumbers = "";
+
+    this.runes.forEach((int rune) {
+      String character = new String.fromCharCode(rune);
+
+      if(!character.startsNumeric())
+        withoutNumbers += character;
+    });
+
+    return withoutNumbers;
+  }
 }
