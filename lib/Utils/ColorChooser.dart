@@ -28,6 +28,14 @@ class ColorChooser{
           return Color.fromARGB(255, 29, 167, 52).withOpacity(0.35);
         case "ML":
           return Color.fromARGB(255, 5, 86, 104).withOpacity(0.35);
+        case "CH":
+          return Color.fromARGB(255, 152, 53, 196).withOpacity(0.35);
+        case "MU":
+          return Color.fromARGB(255, 255, 244, 0).withOpacity(0.35);
+        case "SP":
+          return Color.fromARGB(255, 0, 0, 0).withOpacity(0.35);
+        case "EL":
+          return Color.fromARGB(255, 255, 0, 0).withOpacity(0.35);
       }
     }
 
