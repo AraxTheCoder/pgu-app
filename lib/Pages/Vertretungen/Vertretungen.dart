@@ -16,6 +16,7 @@ import 'dart:math';
 
 import 'package:pgu/Values/Size/TextSize.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 /*
  * By: AraxTheCoder 19.03.2021
@@ -287,7 +288,16 @@ class _VertretungenState extends State<Vertretungen> {
       vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a]));
     }
 
-    vertretungenItems.add(SizedBox(height: 15,));
+    vertretungenItems.add(
+      VisibilityDetector(
+          key: Key("bottom"),
+          child: SizedBox(height: 15,),
+          onVisibilityChanged: (VisibilityInfo info){
+            if(info.visibleFraction == 1){
+              print("End");
+            }
+          })
+    );
 
     return vertretungenItems;
   }

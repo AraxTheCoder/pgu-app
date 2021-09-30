@@ -68,7 +68,77 @@ class _SettingsState extends State<Settings> {
                         ]),
                   ),
                   Expanded(
-                      child: Container()
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 30,),
+                          Text("Credits",
+                          style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
+                          SizedBox(height: 20,),
+                          RichText(
+                            text: TextSpan(
+                                text: "Krüger\n",
+                                style: TextStyle(
+                                    fontFamily: 'Mont-normal',
+                                    fontSize: 12,
+                                    color: PGUColors.background),
+                                children: [
+                                  TextSpan(
+                                      text: "Jonathan\n",
+                                      style:
+                                      TextStyle(fontFamily: 'Mont', fontSize: 22),
+                                  ),
+                                  TextSpan(
+                                    text: '"I see no other God then me up here"',
+                                    style:
+                                    TextStyle(fontFamily: 'Mont', fontSize: 14),
+                                  )
+                                ]),
+                          ),
+                          SizedBox(height: 20,),
+                          RichText(
+                            text: TextSpan(
+                                text: "Helas\n",
+                                style: TextStyle(
+                                    fontFamily: 'Mont-normal',
+                                    fontSize: 12,
+                                    color: PGUColors.background),
+                                children: [
+                                  TextSpan(
+                                    text: "Tristan\n",
+                                    style:
+                                    TextStyle(fontFamily: 'Mont', fontSize: 22),
+                                  ),
+                                  TextSpan(
+                                    text: 'pablo. (@tristan.hlx)',
+                                    style:
+                                    TextStyle(fontFamily: 'Mont', fontSize: 14),
+                                  )
+                                ]),
+                          ),
+                          SizedBox(height: 20,),
+                          RichText(
+                            text: TextSpan(
+                                text: "Benecke\n",
+                                style: TextStyle(
+                                    fontFamily: 'Mont-normal',
+                                    fontSize: 12,
+                                    color: PGUColors.background),
+                                children: [
+                                  TextSpan(
+                                    text: "Karl\n",
+                                    style:
+                                    TextStyle(fontFamily: 'Mont', fontSize: 22),
+                                  ),
+                                  TextSpan(
+                                    text: "It's hard being a single mother, especially when you have no children and are a teenage male.",
+                                    style:
+                                    TextStyle(fontFamily: 'Mont', fontSize: 14),
+                                  )
+                                ]),
+                          ),
+                        ],
+                      )
                   )
                 ],
               ),
