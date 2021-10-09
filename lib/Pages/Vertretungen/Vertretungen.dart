@@ -57,10 +57,11 @@ class _VertretungenState extends State<Vertretungen> {
     if (jsonString.isNotEmpty) {
       cachedEntities = List<Vertretung>.from(
           json.decode(jsonString).map((model) => Vertretung.fromJson(model)));
-      setState(() {
-
-      });
     }
+
+    setState(() {
+
+    });
   }
 
   void loadVertretungen() async {
@@ -69,18 +70,12 @@ class _VertretungenState extends State<Vertretungen> {
       Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
 
       if(response.statusCode == 200){
-        // print(response.data.toString());
 
         entities += List<Vertretung>.from(
             json.decode(response.data.toString()).map((model) => Vertretung.fromJson(model)));
 
-        // print(entities.length);
       }
     }
-
-    // entities.sort((a, b){
-    //   return (a.datum! + a.stunde!.substring(0, 1)).compareTo((b.datum! + b.stunde!.substring(0, 1)));// + (b.fach!.isNotEmpty ? b.fach! : b.kurs!)
-    // });
 
     StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
 

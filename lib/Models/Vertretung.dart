@@ -10,21 +10,19 @@ class Vertretung{
   String? kurs;
   String? stunde;
   String? vertreter;
-  String? fach;
   String? raum;
   String? art;
   String? vertretungstext;
   String? datum;
 
 
-  Vertretung(this.klasse, this.kurs, this.stunde, this.vertreter, this.fach, this.raum, this.art, this.vertretungstext, this.datum);
+  Vertretung(this.klasse, this.kurs, this.stunde, this.vertreter, this.raum, this.art, this.vertretungstext, this.datum);
 
   Vertretung.fromJson(Map<String, dynamic> json){
     this.klasse = json["klasse"];
     this.kurs = json["kurs"];
     this.stunde = json["stunde"];
     this.vertreter = json["vertreter"];
-    this.fach = json["fach"];
     this.raum = json["raum"];
     this.art = json["art"];
     this.vertretungstext = json["vertretungstext"];
@@ -37,7 +35,6 @@ class Vertretung{
       'kurs': kurs,
       'stunde': stunde,
       'vertreter': vertreter,
-      'fach': fach,
       'raum': raum,
       'art': art,
       'vertretungstext': vertretungstext,
@@ -62,7 +59,7 @@ class Vertretung{
         children: [
           Container(
             width: 15,
-            color: ColorChooser.pickColor(vertretung.fach!.trim().isNotEmpty ? vertretung.fach! : vertretung.kurs!),
+            color: ColorChooser.pickColor(vertretung.kurs!),
           ),
           Expanded(
             child: Container(
@@ -82,7 +79,7 @@ class Vertretung{
                   Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      ((vertretung.fach!.trim().isNotEmpty ? vertretung.fach! : vertretung.kurs!) + " " + vertretung.vertreter!).trim(),
+                      (vertretung.kurs! + " " + vertretung.vertreter!).trim().arrowFormat(),
                       style: TextStyle(
                           fontFamily: 'Mont',
                           fontSize: 17
@@ -104,7 +101,7 @@ class Vertretung{
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Text(
-                      vertretung.raum!,
+                      vertretung.raum!.arrowFormat(),
                       style: TextStyle(
                           fontFamily: 'Mont',
                           fontSize: 17

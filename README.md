@@ -15,6 +15,11 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 - Filter für Kurse in einem Jahrgang (Nicht alle haben Französisch)
 - Spiele in Einstellungen unter Versionsnummer
 - Termine einbauen (https://www.pgu.de/aktuelles/termine)
+- Vertretungsart und Vertretungstext zusammenfassen (immer bei Veranst. mehr aussagender Vertretungstext text)
+
+## Working on
+- Backend Backup Table um schneller zu arbeiten
+- Backend Mehrere Klassen gleichzeitig abfragen
 
 ## API
 ### Authorisieren (Code überprüfen)

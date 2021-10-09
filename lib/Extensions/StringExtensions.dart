@@ -49,4 +49,15 @@ extension StringExtensions on String{
 
     return substringToNumber;
   }
+
+  String arrowFormat(){
+    //https://stackoverflow.com/questions/50722987/how-to-make-a-line-through-text-in-flutter
+    List<String> parts = this.split("?");
+
+    if(parts.length == 2){
+      return parts[0] + "➜" + parts[1];
+    }
+
+    return this;
+  }
 }
