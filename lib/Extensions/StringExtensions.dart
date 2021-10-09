@@ -34,4 +34,19 @@ extension StringExtensions on String{
 
     return withoutNumbers;
   }
+
+  String substringToNumber(){
+    String substringToNumber = "";
+
+    for(int rune in this.runes){
+      String character = new String.fromCharCode(rune);
+
+      if(double.tryParse(character) == null)
+        substringToNumber += character;
+      else
+        break;
+    }
+
+    return substringToNumber;
+  }
 }

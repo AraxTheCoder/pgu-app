@@ -124,7 +124,7 @@ class Vertretung{
                   Align(
                     alignment: Alignment.topRight,
                     child: Text(
-                      vertretung.datum!.split(".")[0] + "." + vertretung.datum!.split(".")[1],
+                      vertretung.datum!.split("-")[2] + "." + vertretung.datum!.split("-")[1],
                       style: TextStyle(
                           fontFamily: 'Mont',
                           fontSize: 17
