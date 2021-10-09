@@ -19,7 +19,6 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 
 ## Working on
 - Backend Backup Table um schneller zu arbeiten
-- Backend Mehrere Klassen gleichzeitig abfragen
 
 ## API
 ### Authorisieren (Code überprüfen)

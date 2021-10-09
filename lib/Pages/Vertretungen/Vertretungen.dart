@@ -34,7 +34,6 @@ class _VertretungenState extends State<Vertretungen> {
   void initState() {
     super.initState();
 
-    loadCachedVertretungen();
     loadClasses();
   }
 
@@ -44,6 +43,9 @@ class _VertretungenState extends State<Vertretungen> {
     if (jsonString.isNotEmpty) {
       classes = List<ClassCode>.from(
           json.decode(jsonString).map((model) => ClassCode.fromJson(model)));
+
+      if(classes.isNotEmpty)
+        loadCachedVertretungen();
     }
 
     loadVertretungen();
@@ -66,7 +68,10 @@ class _VertretungenState extends State<Vertretungen> {
 
   void loadVertretungen() async {
     entities = [];
-    for(ClassCode classCode in classes){
+    bool classnameChange = false;
+    for(int a = 0; a < classes.length; a++){
+      ClassCode classCode = classes[a];
+
       Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
 
       if(response.statusCode == 200){
@@ -74,8 +79,15 @@ class _VertretungenState extends State<Vertretungen> {
         entities += List<Vertretung>.from(
             json.decode(response.data.toString()).map((model) => Vertretung.fromJson(model)));
 
+        if(entities.length >= 1 && classCode.name != entities[0].klasse){
+          classes[a].name = entities[0].klasse;
+          classnameChange = true;
+        }
       }
     }
+
+    if(classnameChange)
+      StorageManager.setString(StorageKeys.classes, jsonEncode(classes));
 
     StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
 

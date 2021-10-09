@@ -89,7 +89,7 @@ class _SettingsState extends State<Settings> {
                                       TextStyle(fontFamily: 'Mont', fontSize: 22),
                                   ),
                                   TextSpan(
-                                    text: '"I see no other God then me up here"',
+                                    text: '"I see no other God than me up here"',
                                     style:
                                     TextStyle(fontFamily: 'Mont', fontSize: 14),
                                   )
