@@ -17,7 +17,6 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 - Termine einbauen (https://www.pgu.de/aktuelles/termine)
 
 ## Working on
-- Backend Backup Table um schneller zu arbeiten
 
 ## API
 ### Authorisieren (Code überprüfen)
