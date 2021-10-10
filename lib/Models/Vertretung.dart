@@ -12,11 +12,10 @@ class Vertretung{
   String? vertreter;
   String? raum;
   String? art;
-  String? vertretungstext;
   String? datum;
 
 
-  Vertretung(this.klasse, this.kurs, this.stunde, this.vertreter, this.raum, this.art, this.vertretungstext, this.datum);
+  Vertretung(this.klasse, this.kurs, this.stunde, this.vertreter, this.raum, this.art, this.datum);
 
   Vertretung.fromJson(Map<String, dynamic> json){
     this.klasse = json["klasse"];
@@ -25,7 +24,6 @@ class Vertretung{
     this.vertreter = json["vertreter"];
     this.raum = json["raum"];
     this.art = json["art"];
-    this.vertretungstext = json["vertretungstext"];
     this.datum = json["datum"];
   }
 
@@ -37,7 +35,6 @@ class Vertretung{
       'vertreter': vertreter,
       'raum': raum,
       'art': art,
-      'vertretungstext': vertretungstext,
       'datum': datum,
     };
   }
@@ -89,7 +86,7 @@ class Vertretung{
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(
-                      vertretung.vertretungstext!.trim().isNotEmpty ? vertretung.vertretungstext! : vertretung.art!.shortVersion(),
+                      vertretung.art!.shortVersion(),
                       style: TextStyle(
                           fontFamily: 'Mont',
                           fontSize: 17

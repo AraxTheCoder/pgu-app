@@ -79,8 +79,8 @@ class _VertretungenState extends State<Vertretungen> {
         entities += List<Vertretung>.from(
             json.decode(response.data.toString()).map((model) => Vertretung.fromJson(model)));
 
-        if(entities.length >= 1 && classCode.name != entities[0].klasse){
-          classes[a].name = entities[0].klasse;
+        if(entities.length >= 1 && classCode.name != entities[entities.length - 1].klasse){
+          classes[a].name = entities[entities.length - 1].klasse;
           classnameChange = true;
         }
       }
@@ -277,11 +277,52 @@ class _VertretungenState extends State<Vertretungen> {
                     ],
                   ),
                 )),
+            // Container(
+            //   alignment: Alignment.bottomCenter,
+            //   margin: EdgeInsets.only(
+            //     bottom: SDP.sdp(100)
+            //   ),
+            //   child: hintVisible ? Container(
+            //     // decoration: BoxDecoration(
+            //     //   gradient: LinearGradient(
+            //     //     begin: Alignment.topCenter,
+            //     //     end: Alignment.bottomCenter,
+            //     //     colors: [Colors.transparent, PGUColors.text],
+            //     //     stops: [0.0, 0.9,], // 10% purple, 80% transparent, 10% purple
+            //     //   ),
+            //     //   borderRadius: BorderRadius.circular(20)
+            //     // ),
+            //     padding: EdgeInsets.only(
+            //       top: 10,
+            //       bottom: 0,
+            //       left: 10,
+            //       right: 10
+            //     ),
+            //     child: Column(
+            //       mainAxisSize: MainAxisSize.min,
+            //       children: [
+            //         Text(
+            //           "Scroll",
+            //           style: TextStyle(
+            //               fontFamily: 'Mont',
+            //               fontSize: 18,
+            //               color: PGUColors.background),
+            //         ),
+            //         Icon(
+            //           Icons.keyboard_arrow_down_rounded,
+            //           size: 50,
+            //         )
+            //       ],
+            //     ),
+            //   ) : Container(),
+            // )
           ],
         ),
       ),
     );
   }
+
+  bool hintVisible = true;
 
   List<Widget> vertretungenItems() {
     List<Widget> vertretungenItems = [];
@@ -295,16 +336,34 @@ class _VertretungenState extends State<Vertretungen> {
       vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a]));
     }
 
-    vertretungenItems.add(
-      VisibilityDetector(
-          key: Key("bottom"),
-          child: SizedBox(height: 15,),
-          onVisibilityChanged: (VisibilityInfo info){
-            if(info.visibleFraction == 1){
-              print("End");
-            }
-          })
-    );
+    // vertretungenItems.add(
+    //   VisibilityDetector(
+    //       key: Key("bottom"),
+    //       child: SizedBox(height: 15,),
+    //       onVisibilityChanged: (VisibilityInfo info){
+    //         if(info.visibleFraction == 1){
+    //           if(hintVisible == true){
+    //             hintVisible = false;
+    //             print("End");
+    //             setState(() {
+    //
+    //             });
+    //           }
+    //         }else{
+    //           if(hintVisible == false){
+    //             hintVisible = true;
+    //             print("Not End");
+    //             setState(() {
+    //
+    //             });
+    //           }
+    //         }
+    //       })
+    // );
+
+    // VisibilityDetectorController.instance.updateInterval = Duration.zero;
+
+    vertretungenItems.add(SizedBox(height: 15,));
 
     return vertretungenItems;
   }
