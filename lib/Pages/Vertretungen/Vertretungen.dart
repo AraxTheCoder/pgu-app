@@ -34,10 +34,6 @@ class _VertretungenState extends State<Vertretungen> {
   void initState() {
     super.initState();
 
-    //ColorChooser.pickColor("CH");
-    //ColorChooser.updateColor(Color.fromARGB(255, 152, 53, 196), "CH");
-    //ColorChooser.updateColor(Color.fromARGB(255, 13, 245, 40), "D");
-
     loadClasses();
   }
 
@@ -306,8 +302,6 @@ class _VertretungenState extends State<Vertretungen> {
       ),
     );
   }
-
-  bool hintVisible = true;
 
   List<Widget> vertretungenItems() {
     List<Widget> vertretungenItems = [];
