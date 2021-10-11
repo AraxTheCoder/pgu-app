@@ -42,11 +42,11 @@ class Vertretung{
     };
   }
 
-  static Widget item(Vertretung vertretung, BuildContext context) {
+  static Widget item(Vertretung vertretung, BuildContext context, Function refresh) {
     return OnSlide(
         items: <ActionItems>[
           ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ print("Kurs");}, backgroudColor: Colors.white),
-          ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.kurs!);}, backgroudColor: Colors.white),
+          ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.kurs!, refresh);}, backgroudColor: Colors.white),
         ],
         child: Padding(
           padding: EdgeInsets.only(
@@ -69,7 +69,7 @@ class Vertretung{
               children: [
                 Container(
                   width: 15,
-                  color: ColorChooser.pickColor(vertretung.kurs!).withOpacity(0.5),
+                  color: ColorChooser.pickColor(vertretung.kurs!).withOpacity(0.75),
                 ),
                 Expanded(
                   child: Container(
@@ -149,7 +149,7 @@ class Vertretung{
     );
   }
 
-  static void openColorpicker(BuildContext context, String fach){
+  static void openColorpicker(BuildContext context, String fach, Function refresh){
     fach = fach.substringToNumber().toUpperCase();
 
     Color currentColor = ColorChooser.pickColor(fach);
@@ -238,6 +238,7 @@ class Vertretung{
                           ),
                           onPressed: () {
                             ColorChooser.updateColor(currentColor, fach);
+                            refresh();
                             Navigator.of(context).pop();
                           },
                           padding: EdgeInsets.only(

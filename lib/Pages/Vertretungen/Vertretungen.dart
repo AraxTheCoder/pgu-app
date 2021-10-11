@@ -309,12 +309,18 @@ class _VertretungenState extends State<Vertretungen> {
     vertretungenItems.add(SizedBox(height: 15,));
 
     for (int a = 0; a < (entities.isNotEmpty ? entities.length : cachedEntities.length); a++) {
-      vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a], context));
+      vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a], context, refresh));
     }
 
     vertretungenItems.add(SizedBox(height: 15,));
 
     return vertretungenItems;
+  }
+
+  void refresh(){
+    setState(() {
+
+    });
   }
 
   void openClasses(){
