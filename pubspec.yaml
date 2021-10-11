@@ -34,7 +34,7 @@ dependencies:
   shared_preferences: any
   flutter_svg: any
   dio: any
-  visibility_detector: any
+  flutter_colorpicker: any
 
 dev_dependencies:
   flutter_launcher_icons: any

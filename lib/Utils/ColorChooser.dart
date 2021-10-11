@@ -22,7 +22,7 @@ class ColorChooser{
     if(color == null)
       color = PGUColors.background.value;
 
-    return Color(color).withOpacity(0.5);
+    return Color(color);
   }
 
   static void updateColor(Color color, String fach){

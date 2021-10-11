@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Utils/ColorChooser.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
@@ -40,11 +42,11 @@ class Vertretung{
     };
   }
 
-  static Widget item(Vertretung vertretung, ScrollController controller) {
+  static Widget item(Vertretung vertretung, BuildContext context) {
     return OnSlide(
         items: <ActionItems>[
           ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ print("Kurs");}, backgroudColor: Colors.white),
-          ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){print("Farbe");}, backgroudColor: Colors.white),
+          ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.kurs!);}, backgroudColor: Colors.white),
         ],
         child: Padding(
           padding: EdgeInsets.only(
@@ -67,7 +69,7 @@ class Vertretung{
               children: [
                 Container(
                   width: 15,
-                  color: ColorChooser.pickColor(vertretung.kurs!),
+                  color: ColorChooser.pickColor(vertretung.kurs!).withOpacity(0.5),
                 ),
                 Expanded(
                   child: Container(
@@ -145,5 +147,126 @@ class Vertretung{
           ),
         )
     );
+  }
+
+  static void openColorpicker(BuildContext context, String fach){
+    fach = fach.substringToNumber().toUpperCase();
+
+    Color currentColor = ColorChooser.pickColor(fach);
+
+    showDialog(
+        context: context,
+        builder: (b){
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+            elevation: 6,
+            backgroundColor: Colors.transparent,
+            child: Container(
+              //height: 250,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20
+                    ),
+                    child: Text(
+                      "Farbe: " + fach,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: PGUColors.background,
+                        fontFamily: 'Mont',
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: 25,
+                          right: 25,
+                          left: 25
+                      ),
+                      child: SingleChildScrollView(
+                        child: BlockPicker(
+                          pickerColor: currentColor,
+                          onColorChanged: (c) {
+                            currentColor = c;
+                          },
+                        ),
+                      )
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 10,
+                        bottom: 20
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          padding: EdgeInsets.only(
+                              left: 25,
+                              right: 25,
+                              top: 15,
+                              bottom: 15
+                          ),
+                          // color: PGUColors.accent,
+                          child: Text(
+                            "Abbrechen",
+                            style: TextStyle(
+                                color: PGUColors.background,
+                                fontFamily: 'Mont'
+                            ),
+                          ),
+                        ),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          onPressed: () {
+                            ColorChooser.updateColor(currentColor, fach);
+                            Navigator.of(context).pop();
+                          },
+                          padding: EdgeInsets.only(
+                              left: 25,
+                              right: 25,
+                              top: 15,
+                              bottom: 15
+                          ),
+                          color: PGUColors.accent,
+                          child: Text(
+                            "Speichern",
+                            style: TextStyle(
+                                color: PGUColors.text,
+                                fontFamily: 'Mont'
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
+
+  static void closeKeyboard(BuildContext context){
+    FocusScope.of(context).unfocus();
   }
 }

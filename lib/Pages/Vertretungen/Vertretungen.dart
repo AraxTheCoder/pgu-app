@@ -17,7 +17,6 @@ import 'dart:math';
 
 import 'package:pgu/Values/Size/TextSize.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 /*
  * By: AraxTheCoder 19.03.2021
@@ -157,7 +156,9 @@ class _VertretungenState extends State<Vertretungen> {
                       child: (entities.isNotEmpty ? entities.isEmpty : cachedEntities.isEmpty) ? Container(
                         child: Padding(
                           padding: EdgeInsets.only(
-                              bottom: SDP.sdp(110)
+                              bottom: SDP.sdp(110),
+                            left: SDP.sdp(25),
+                            right: SDP.sdp(25)
                           ),
                           child: Stack(
                             children: [
@@ -314,7 +315,7 @@ class _VertretungenState extends State<Vertretungen> {
     vertretungenItems.add(SizedBox(height: 15,));
 
     for (int a = 0; a < (entities.isNotEmpty ? entities.length : cachedEntities.length); a++) {
-      vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a], _controller));
+      vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a], context));
     }
 
     vertretungenItems.add(SizedBox(height: 15,));
