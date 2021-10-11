@@ -10,6 +10,7 @@ import 'package:pgu/Pages/Classes/Classes.dart';
 import 'package:pgu/Pages/Settings/Settings.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
+import 'package:pgu/Utils/ColorChooser.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
 import 'dart:math';
@@ -33,6 +34,10 @@ class _VertretungenState extends State<Vertretungen> {
   @override
   void initState() {
     super.initState();
+
+    //ColorChooser.pickColor("CH");
+    //ColorChooser.updateColor(Color.fromARGB(255, 152, 53, 196), "CH");
+    //ColorChooser.updateColor(Color.fromARGB(255, 13, 245, 40), "D");
 
     loadClasses();
   }
