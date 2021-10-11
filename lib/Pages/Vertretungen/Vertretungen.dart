@@ -103,8 +103,12 @@ class _VertretungenState extends State<Vertretungen> {
   List<Vertretung> entities = [];
   List<Vertretung> cachedEntities = [];
 
+  ScrollController _controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
+    List<Widget> items = vertretungenItems();
+
     return WillPopScope(
       onWillPop: onBackPressed,
       child: Scaffold(
@@ -118,24 +122,31 @@ class _VertretungenState extends State<Vertretungen> {
               margin: EdgeInsets.only(
                   top: SDP.safepaddingtop + SDP.sdp(30),
                   bottom: SDP.sdp(0),
-                  left: SDP.sdp(25),
-                  right: SDP.sdp(25)),
+                  //left: SDP.sdp(25),
+                  //right: SDP.sdp(25)
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RichText(
-                    text: TextSpan(
-                        text: "Deine\n",
-                        style: TextStyle(
-                            fontFamily: 'Mont-normal',
-                            fontSize: 18,
-                            color: PGUColors.background),
-                        children: [
-                          TextSpan(
-                              text: "Vertretungen",
-                              style:
-                              TextStyle(fontFamily: 'Mont', fontSize: 32))
-                        ]),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      left: SDP.sdp(25),
+                      right: SDP.sdp(25)
+                    ),
+                    child: RichText(
+                      text: TextSpan(
+                          text: "Deine\n",
+                          style: TextStyle(
+                              fontFamily: 'Mont-normal',
+                              fontSize: 18,
+                              color: PGUColors.background),
+                          children: [
+                            TextSpan(
+                                text: "Vertretungen",
+                                style:
+                                TextStyle(fontFamily: 'Mont', fontSize: 32))
+                          ]),
+                    ),
                   ),
                   Expanded(
                       child: (entities.isNotEmpty ? entities.isEmpty : cachedEntities.isEmpty) ? Container(
@@ -192,8 +203,12 @@ class _VertretungenState extends State<Vertretungen> {
                             ],
                           ),
                         ),
-                      ) : Padding(
-                        padding: EdgeInsets.only(top: 10, bottom: 130),
+                      ) :
+                      Container(
+                        margin: EdgeInsets.only(
+                          top: 10,
+                          bottom: 130,
+                        ),
                         child: MediaQuery.removePadding(
                           context: context,
                           removeTop: true,
@@ -207,8 +222,11 @@ class _VertretungenState extends State<Vertretungen> {
                               ).createShader(rect);
                             },
                             blendMode: BlendMode.dstOut,
-                            child: ListView(
-                              children: vertretungenItems(),
+                            child: ListView.builder(
+                              itemCount: items.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return items[index];
+                              },
                             ),
                           ),
                         ),
@@ -277,45 +295,6 @@ class _VertretungenState extends State<Vertretungen> {
                     ],
                   ),
                 )),
-            // Container(
-            //   alignment: Alignment.bottomCenter,
-            //   margin: EdgeInsets.only(
-            //     bottom: SDP.sdp(100)
-            //   ),
-            //   child: hintVisible ? Container(
-            //     // decoration: BoxDecoration(
-            //     //   gradient: LinearGradient(
-            //     //     begin: Alignment.topCenter,
-            //     //     end: Alignment.bottomCenter,
-            //     //     colors: [Colors.transparent, PGUColors.text],
-            //     //     stops: [0.0, 0.9,], // 10% purple, 80% transparent, 10% purple
-            //     //   ),
-            //     //   borderRadius: BorderRadius.circular(20)
-            //     // ),
-            //     padding: EdgeInsets.only(
-            //       top: 10,
-            //       bottom: 0,
-            //       left: 10,
-            //       right: 10
-            //     ),
-            //     child: Column(
-            //       mainAxisSize: MainAxisSize.min,
-            //       children: [
-            //         Text(
-            //           "Scroll",
-            //           style: TextStyle(
-            //               fontFamily: 'Mont',
-            //               fontSize: 18,
-            //               color: PGUColors.background),
-            //         ),
-            //         Icon(
-            //           Icons.keyboard_arrow_down_rounded,
-            //           size: 50,
-            //         )
-            //       ],
-            //     ),
-            //   ) : Container(),
-            // )
           ],
         ),
       ),
@@ -329,39 +308,9 @@ class _VertretungenState extends State<Vertretungen> {
 
     vertretungenItems.add(SizedBox(height: 15,));
 
-    int itemHeight = 20;
-    //min(entities.isNotEmpty ? entities.length : cachedEntities.length, (SDP.height - 450) / itemHeight)
-
     for (int a = 0; a < (entities.isNotEmpty ? entities.length : cachedEntities.length); a++) {
-      vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a]));
+      vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a], _controller));
     }
-
-    // vertretungenItems.add(
-    //   VisibilityDetector(
-    //       key: Key("bottom"),
-    //       child: SizedBox(height: 15,),
-    //       onVisibilityChanged: (VisibilityInfo info){
-    //         if(info.visibleFraction == 1){
-    //           if(hintVisible == true){
-    //             hintVisible = false;
-    //             print("End");
-    //             setState(() {
-    //
-    //             });
-    //           }
-    //         }else{
-    //           if(hintVisible == false){
-    //             hintVisible = true;
-    //             print("Not End");
-    //             setState(() {
-    //
-    //             });
-    //           }
-    //         }
-    //       })
-    // );
-
-    // VisibilityDetectorController.instance.updateInterval = Duration.zero;
 
     vertretungenItems.add(SizedBox(height: 15,));
 
