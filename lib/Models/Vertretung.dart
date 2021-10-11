@@ -43,13 +43,13 @@ class Vertretung{
   static Widget item(Vertretung vertretung, ScrollController controller) {
     return OnSlide(
         items: <ActionItems>[
-          ActionItems(icon: Icon(Icons.visibility_off_rounded), onPress: (){}, backgroudColor: Colors.white),
-          ActionItems(icon: Icon(Icons.edit_rounded), onPress: (){}, backgroudColor: Colors.white),
+          ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ print("Kurs");}, backgroudColor: Colors.white),
+          ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){print("Farbe");}, backgroudColor: Colors.white),
         ],
         child: Padding(
           padding: EdgeInsets.only(
-              left: SDP.sdp(25),
-              right: SDP.sdp(25)
+            left: SDP.sdp(25),
+            right: SDP.sdp(25)
           ),
           child: Container(
             width: double.infinity,

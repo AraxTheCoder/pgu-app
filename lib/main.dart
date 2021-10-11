@@ -1,9 +1,7 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pgu/Pages/Splash/Splash.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
-import 'package:pgu/Values/Size/SDP.dart';
 import 'package:pgu/Values/Consts/AppInfo.dart';
 import 'package:pgu/Widgets/Behaviors/DefaultScrollBehavior.dart';
 
