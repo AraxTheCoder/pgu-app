@@ -24,7 +24,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 ## Eventuell überarbeiten
 - Ausgeblendete Kurse ansicht
 
-## Resourcen für Working on
+## Benutzte Resourcen
 - https://medium.com/@info_67212/flutter-swipe-your-widget-for-more-action-items-2b85866ca238
 
 ## API
