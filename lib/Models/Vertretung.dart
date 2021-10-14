@@ -178,7 +178,7 @@ class Vertretung{
                         top: 20
                     ),
                     child: Text(
-                      "Farbe: " + fach,
+                      fach.shortVersion(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: PGUColors.background,

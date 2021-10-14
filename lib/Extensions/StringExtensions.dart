@@ -17,6 +17,18 @@ extension StringExtensions on String{
     switch(this){
       case "eigenverantwortliches":
         return "Eva";
+      case "CH":
+        return "Chemie";
+      case "D":
+        return "Deutsch";
+      case "E":
+        return "Englisch";
+      case "IF":
+        return "Informatik";
+      case "M":
+        return "Mathe";
+      case "PH":
+        return "Physik";
     }
 
     return this;
