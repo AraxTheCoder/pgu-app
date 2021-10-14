@@ -358,123 +358,182 @@ class _VertretungenState extends State<Vertretungen> {
     else
       ausgeblendeteKurse = List<String>.from(jsonDecode(jsonString));
 
+    changed = Map<String, bool>();
+
+    for(String s in ausgeblendeteKurse){
+      changed![s] = false;
+    }
+
     showDialog(
         context: context,
         builder: (b){
-          return Dialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25),
-            ),
-            elevation: 6,
-            backgroundColor: Colors.transparent,
-            child: Container(
-              //height: 250,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(Radius.circular(25)),
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 20
-                    ),
-                    child: Text(
-                      "Kurse",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: PGUColors.background,
-                        fontFamily: 'Mont',
-                        fontSize: 25,
-                      ),
-                    ),
+          return StatefulBuilder(
+            builder: (c, setState){
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(25),
+                ),
+                elevation: 6,
+                backgroundColor: Colors.transparent,
+                child: Container(
+                  //height: 250,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
                   ),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          top: 25,
-                          right: 25,
-                          left: 25
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 20
+                        ),
+                        child: Text(
+                          "Kurse",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: PGUColors.background,
+                            fontFamily: 'Mont',
+                            fontSize: 25,
+                          ),
+                        ),
                       ),
-                      child: SingleChildScrollView(
-                        child: Container(
-                          height: 300,
-                          child: ListView.builder(
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 25,
+                            right: 25,
+                            left: 25
+                        ),
+                        child: SingleChildScrollView(
+                          child: Container(
+                            height: 300,
+                            child: ListView.builder(
                               itemCount: ausgeblendeteKurse!.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return ausgeblendeterKursWidget(ausgeblendeteKurse![index]);
+                                return ausgeblendeterKursWidget(ausgeblendeteKurse![index], setState);
                               },
+                            ),
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 10,
+                            bottom: 20
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            FlatButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              padding: EdgeInsets.only(
+                                  left: 25,
+                                  right: 25,
+                                  top: 15,
+                                  bottom: 15
+                              ),
+                              // color: PGUColors.accent,
+                              child: Text(
+                                "Abbrechen",
+                                style: TextStyle(
+                                    color: PGUColors.background,
+                                    fontFamily: 'Mont'
+                                ),
+                              ),
+                            ),
+                            FlatButton(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              onPressed: () {
+                                List<String> ak = [];
+
+                                for(MapEntry<String, bool> b in changed!.entries){
+                                  if(!b.value)
+                                    ak.add(b.key);
+                                }
+
+                                StorageManager.setString(
+                                    StorageKeys.ausgeblendeteKurse, jsonEncode(ak));
+
+                                refresh();
+                                Navigator.of(context).pop();
+                              },
+                              padding: EdgeInsets.only(
+                                  left: 25,
+                                  right: 25,
+                                  top: 15,
+                                  bottom: 15
+                              ),
+                              color: PGUColors.accent,
+                              child: Text(
+                                "Speichern",
+                                style: TextStyle(
+                                    color: PGUColors.text,
+                                    fontFamily: 'Mont'
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: 10,
-                        bottom: 20
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        FlatButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          padding: EdgeInsets.only(
-                              left: 25,
-                              right: 25,
-                              top: 15,
-                              bottom: 15
-                          ),
-                          // color: PGUColors.accent,
-                          child: Text(
-                            "Abbrechen",
-                            style: TextStyle(
-                                color: PGUColors.background,
-                                fontFamily: 'Mont'
-                            ),
-                          ),
-                        ),
-                        FlatButton(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          onPressed: () {
-                            //refresh();
-                            Navigator.of(context).pop();
-                          },
-                          padding: EdgeInsets.only(
-                              left: 25,
-                              right: 25,
-                              top: 15,
-                              bottom: 15
-                          ),
-                          color: PGUColors.accent,
-                          child: Text(
-                            "Speichern",
-                            style: TextStyle(
-                                color: PGUColors.text,
-                                fontFamily: 'Mont'
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
+                ),
+              );
+            }
           );
         }
     );
   }
 
-  Widget ausgeblendeterKursWidget(String kurs){
-    return Text(kurs);
+  Map<String, bool>? changed;
+
+  Widget ausgeblendeterKursWidget(String kurs, Function setState){
+    return Container(
+      padding: EdgeInsets.only(
+        bottom: 15,
+        left: 50,
+        right: 50
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Text(
+              kurs.replaceAll("|", " "),
+              style: TextStyle(
+                  fontFamily: 'Mont',
+                  fontSize: 20
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: (){
+              if(changed![kurs]!)
+                changed![kurs] = false;
+              else
+                changed![kurs] = true;
+
+              setState(() {
+
+              });
+            },
+            child: Icon(
+              changed![kurs]! ? Icons.visibility_rounded : Icons.visibility_off_rounded,
+              color: PGUColors.background,
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   void refresh(){
