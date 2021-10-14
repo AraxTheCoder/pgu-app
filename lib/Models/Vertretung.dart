@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
+import 'package:pgu/Storage/StorageKeys.dart';
+import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Utils/ColorChooser.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
@@ -45,8 +49,8 @@ class Vertretung{
   static Widget item(Vertretung vertretung, BuildContext context, Function refresh) {
     return OnSlide(
         items: <ActionItems>[
-          ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ print("Kurs");}, backgroudColor: Colors.white),
-          ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.kurs!, refresh);}, backgroudColor: Colors.white),
+          ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ hideKurs(context, vertretung.klasse!, vertretung.kurs!, refresh); }, backgroudColor: Colors.white),
+          ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.klasse!, vertretung.kurs!, refresh);}, backgroudColor: Colors.white),
         ],
         child: Padding(
           padding: EdgeInsets.only(
@@ -149,7 +153,27 @@ class Vertretung{
     );
   }
 
-  static void openColorpicker(BuildContext context, String fach, Function refresh){
+  static List<String>? kurse;
+
+  static void hideKurs(BuildContext context, String klasse, String fach, Function refresh){
+    String jsonString = StorageManager.getString(StorageKeys.ausgeblendeteKurse);
+
+    if(jsonString.isEmpty)
+      kurse = [];
+    else
+      kurse = List<String>.from(jsonDecode(jsonString));
+
+    if(!kurse!.contains(klasse + "|" + fach)) {
+      kurse!.add(klasse + "|" + fach);
+
+      StorageManager.setString(
+          StorageKeys.ausgeblendeteKurse, jsonEncode(kurse));
+
+      refresh();
+    }
+  }
+
+  static void openColorpicker(BuildContext context, String klasse, String fach, Function refresh){
     fach = fach.substringToNumber().toUpperCase();
 
     Color currentColor = ColorChooser.pickColor(fach);

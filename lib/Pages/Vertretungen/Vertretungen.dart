@@ -306,15 +306,49 @@ class _VertretungenState extends State<Vertretungen> {
   List<Widget> vertretungenItems() {
     List<Widget> vertretungenItems = [];
 
+    List<String>? ausgeblendeteKurse;
+
+    String jsonString = StorageManager.getString(StorageKeys.ausgeblendeteKurse);
+
+    if(jsonString.isEmpty)
+      ausgeblendeteKurse = [];
+    else
+      ausgeblendeteKurse = List<String>.from(jsonDecode(jsonString));
+
     vertretungenItems.add(SizedBox(height: 15,));
 
     for (int a = 0; a < (entities.isNotEmpty ? entities.length : cachedEntities.length); a++) {
-      vertretungenItems.add(Vertretung.item(entities.isNotEmpty ? entities[a] : cachedEntities[a], context, refresh));
+      Vertretung v = entities.isNotEmpty ? entities[a] : cachedEntities[a];
+
+      if(!ausgeblendeteKurse.contains(v.klasse! + "|" + v.kurs!))
+        vertretungenItems.add(Vertretung.item(v, context, refresh));
     }
+
+    vertretungenItems.add(
+      GestureDetector(
+        onTap: showAusgeblendeteKurse,
+        child: Container(
+          margin: EdgeInsets.only(
+              top: 20
+          ),
+          child: Text(
+            "Ausgeblendete Kurse anzeigen",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                fontFamily: 'Mont'
+            ),
+          ),
+        ),
+      )
+    );
 
     vertretungenItems.add(SizedBox(height: 15,));
 
     return vertretungenItems;
+  }
+
+  void showAusgeblendeteKurse(){
+    print("ak");
   }
 
   void refresh(){
