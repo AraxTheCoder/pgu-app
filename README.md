@@ -16,10 +16,10 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 - Benachrichtigungen einbauen
 - Spiele in Einstellungen unter Versionsnummer
 - Termine einbauen (https://www.pgu.de/aktuelles/termine)
-- Voreinstellungen Fächerfarben
 
 ## Working on
 - Ausgeblendete Kurse in neuem Schuljahr resetten
+- Voreinstellungen Fächerfarben
 
 ## Eventuell überarbeiten
 - Ausgeblendete Kurse ansicht
