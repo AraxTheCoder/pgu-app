@@ -328,8 +328,9 @@ class _VertretungenState extends State<Vertretungen> {
       GestureDetector(
         onTap: showAusgeblendeteKurse,
         child: Container(
-          margin: EdgeInsets.only(
-              top: 20
+          padding: EdgeInsets.only(
+              top: 20,
+              bottom: 20
           ),
           child: Text(
             "Ausgeblendete Kurse anzeigen",
@@ -348,7 +349,132 @@ class _VertretungenState extends State<Vertretungen> {
   }
 
   void showAusgeblendeteKurse(){
-    print("ak");
+    List<String>? ausgeblendeteKurse;
+
+    String jsonString = StorageManager.getString(StorageKeys.ausgeblendeteKurse);
+
+    if(jsonString.isEmpty)
+      ausgeblendeteKurse = [];
+    else
+      ausgeblendeteKurse = List<String>.from(jsonDecode(jsonString));
+
+    showDialog(
+        context: context,
+        builder: (b){
+          return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(25),
+            ),
+            elevation: 6,
+            backgroundColor: Colors.transparent,
+            child: Container(
+              //height: 250,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.all(Radius.circular(25)),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 20
+                    ),
+                    child: Text(
+                      "Kurse",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: PGUColors.background,
+                        fontFamily: 'Mont',
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(
+                          top: 25,
+                          right: 25,
+                          left: 25
+                      ),
+                      child: SingleChildScrollView(
+                        child: Container(
+                          height: 300,
+                          child: ListView.builder(
+                              itemCount: ausgeblendeteKurse!.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ausgeblendeterKursWidget(ausgeblendeteKurse![index]);
+                              },
+                          ),
+                        ),
+                      ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                        top: 10,
+                        bottom: 20
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          padding: EdgeInsets.only(
+                              left: 25,
+                              right: 25,
+                              top: 15,
+                              bottom: 15
+                          ),
+                          // color: PGUColors.accent,
+                          child: Text(
+                            "Abbrechen",
+                            style: TextStyle(
+                                color: PGUColors.background,
+                                fontFamily: 'Mont'
+                            ),
+                          ),
+                        ),
+                        FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                          onPressed: () {
+                            //refresh();
+                            Navigator.of(context).pop();
+                          },
+                          padding: EdgeInsets.only(
+                              left: 25,
+                              right: 25,
+                              top: 15,
+                              bottom: 15
+                          ),
+                          color: PGUColors.accent,
+                          child: Text(
+                            "Speichern",
+                            style: TextStyle(
+                                color: PGUColors.text,
+                                fontFamily: 'Mont'
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
+
+  Widget ausgeblendeterKursWidget(String kurs){
+    return Text(kurs);
   }
 
   void refresh(){
