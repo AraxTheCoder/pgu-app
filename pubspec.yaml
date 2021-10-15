@@ -37,6 +37,7 @@ dependencies:
   flutter_colorpicker: any
   firebase_messaging: any
   firebase_core: any
+  firebase_analytics: any
 
 dev_dependencies:
   flutter_launcher_icons: any
