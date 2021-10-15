@@ -12,14 +12,14 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 - Filter für Kurse in einem Jahrgang (Nicht alle haben Französisch)
 - Fächer wieder anzeigen lassen
 - Voreinstellungen Fächerfarben
+- Ausgeblendete Kurse in neuem Schuljahr resetten
 
 ## Roadmap (Nicht nach Priorität geordnet)
-- Benachrichtigungen einbauen
 - Spiele in Einstellungen unter Versionsnummer
 - Termine einbauen (https://www.pgu.de/aktuelles/termine)
 
 ## Working on
-- Ausgeblendete Kurse in neuem Schuljahr resetten
+- Benachrichtigungen einbauen
 
 ## Eventuell überarbeiten
 - Ausgeblendete Kurse ansicht
