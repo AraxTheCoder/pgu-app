@@ -17,6 +17,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 ## Roadmap (Nicht nach Priorität geordnet)
 - Spiele in Einstellungen unter Versionsnummer
 - Termine einbauen (https://www.pgu.de/aktuelles/termine)
+- Benachrichtigungen nur mit Filter senden (ohne ausgeblendete Kurse)
 
 ## Working on
 - Benachrichtigungen einbauen
