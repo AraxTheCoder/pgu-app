@@ -35,6 +35,8 @@ dependencies:
   flutter_svg: any
   dio: any
   flutter_colorpicker: any
+  firebase_messaging: any
+  firebase_core: any
 
 dev_dependencies:
   flutter_launcher_icons: any
