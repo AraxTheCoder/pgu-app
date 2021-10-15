@@ -86,8 +86,10 @@ class _VertretungenState extends State<Vertretungen> {
       }
     }
 
-    if(classnameChange)
+    if(classnameChange) {
       StorageManager.setString(StorageKeys.classes, jsonEncode(classes));
+      StorageManager.setString(StorageKeys.ausgeblendeteKurse, jsonEncode([]));
+    }
 
     StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
 
