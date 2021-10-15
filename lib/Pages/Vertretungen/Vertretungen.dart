@@ -328,9 +328,10 @@ class _VertretungenState extends State<Vertretungen> {
       GestureDetector(
         onTap: showAusgeblendeteKurse,
         child: Container(
+          //color: Colors.red,
           padding: EdgeInsets.only(
               top: 20,
-              bottom: 20
+              bottom: 30
           ),
           child: Text(
             "Ausgeblendete Kurse anzeigen",
