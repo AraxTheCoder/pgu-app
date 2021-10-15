@@ -19,6 +19,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 - Spiele in Einstellungen unter Versionsnummer
 - Termine einbauen (https://www.pgu.de/aktuelles/termine)
 - Benachrichtigungen nur mit Filter senden (ohne ausgeblendete Kurse)
+- Benachrichtigungen gestalten (Icon)
 
 ## Working on
 - Firebase Token an Server senden mit Code (wenn sich token ändert überschreiben)
