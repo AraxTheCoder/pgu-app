@@ -13,6 +13,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 - Fächer wieder anzeigen lassen
 - Voreinstellungen Fächerfarben
 - Ausgeblendete Kurse in neuem Schuljahr resetten
+- Benachrichtigungen einbauen
 
 ## Roadmap (Nicht nach Priorität geordnet)
 - Spiele in Einstellungen unter Versionsnummer
@@ -20,13 +21,14 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 - Benachrichtigungen nur mit Filter senden (ohne ausgeblendete Kurse)
 
 ## Working on
-- Benachrichtigungen einbauen
+- Firebase Token an Server senden mit Code (wenn sich token ändert überschreiben)
 
 ## Eventuell überarbeiten
 - Ausgeblendete Kurse ansicht
 
 ## Benutzte Resourcen
 - https://medium.com/@info_67212/flutter-swipe-your-widget-for-more-action-items-2b85866ca238
+- https://firebase.flutter.dev/docs/messaging/notifications/
 
 ## API
 ### Authorisieren (Code überprüfen)
