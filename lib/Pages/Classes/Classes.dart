@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -424,7 +425,9 @@ class _ClassesState extends State<Classes> {
     if(code.length == 8){
       closeKeyboard(context);
 
-      Response response = await dio.get("https://pgu.backslash-vr.com/api/user/authorize" + "?code=" + code);
+      String? token = await FirebaseMessaging.instance.getToken();
+
+      Response response = await dio.get("https://pgu.backslash-vr.com/api/user/authorize?code=" + code + "&token=" + token!);
 
       if(response.statusCode == 200){
         print(response.data.toString());
@@ -437,6 +440,8 @@ class _ClassesState extends State<Classes> {
         print(entities.length);
 
         StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
+
+        //response = await dio.get("https://pgu.backslash-vr.com/api/notifications/subscribe?code=" + code + "&token=" + token!);
 
         Navigator.of(context).pop();
 

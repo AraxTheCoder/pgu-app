@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
+import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Consts/Consts.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
@@ -30,11 +33,30 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
-    StorageManager.init();
+    checkTokenUpdate();
 
     splashDelay = Timer(Duration(seconds: Consts.splashDelay), (){
       NoAnimationRoute.open(context, Vertretungen());
     });
+  }
+
+  Dio dio = Dio();
+
+  Future<void> checkTokenUpdate() async {
+    await StorageManager.init();
+
+    String oldToken = StorageManager.getString(StorageKeys.token);
+    String? token = await FirebaseMessaging.instance.getToken();
+
+    if(oldToken != token){
+      //Update Token to Server
+      Response response = await dio.get("https://pgu.backslash-vr.com/api/notifications/update?oldToken=" + oldToken + "&token=" + token!);
+
+      if(response.statusCode == 200 && response.data == "Updated"){
+        //Save Token
+        StorageManager.setString(StorageKeys.token, token);
+      }
+    }
   }
 
   @override

@@ -3,4 +3,5 @@ class StorageKeys{
   static const String vertretungen = "vertretungen";
   static const String farben = "farben";
   static const String ausgeblendeteKurse = "ausgeblendeteKurse";
+  static const String token = "token";
 }
