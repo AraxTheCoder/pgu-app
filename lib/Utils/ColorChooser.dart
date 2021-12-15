@@ -48,6 +48,10 @@ class ColorChooser{
         "IF" : Colors.blueGrey.value,
         "M" : Colors.indigo.value,
         "PH" : Colors.lightBlue.value,
+        "F" : Colors.yellow.value,
+        "ER" : Colors.grey.value,
+        "LI" : Colors.cyan.value,
+        "PA" : Colors.pinkAccent.value,
       };
     }else
       colors = Map<String, int>.from(jsonDecode(jsonString));

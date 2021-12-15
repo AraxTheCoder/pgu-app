@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pgu/Pages/Login/Login.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
@@ -33,17 +34,27 @@ class _SplashState extends State<Splash> {
   void initState() {
     super.initState();
 
+    asnycInit();
+  }
+
+  void asnycInit() async{
+    await StorageManager.init();
+
     checkTokenUpdate();
 
     splashDelay = Timer(Duration(seconds: Consts.splashDelay), (){
-      NoAnimationRoute.open(context, Vertretungen());
+      if(StorageManager.getString(StorageKeys.loggedIn) == "") {
+        NoAnimationRoute.open(context, Login());
+      }else{
+        NoAnimationRoute.open(context, Vertretungen());
+      }
     });
   }
 
   Dio dio = Dio();
 
   Future<void> checkTokenUpdate() async {
-    await StorageManager.init();
+    //await StorageManager.init();
 
     String oldToken = StorageManager.getString(StorageKeys.token);
     String? token = await FirebaseMessaging.instance.getToken();

@@ -67,78 +67,50 @@ class _SettingsState extends State<Settings> {
                               TextStyle(fontFamily: 'Mont', fontSize: 32))
                         ]),
                   ),
+                  // SizedBox(height: 30,),
+                  // Text("Benachrichtigungen",
+                  //   style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
+                  // SizedBox(height: 10,),
+                  // Text("Noch nicht ",
+                  //   style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
                   Expanded(
+                    child: Container(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
+                          // SizedBox(height: 30,),
+                          // Text("Tutorial",
+                          //   style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
+                          // SizedBox(height: 10,),
+                          // GestureDetector(
+                          //   onTap: (){
+                          //
+                          //   },
+                          //   child: Text("Tutorial ansehen",
+                          //     style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17, color: PGUColors.blue),),
+                          // ),
                           SizedBox(height: 30,),
-                          Text("Credits",
-                          style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
-                          SizedBox(height: 20,),
-                          RichText(
-                            text: TextSpan(
-                                text: "Krüger\n",
-                                style: TextStyle(
-                                    fontFamily: 'Mont-normal',
-                                    fontSize: 12,
-                                    color: PGUColors.background),
-                                children: [
-                                  TextSpan(
-                                      text: "Jonathan\n",
-                                      style:
-                                      TextStyle(fontFamily: 'Mont', fontSize: 22),
-                                  ),
-                                  TextSpan(
-                                    text: '"I see no other God than me up here"',
-                                    style:
-                                    TextStyle(fontFamily: 'Mont', fontSize: 14),
-                                  )
-                                ]),
-                          ),
-                          SizedBox(height: 20,),
-                          RichText(
-                            text: TextSpan(
-                                text: "Helas\n",
-                                style: TextStyle(
-                                    fontFamily: 'Mont-normal',
-                                    fontSize: 12,
-                                    color: PGUColors.background),
-                                children: [
-                                  TextSpan(
-                                    text: "Tristan\n",
-                                    style:
-                                    TextStyle(fontFamily: 'Mont', fontSize: 22),
-                                  ),
-                                  TextSpan(
-                                    text: 'pablo. (@tristan.hlx)',
-                                    style:
-                                    TextStyle(fontFamily: 'Mont', fontSize: 14),
-                                  )
-                                ]),
-                          ),
-                          SizedBox(height: 20,),
-                          RichText(
-                            text: TextSpan(
-                                text: "Benecke\n",
-                                style: TextStyle(
-                                    fontFamily: 'Mont-normal',
-                                    fontSize: 12,
-                                    color: PGUColors.background),
-                                children: [
-                                  TextSpan(
-                                    text: "Karl\n",
-                                    style:
-                                    TextStyle(fontFamily: 'Mont', fontSize: 22),
-                                  ),
-                                  TextSpan(
-                                    text: "It's hard being a single mother, especially when you have no children and are a teenage male.",
-                                    style:
-                                    TextStyle(fontFamily: 'Mont', fontSize: 14),
-                                  )
-                                ]),
-                          ),
+                          Text("Benachrichtigungen",
+                            style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
+                          SizedBox(height: 10,),
+                          Text("Kommen noch",
+                            style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
+                          SizedBox(height: 30,),
+                          Text("Kontakt",
+                            style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
+                          SizedBox(height: 10,),
+                          Text("Bei Fehlern oder Wünschen:\nkrueger.jonathan@gmx.de",
+                            style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
+                          SizedBox(height: 30,),
+                          Text("Source Code",
+                            style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
+                          SizedBox(height: 10,),
+                          Text("github.com/AraxTheCoder/pgu-app",
+                            style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
                         ],
-                      )
+                      ),
+                    ),
                   )
                 ],
               ),

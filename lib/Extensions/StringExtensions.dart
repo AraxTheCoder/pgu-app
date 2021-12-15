@@ -1,3 +1,7 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
+
 extension StringExtensions on String{
   bool startsNumeric(){
     if(this.isEmpty)
@@ -11,6 +15,14 @@ extension StringExtensions on String{
       return false;
 
     return double.tryParse(this.substring(this.length - 1)) != null;
+  }
+
+  String trimEmpty(){
+    return this.replaceAll("/", "").trim();
+  }
+
+  String toMd5() {
+    return md5.convert(utf8.encode(this)).toString();
   }
 
   String shortVersion(){
@@ -27,6 +39,14 @@ extension StringExtensions on String{
         return "Informatik";
       case "M":
         return "Mathe";
+      case "F":
+        return "Französisch";
+      case "ER":
+        return "Eva. Religion";
+      case "LI":
+        return "Literatur";
+      case "PA":
+        return "Pädagogik";
       case "PH":
         return "Physik";
     }
@@ -50,7 +70,7 @@ extension StringExtensions on String{
   String substringToNumber(){
     String substringToNumber = "";
 
-    for(int rune in this.runes){
+    for(int rune in this.split(" ")[0].runes){
       String character = new String.fromCharCode(rune);
 
       if(double.tryParse(character) == null)
@@ -71,5 +91,12 @@ extension StringExtensions on String{
     }
 
     return this;
+  }
+
+  String formatClass(){
+    if(this.startsNumeric())
+      return this;
+
+    return this.toUpperCase();
   }
 }

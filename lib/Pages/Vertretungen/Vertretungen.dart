@@ -72,24 +72,25 @@ class _VertretungenState extends State<Vertretungen> {
     for(int a = 0; a < classes.length; a++){
       ClassCode classCode = classes[a];
 
-      Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
+      //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
+      Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?class=" + classCode.name!);//TODO old = get
 
       if(response.statusCode == 200){
-
+        print("[Vertretungen] Loaded Subsitutions");
         entities += List<Vertretung>.from(
             json.decode(response.data.toString()).map((model) => Vertretung.fromJson(model)));
 
-        if(entities.length >= 1 && classCode.name != entities[entities.length - 1].klasse){
-          classes[a].name = entities[entities.length - 1].klasse;
-          classnameChange = true;
-        }
+        // if(entities.length >= 1 && classCode.name != entities[entities.length - 1].klasse){
+        //   classes[a].name = entities[entities.length - 1].klasse;
+        //   classnameChange = true;
+        // }
       }
     }
 
-    if(classnameChange) {
-      StorageManager.setString(StorageKeys.classes, jsonEncode(classes));
-      StorageManager.setString(StorageKeys.ausgeblendeteKurse, jsonEncode([]));
-    }
+    // if(classnameChange) {
+    //   StorageManager.setString(StorageKeys.classes, jsonEncode(classes));
+    //   StorageManager.setString(StorageKeys.ausgeblendeteKurse, jsonEncode([]));
+    // }
 
     StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
 
@@ -326,25 +327,27 @@ class _VertretungenState extends State<Vertretungen> {
         vertretungenItems.add(Vertretung.item(v, context, refresh));
     }
 
-    vertretungenItems.add(
-      GestureDetector(
-        onTap: showAusgeblendeteKurse,
-        child: Container(
-          //color: Colors.red,
-          padding: EdgeInsets.only(
-              top: 20,
-              bottom: 30
-          ),
-          child: Text(
-            "Ausgeblendete Kurse anzeigen",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontFamily: 'Mont'
+    if(ausgeblendeteKurse.isNotEmpty){
+      vertretungenItems.add(
+          GestureDetector(
+            onTap: showAusgeblendeteKurse,
+            child: Container(
+              //color: Colors.red,
+              padding: EdgeInsets.only(
+                  top: 20,
+                  bottom: 30
+              ),
+              child: Text(
+                "Ausgeblendete Kurse anzeigen",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: 'Mont'
+                ),
+              ),
             ),
-          ),
-        ),
-      )
-    );
+          )
+      );
+    }
 
     vertretungenItems.add(SizedBox(height: 15,));
 

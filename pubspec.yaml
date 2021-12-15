@@ -38,6 +38,7 @@ dependencies:
   firebase_messaging: any
   firebase_core: any
   firebase_analytics: any
+  crypto: any
 
 dev_dependencies:
   flutter_launcher_icons: any
@@ -50,8 +51,8 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path_android: "assets/logo.png"
-  image_path_ios: "assets/logo.png"
+  image_path_android: "assets/icon.png"
+  image_path_ios: "assets/icon.png"
 
 #flutter pub get
 #flutter pub run flutter_launcher_name:main

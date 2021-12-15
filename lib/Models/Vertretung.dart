@@ -47,11 +47,16 @@ class Vertretung{
   }
 
   static Widget item(Vertretung vertretung, BuildContext context, Function refresh) {
+    List<ActionItems> items = [];
+
+    if(vertretung.kurs != "/"){
+      items = <ActionItems>[
+        ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ hideKurs(context, vertretung.klasse!, vertretung.kurs!, refresh); }, backgroudColor: Colors.white),
+        ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.klasse!, vertretung.kurs!, refresh);}, backgroudColor: Colors.white),
+      ];
+    }
     return OnSlide(
-        items: <ActionItems>[
-          ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ hideKurs(context, vertretung.klasse!, vertretung.kurs!, refresh); }, backgroudColor: Colors.white),
-          ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.klasse!, vertretung.kurs!, refresh);}, backgroudColor: Colors.white),
-        ],
+        items: items,
         child: Padding(
           padding: EdgeInsets.only(
             left: SDP.sdp(25),
@@ -93,7 +98,7 @@ class Vertretung{
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            (vertretung.kurs! + " " + vertretung.vertreter!).trim().arrowFormat(),
+                            (vertretung.kurs! + " " + vertretung.vertreter!).trimEmpty().arrowFormat(),
                             style: TextStyle(
                                 fontFamily: 'Mont',
                                 fontSize: 17

@@ -14,6 +14,8 @@ class FlushbarHelper{
     return Flushbar(
       title: title,
       message: message,
+      backgroundColor: PGUColors.text,
+      flushbarStyle: FlushbarStyle.GROUNDED,
       icon: Icon(
         Icons.warning,
         size: 35,
@@ -22,27 +24,27 @@ class FlushbarHelper{
       blockBackgroundInteraction: false,//true
       isDismissible: false,
       leftBarIndicatorColor: Colors.red[300],
-      flushbarPosition: FlushbarPosition.TOP,
+      flushbarPosition: FlushbarPosition.BOTTOM,
       margin: EdgeInsets.only(
         top: 10
       ),
       messageText: Text(
           message,
         style: TextStyle(
-          color: PGUColors.text,
+          color: PGUColors.background,
           fontSize: TextSize.medium
         ),
       ),
       padding: EdgeInsets.only(
         left: 30,
         right: 16,
-        top: 16,
-        bottom: 16
+        top: 30,//16
+        bottom: 30
       ),
       titleText: Text(
         title,
         style: TextStyle(
-            color: PGUColors.text,
+            color: PGUColors.background,
             fontSize: TextSize.medium,
           fontWeight: FontWeight.bold
         ),
