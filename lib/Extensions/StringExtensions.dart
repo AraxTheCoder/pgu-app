@@ -95,8 +95,24 @@ extension StringExtensions on String{
 
   String formatClass(){
     if(this.startsNumeric())
-      return this;
+      return this.toLowerCase();
 
     return this.toUpperCase();
+  }
+
+  bool isValidClassname(){
+    //5a - 11c
+    if(startsNumeric()){
+      //a = 65
+      //f = 70
+      if(this.runes.toList()[1] >= 52 && this.runes.toList()[1] <= 70)
+        return true;
+    }
+
+    //EF Q1 Q2 Q3
+    if(this == "EF" || this == "Q1" || this == "Q2" || this == "Q3")
+      return true;
+
+    return false;
   }
 }

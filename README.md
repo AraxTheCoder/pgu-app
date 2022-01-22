@@ -4,13 +4,16 @@
 
 Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 
+## TODO
+- Klassen nur bei Übergabe von (klartext Passwort + salt).hashed
+
 ## Features
 
-- Nur ausgewählte Klassen sehen
-- Benachrichtigungen bei neuen Vertretungen
-- Fächerfarbe selber auswählen
-- Filter für Kurse in einem Jahrgang (Nicht alle haben Französisch)
-- Fächer wieder anzeigen lassen
+[x] Nur ausgewählte Klassen sehen
+[ ] Benachrichtigungen bei neuen Vertretungen
+[x] Fächerfarbe selber auswählen
+[x] Filter für Kurse in einem Jahrgang (Nicht alle haben Französisch)
+[x] Fächer wieder anzeigen lassen
 - Voreinstellungen Fächerfarben
 - Ausgeblendete Kurse in neuem Schuljahr resetten
 - Benachrichtigungen einbauen
@@ -25,10 +28,6 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 
 ## Working on
 - Wenn neue Vertretung Benachrichtigung senden
-
-## Eventuell überarbeiten
-- Ausgeblendete Kurse ansicht
-- Wenn alle Kurse ausgeblendet Hund anzeigen und darunter Ausgeblendete Kurse
 
 ## Benutzte Resourcen
 - https://medium.com/@info_67212/flutter-swipe-your-widget-for-more-action-items-2b85866ca238

@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pgu/Extensions/StringExtensions.dart';
 import 'package:pgu/Formatter/UpperCaseTextFormatter.dart';
 import 'package:pgu/Models/ClassCode.dart';
 import 'package:pgu/Pages/Settings/Settings.dart';
@@ -582,6 +583,9 @@ class _ClassesState extends State<Classes> {
 
     if(entities.indexWhere((element) => element.name == classCode.name) == -1)
       entities.add(classCode);
+
+    if(!classCode.name!.isValidClassname())
+      return;
 
     print("[Classes] Number of Classes: " + entities.length.toString());
 

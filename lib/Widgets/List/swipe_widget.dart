@@ -1,11 +1,8 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:pgu/Values/Size/SDP.dart';
 
 import 'size_change_notifier.dart';
-
-
 
 class ActionItems extends Object{
   ActionItems({required this.icon, required this.text ,required this.onPress, this.backgroudColor:Colors.grey});
@@ -56,7 +53,8 @@ class _OnSlideState extends State<OnSlide> {
 
           Timer(Duration(seconds: 1), (){
             scheduleMicrotask((){
-              controller.animateTo(0.0, duration: new Duration(milliseconds: 600), curve: Curves.decelerate);
+              if(controller.positions.isNotEmpty)
+                controller.animateTo(0.0, duration: new Duration(milliseconds: 600), curve: Curves.decelerate);
             });
           });
         });
@@ -82,6 +80,9 @@ class _OnSlideState extends State<OnSlide> {
           //print(notification.newSize);
 
           scheduleMicrotask((){
+            if(!mounted)
+              return;
+
             setState((){
             });
           });

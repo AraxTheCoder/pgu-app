@@ -48,7 +48,7 @@ class ClassCode{
                         color: PGUColors.background),
                     children: [
                       TextSpan(
-                          text: "\n" + classCode.name!,
+                          text: "\n" + classCode.name!.formatClass(),
                           style: TextStyle(fontFamily: 'Mont', fontSize: 25))
                     ]),
               ),

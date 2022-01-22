@@ -30,6 +30,10 @@ class PGUApp extends StatefulWidget{
     final pushNotificationService = PushNotificationService();
     pushNotificationService.initialise();
 
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
     return _PGUAppState();
   }
 }

@@ -50,8 +50,8 @@ class Vertretung{
     List<ActionItems> items = [];
 
     if(vertretung.kurs != "/"){
-      items = <ActionItems>[
-        ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ hideKurs(context, vertretung.klasse!, vertretung.kurs!, refresh); }, backgroudColor: Colors.white),
+      items = <ActionItems>[//TODO: Check if vertretung.vertreter!.split("→")[0] return original teacher
+        ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ hideKurs(context, vertretung.klasse!, vertretung.kurs!, vertretung.vertreter!.split("→")[0], refresh); }, backgroudColor: Colors.white),
         ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.klasse!, vertretung.kurs!, refresh);}, backgroudColor: Colors.white),
       ];
     }
@@ -160,7 +160,7 @@ class Vertretung{
 
   static List<String>? kurse;
 
-  static void hideKurs(BuildContext context, String klasse, String fach, Function refresh){
+  static void hideKurs(BuildContext context, String klasse, String fach, String lehrer, Function refresh){
     String jsonString = StorageManager.getString(StorageKeys.ausgeblendeteKurse);
 
     if(jsonString.isEmpty)
@@ -168,8 +168,8 @@ class Vertretung{
     else
       kurse = List<String>.from(jsonDecode(jsonString));
 
-    if(!kurse!.contains(klasse + "|" + fach)) {
-      kurse!.add(klasse + "|" + fach);
+    if(!kurse!.contains(klasse + "|" + fach + "|" + lehrer)) {
+      kurse!.add(klasse + "|" + fach + "|" + lehrer);
 
       StorageManager.setString(
           StorageKeys.ausgeblendeteKurse, jsonEncode(kurse));

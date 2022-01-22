@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
-import 'package:pgu/Values/Size/SDP.dart';
 import 'package:pgu/Values/Size/TextSize.dart';
 
 import 'flushbar.dart';

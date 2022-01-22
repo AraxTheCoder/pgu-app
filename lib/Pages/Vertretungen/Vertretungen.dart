@@ -71,6 +71,7 @@ class _VertretungenState extends State<Vertretungen> {
     bool classnameChange = false;
     for(int a = 0; a < classes.length; a++){
       ClassCode classCode = classes[a];
+      print("[Vertretungen] Load " + classCode.name!);
 
       //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
       Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?class=" + classCode.name!);//TODO old = get
@@ -205,6 +206,10 @@ class _VertretungenState extends State<Vertretungen> {
                                   ],
                                 ),
                               ),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: hiddenCoursesButton(),
+                              )
                             ],
                           ),
                         ),
@@ -228,6 +233,7 @@ class _VertretungenState extends State<Vertretungen> {
                             },
                             blendMode: BlendMode.dstOut,
                             child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
                               itemCount: items.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return items[index];
@@ -306,6 +312,39 @@ class _VertretungenState extends State<Vertretungen> {
     );
   }
 
+  Widget hiddenCoursesButton(){
+    List<String>? ausgeblendeteKurse;
+
+    String jsonString = StorageManager.getString(StorageKeys.ausgeblendeteKurse);
+
+    if(jsonString.isEmpty)
+      ausgeblendeteKurse = [];
+    else
+      ausgeblendeteKurse = List<String>.from(jsonDecode(jsonString));
+
+    if(ausgeblendeteKurse.isNotEmpty){
+      return GestureDetector(
+          onTap: showAusgeblendeteKurse,
+          child: Container(
+            color: PGUColors.transparent,
+            padding: EdgeInsets.only(
+                top: 20,
+                bottom: 30
+            ),
+            child: Text(
+              "Ausgeblendete Kurse anzeigen",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: 'Mont'
+              ),
+            ),
+          ),
+      );
+    }
+
+    return Container();
+  }
+
   List<Widget> vertretungenItems() {
     List<Widget> vertretungenItems = [];
 
@@ -323,31 +362,32 @@ class _VertretungenState extends State<Vertretungen> {
     for (int a = 0; a < (entities.isNotEmpty ? entities.length : cachedEntities.length); a++) {
       Vertretung v = entities.isNotEmpty ? entities[a] : cachedEntities[a];
 
-      if(!ausgeblendeteKurse.contains(v.klasse! + "|" + v.kurs!))
+      if(!ausgeblendeteKurse.contains(v.klasse! + "|" + v.kurs! + "|" + v.vertreter!.split("→")[0]))
         vertretungenItems.add(Vertretung.item(v, context, refresh));
     }
 
-    if(ausgeblendeteKurse.isNotEmpty){
-      vertretungenItems.add(
-          GestureDetector(
-            onTap: showAusgeblendeteKurse,
-            child: Container(
-              //color: Colors.red,
-              padding: EdgeInsets.only(
-                  top: 20,
-                  bottom: 30
-              ),
-              child: Text(
-                "Ausgeblendete Kurse anzeigen",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: 'Mont'
-                ),
-              ),
-            ),
-          )
-      );
-    }
+    // if(ausgeblendeteKurse.isNotEmpty){
+    //   vertretungenItems.add(
+    //       GestureDetector(
+    //         onTap: showAusgeblendeteKurse,
+    //         child: Container(
+    //           color: PGUColors.transparent,
+    //           padding: EdgeInsets.only(
+    //               top: 20,
+    //               bottom: 30
+    //           ),
+    //           child: Text(
+    //             "Ausgeblendete Kurse anzeigen",
+    //             textAlign: TextAlign.center,
+    //             style: TextStyle(
+    //                 fontFamily: 'Mont'
+    //             ),
+    //           ),
+    //         ),
+    //       )
+    //   );
+    // }
+    vertretungenItems.add(hiddenCoursesButton());
 
     vertretungenItems.add(SizedBox(height: 15,));
 
@@ -377,12 +417,18 @@ class _VertretungenState extends State<Vertretungen> {
             builder: (c, setState){
               return Dialog(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                insetPadding: EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                  bottom: 100,
+                  top: 100
                 ),
                 elevation: 6,
                 backgroundColor: Colors.transparent,
                 child: Container(
-                  //height: 250,
+                  height: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.rectangle,
@@ -391,100 +437,114 @@ class _VertretungenState extends State<Vertretungen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      Padding(
+                      Container(
+                        width: double.infinity,
+                        alignment: Alignment.centerLeft,
                         padding: EdgeInsets.only(
-                            top: 20
+                            top: 50,
+                          left: 50
                         ),
-                        child: Text(
-                          "Kurse",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: PGUColors.background,
-                            fontFamily: 'Mont',
-                            fontSize: 25,
+                        child: RichText(
+                          text: TextSpan(
+                              text: "Deine\n",
+                              style: TextStyle(
+                                  fontFamily: 'Mont-normal',
+                                  fontSize: 18,
+                                  color: PGUColors.background),
+                              children: [
+                                TextSpan(
+                                    text: "Hassfächer",
+                                    style:
+                                    TextStyle(fontFamily: 'Mont', fontSize: 32))
+                              ]),
+                        ),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 10,
+                              right: 25,
+                              left: 25
+                          ),
+                          child: ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            itemCount: ausgeblendeteKurse!.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ausgeblendeterKursWidget(ausgeblendeteKurse![index], setState);
+                            },
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 25,
-                            right: 25,
-                            left: 25
-                        ),
-                        child: SingleChildScrollView(
-                          child: Container(
-                            height: 300,
-                            child: ListView.builder(
-                              itemCount: ausgeblendeteKurse!.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return ausgeblendeterKursWidget(ausgeblendeteKurse![index], setState);
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
+                      Container(
+                        // color: Colors.red,
+                        alignment: Alignment.bottomCenter,
                         padding: EdgeInsets.only(
                             top: 10,
-                            bottom: 20
+                            bottom: 30,
+                            left: 30,
+                            right: 30
                         ),
                         child: Row(
-                          mainAxisSize: MainAxisSize.min,
+                          mainAxisSize: MainAxisSize.max,
                           children: <Widget>[
-                            FlatButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              padding: EdgeInsets.only(
-                                  left: 25,
-                                  right: 25,
-                                  top: 15,
-                                  bottom: 15
-                              ),
-                              // color: PGUColors.accent,
-                              child: Text(
-                                "Abbrechen",
-                                style: TextStyle(
-                                    color: PGUColors.background,
-                                    fontFamily: 'Mont'
+                            Expanded(
+                              child: FlatButton(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                padding: EdgeInsets.only(
+                                    left: 25,
+                                    right: 25,
+                                    top: 15,
+                                    bottom: 15
+                                ),
+                                // color: PGUColors.accent,
+                                child: Text(
+                                  "Abbrechen",
+                                  style: TextStyle(
+                                      color: PGUColors.background,
+                                      fontFamily: 'Mont'
+                                  ),
                                 ),
                               ),
                             ),
-                            FlatButton(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              onPressed: () {
-                                List<String> ak = [];
+                            Expanded(
+                                child: FlatButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  onPressed: () {
+                                    List<String> ak = [];
 
-                                for(MapEntry<String, bool> b in changed!.entries){
-                                  if(!b.value)
-                                    ak.add(b.key);
-                                }
+                                    for(MapEntry<String, bool> b in changed!.entries){
+                                      if(!b.value)
+                                        ak.add(b.key);
+                                    }
 
-                                StorageManager.setString(
-                                    StorageKeys.ausgeblendeteKurse, jsonEncode(ak));
+                                    StorageManager.setString(
+                                        StorageKeys.ausgeblendeteKurse, jsonEncode(ak));
 
-                                refresh();
-                                Navigator.of(context).pop();
-                              },
-                              padding: EdgeInsets.only(
-                                  left: 25,
-                                  right: 25,
-                                  top: 15,
-                                  bottom: 15
-                              ),
-                              color: PGUColors.accent,
-                              child: Text(
-                                "Speichern",
-                                style: TextStyle(
-                                    color: PGUColors.text,
-                                    fontFamily: 'Mont'
-                                ),
-                              ),
+                                    refresh();
+                                    Navigator.of(context).pop();
+                                  },
+                                  padding: EdgeInsets.only(
+                                      left: 25,
+                                      right: 25,
+                                      top: 15,
+                                      bottom: 15
+                                  ),
+                                  color: PGUColors.accent,
+                                  child: Text(
+                                    "Speichern",
+                                    style: TextStyle(
+                                        color: PGUColors.text,
+                                        fontFamily: 'Mont'
+                                    ),
+                                  ),
+                                )
                             ),
                           ],
                         ),
@@ -503,22 +563,43 @@ class _VertretungenState extends State<Vertretungen> {
 
   Widget ausgeblendeterKursWidget(String kurs, Function setState){
     return Container(
-      padding: EdgeInsets.only(
-        bottom: 15,
-        left: 50,
-        right: 50
+      height: 80,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: PGUColors.background.withOpacity(0.075),
+        borderRadius: BorderRadius.circular(15)
       ),
+      margin: EdgeInsets.only(
+        bottom: 15,
+        left: 15,
+        right: 15
+      ),
+      clipBehavior: Clip.hardEdge,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Container(
+            width: 15,
+            color: ColorChooser.pickColor(kurs.split("|")[1]).withOpacity(0.75),
+          ),
+          SizedBox(
+            width: 20,
+          ),
           Expanded(
-            child: Text(
-              kurs.replaceAll("|", " "),
-              style: TextStyle(
-                  fontFamily: 'Mont',
-                  fontSize: 20
-              ),
+            child: RichText(
+              text: TextSpan(
+                  text: kurs.split("|")[0] + "\n",
+                  style: TextStyle(
+                      fontFamily: 'Mont-normal',
+                      fontSize: 15,
+                      color: PGUColors.background),
+                  children: [
+                    TextSpan(
+                        text: kurs.split("|")[1] + " " + kurs.split("|")[2],
+                        style:
+                        TextStyle(fontFamily: 'Mont', fontSize: 22.5))
+                  ]),
             ),
           ),
           GestureDetector(
@@ -532,11 +613,28 @@ class _VertretungenState extends State<Vertretungen> {
 
               });
             },
-            child: Icon(
-              changed![kurs]! ? Icons.visibility_rounded : Icons.visibility_off_rounded,
-              color: PGUColors.background,
+            child: Container(
+              color: PGUColors.transparent,
+              child: Row(
+                children: [
+                  Text(
+                    changed![kurs]! ? "Verbergen" : "Anzeigen",
+                    style: TextStyle(fontFamily: 'Mont-normal', fontSize: 15),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Icon(
+                    changed![kurs]! ? Icons.visibility_rounded : Icons.visibility_off_rounded,
+                    color: PGUColors.background,
+                  )
+                ],
+              ),
             ),
-          )
+          ),
+          SizedBox(
+            width: 20,
+          ),
         ],
       ),
     );
