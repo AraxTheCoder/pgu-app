@@ -74,7 +74,8 @@ class _VertretungenState extends State<Vertretungen> {
       print("[Vertretungen] Load " + classCode.name!);
 
       //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
-      Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?class=" + classCode.name!);//TODO old = get
+      //FIXME: to fetch all old use 'old' instead of 'get'
+      Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?type=s&content=" + classCode.name!);
 
       if(response.statusCode == 200){
         print("[Vertretungen] Loaded Subsitutions");

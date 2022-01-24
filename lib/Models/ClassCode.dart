@@ -41,7 +41,7 @@ class ClassCode{
               alignment: Alignment.center,
               child: RichText(
                 text: TextSpan(
-                    text: classCode.name!.startsNumeric() ? "Klasse" : (StorageManager.getString(StorageKeys.loggedIn) == "schueler" ? "Stufe" : "Lehrer"),
+                    text: classCode.name!.startsNumeric() ? "Klasse" : (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Stufe" : "Lehrer"),
                     style: TextStyle(
                         fontFamily: 'Mont-normal',
                         fontSize: 12,

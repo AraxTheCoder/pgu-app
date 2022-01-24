@@ -8,7 +8,8 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 - Klassen nur bei Übergabe von (klartext Passwort + salt).hashed
 
 ## Features
-
+[ ] Lehrer Vertretungen bekommen
+[ ] Fehlermeldungen
 [x] Nur ausgewählte Klassen sehen
 [ ] Benachrichtigungen bei neuen Vertretungen
 [x] Fächerfarbe selber auswählen

@@ -600,34 +600,34 @@ class _ClassesState extends State<Classes> {
 
   Dio dio = new Dio();
 
-  void validateCode(String code, BuildContext context) async {
-    if(code.length == 8){
-      closeKeyboard(context);
-
-      String? token = await FirebaseMessaging.instance.getToken();
-
-      Response response = await dio.get("https://pgu.backslash-vr.com/api/user/authorize?code=" + code + "&token=" + token!);
-
-      if(response.statusCode == 200){
-        print(response.data.toString());
-
-        ClassCode classCode = new ClassCode.fromJson(jsonDecode(response.data.toString()));
-
-        if(entities.indexWhere((element) => element.code == classCode.code) == -1)
-          entities.add(classCode);
-
-        print("[Classes] Number of Classes:" + entities.length.toString());
-
-        StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
-
-        //response = await dio.get("https://pgu.backslash-vr.com/api/notifications/subscribe?code=" + code + "&token=" + token!);
-
-        Navigator.of(context).pop();
-
-        setState(()=>null);
-      }
-    }
-  }
+  // void validateCode(String code, BuildContext context) async {
+  //   if(code.length == 8){
+  //     closeKeyboard(context);
+  //
+  //     String? token = await FirebaseMessaging.instance.getToken();
+  //
+  //     Response response = await dio.get("https://pgu.backslash-vr.com/api/user/authorize?code=" + code + "&token=" + token!);
+  //
+  //     if(response.statusCode == 200){
+  //       print(response.data.toString());
+  //
+  //       ClassCode classCode = new ClassCode.fromJson(jsonDecode(response.data.toString()));
+  //
+  //       if(entities.indexWhere((element) => element.code == classCode.code) == -1)
+  //         entities.add(classCode);
+  //
+  //       print("[Classes] Number of Classes:" + entities.length.toString());
+  //
+  //       StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
+  //
+  //       //response = await dio.get("https://pgu.backslash-vr.com/api/notifications/subscribe?code=" + code + "&token=" + token!);
+  //
+  //       Navigator.of(context).pop();
+  //
+  //       setState(()=>null);
+  //     }
+  //   }
+  // }
 
   List<Widget> classItems() {
     List<Widget> classItems = [];
