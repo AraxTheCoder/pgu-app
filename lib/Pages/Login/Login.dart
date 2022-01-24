@@ -6,6 +6,7 @@ import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Utils/Keyboard.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
+import 'package:pgu/Widgets/Input/OnelineInput.dart';
 import 'package:pgu/Widgets/Output/FlushbarHelper.dart';
 import 'package:pgu/Widgets/Output/flushbar.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
@@ -78,11 +79,11 @@ class _LoginState extends State<Login> {
                                 ),
                               ),
                             ),
-                            input(usernameController, "Benutzername"),
+                            OnelineInput(usernameController, "Benutzername", Icons.person_rounded),
                             SizedBox(
                               height: 20,
                             ),
-                            input(passwordController, "Passwort")
+                            OnelineInput(passwordController, "Passwort", Icons.vpn_key_rounded)
                           ],
                         ),
                       ),
@@ -133,33 +134,6 @@ class _LoginState extends State<Login> {
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget input(TextEditingController controller, String hint){
-    return TextField(
-      maxLines: 1,
-      autofocus: false,
-      keyboardType: TextInputType.name,
-      style: TextStyle(
-          color: PGUColors.background,
-          fontFamily: 'Mont'
-      ),
-      controller: controller,
-      decoration: InputDecoration(
-        fillColor: PGUColors.inputBackground,
-        filled: true,
-        hintText: hint,
-        prefix: SizedBox(width: 15,),
-        hintStyle: TextStyle(
-            color: PGUColors.inactive,
-            fontFamily: 'Mont'
-        ),
-        border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide.none
         ),
       ),
     );
