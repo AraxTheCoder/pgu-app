@@ -38,6 +38,7 @@ class Classes extends StatefulWidget {
 }
 
 class _ClassesState extends State<Classes> {
+  final TextEditingController nameController = new TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -170,8 +171,8 @@ class _ClassesState extends State<Classes> {
                     Transform.rotate(
                       angle: -pi / 4,
                       child: Container(
-                        height: SDP.sdp(50),
-                        width: SDP.sdp(50),
+                        height: 75,
+                        width: 75,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(30),
                           child: SvgPicture.asset(
@@ -179,9 +180,6 @@ class _ClassesState extends State<Classes> {
                             allowDrawingOutsideViewBox: false,
                             fit: BoxFit.cover,
                           ),
-                          // child: Container(
-                          //   color: PGUColors.background,
-                          // )
                         ),
                       ),
                     ),
@@ -273,157 +271,8 @@ class _ClassesState extends State<Classes> {
   }
 
   void addClicked() {
-    TextEditingController codeController = new TextEditingController();
+    int state = 0;
 
-    // showDialog(
-    //     context: context,
-    //     builder: (BuildContext context) {
-    //       return StatefulBuilder(
-    //         builder: (context, setState) {
-    //           return WillPopScope(
-    //             onWillPop: () async {
-    //               closeKeyboard(context);
-    //
-    //               return false;
-    //             },
-    //             child: Dialog(
-    //               shape: RoundedRectangleBorder(
-    //                 borderRadius: BorderRadius.circular(25),
-    //               ),
-    //               elevation: 6,
-    //               backgroundColor: Colors.transparent,
-    //               child: Container(
-    //                 height: 250,
-    //                 decoration: BoxDecoration(
-    //                   color: Colors.white,
-    //                   shape: BoxShape.rectangle,
-    //                   borderRadius: BorderRadius.all(Radius.circular(25)),
-    //                 ),
-    //                 child: Column(
-    //                   children: <Widget>[
-    //                     Padding(
-    //                       padding: EdgeInsets.only(
-    //                           top: 20
-    //                       ),
-    //                       child: Text(
-    //                         "Klasse hinzufügen",
-    //                         textAlign: TextAlign.center,
-    //                         style: TextStyle(
-    //                           color: PGUColors.background,
-    //                           fontFamily: 'Mont',
-    //                           fontSize: 25,
-    //                         ),
-    //                       ),
-    //                     ),
-    //                     Padding(
-    //                         padding: EdgeInsets.only(
-    //                             top: 25,
-    //                             right: 25,
-    //                             left: 25
-    //                         ),
-    //                         child: TextFormField(
-    //                           maxLines: 1,
-    //                           autofocus: false,
-    //                           maxLength: 8,
-    //                           // maxLengthEnforcement: MaxLengthEnforcement.enforced,
-    //                           controller: codeController,
-    //                           onChanged: (value) {
-    //                             setState((){
-    //
-    //                             });
-    //                           },
-    //                           keyboardType: TextInputType.visiblePassword,
-    //                           style: TextStyle(
-    //                               color: PGUColors.background,
-    //                               fontFamily: 'Mont'
-    //                           ),
-    //                           decoration: InputDecoration(
-    //                             labelText: 'Code',
-    //                             labelStyle: TextStyle(
-    //                                 color: PGUColors.background,
-    //                                 fontFamily: 'Mont'
-    //                             ),
-    //                             focusColor: PGUColors.background,
-    //                             // border: OutlineInputBorder(
-    //                             //   borderRadius: BorderRadius.circular(25),
-    //                             // ),
-    //                             focusedBorder: OutlineInputBorder(
-    //                               borderRadius: BorderRadius.circular(25.0),
-    //                               borderSide: BorderSide(
-    //                                   color: PGUColors.background,
-    //                                   width: 1.5
-    //                               ),
-    //                             ),
-    //                             enabledBorder: OutlineInputBorder(
-    //                               borderRadius: BorderRadius.circular(25.0),
-    //                               borderSide: BorderSide(
-    //                                   color: PGUColors.background,
-    //                                   width: 1.5
-    //                               ),
-    //                             ),
-    //                           ),
-    //                         )),
-    //                     Expanded(
-    //                       child: Row(
-    //                         mainAxisSize: MainAxisSize.min,
-    //                         children: <Widget>[
-    //                           FlatButton(
-    //                             shape: RoundedRectangleBorder(
-    //                               borderRadius: BorderRadius.circular(25),
-    //                             ),
-    //                             onPressed: () {
-    //                               Navigator.of(context).pop();
-    //                             },
-    //                             padding: EdgeInsets.only(
-    //                                 left: 25,
-    //                                 right: 25,
-    //                                 top: 15,
-    //                                 bottom: 15
-    //                             ),
-    //                             // color: PGUColors.accent,
-    //                             child: Text(
-    //                               "Abbrechen",
-    //                               style: TextStyle(
-    //                                   color: PGUColors.background,
-    //                                   fontFamily: 'Mont'
-    //                               ),
-    //                             ),
-    //                           ),
-    //                           FlatButton(
-    //                             shape: RoundedRectangleBorder(
-    //                               borderRadius: BorderRadius.circular(25),
-    //                             ),
-    //                             onPressed: () {
-    //                               validateCode(codeController.text, context);
-    //                             },
-    //                             padding: EdgeInsets.only(
-    //                                 left: 25,
-    //                                 right: 25,
-    //                                 top: 15,
-    //                                 bottom: 15
-    //                             ),
-    //                             color: codeController.text.length < 8 ? PGUColors.red : PGUColors.accent,
-    //                             child: Text(
-    //                               "Hinzufügen",
-    //                               style: TextStyle(
-    //                                   color: PGUColors.text,
-    //                                   fontFamily: 'Mont'
-    //                               ),
-    //                             ),
-    //                           ),
-    //                         ],
-    //                       ),
-    //                     )
-    //                   ],
-    //                 ),
-    //               ),
-    //             ),
-    //           );
-    //         },
-    //       );
-    //     });
-    //TODO: Close Dialog when Keyboard closed and Background pressed
-    //Otherwise close Keyboard when Background pressed
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -431,9 +280,13 @@ class _ClassesState extends State<Classes> {
             builder: (context, setState) {
               return WillPopScope(
                 onWillPop: () async {
-                  closeKeyboard(context);
+                  if(state == 1) {
+                    closeKeyboard(context);
+                    state = 0;
+                    return false;
+                  }
 
-                  return false;
+                  return true;
                 },
                 child: Dialog(
                   shape: RoundedRectangleBorder(
@@ -442,22 +295,21 @@ class _ClassesState extends State<Classes> {
                   elevation: 6,
                   backgroundColor: Colors.transparent,
                   child: Container(
-                    height: 250,
+                    height: 300,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(25)),
                     ),
-                    child: Column(
+                    child: Stack(
                       children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(
-                              top: 20,
-                            bottom: 5
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: 30,
                           ),
+                          alignment: Alignment.topCenter,
                           child: Text(
                             "Klasse hinzufügen",
-                            textAlign: TextAlign.center,
                             style: TextStyle(
                               color: PGUColors.background,
                               fontFamily: 'Mont',
@@ -465,12 +317,13 @@ class _ClassesState extends State<Classes> {
                             ),
                           ),
                         ),
-                        Padding(
-                            padding: EdgeInsets.only(
-                                top: 25,
+                        Container(
+                            margin: EdgeInsets.only(
+                                //top: 25,
                                 right: 25,
                                 left: 25
                             ),
+                            alignment: Alignment.center,
                             child: TextFormField(
                               maxLines: 1,
                               autofocus: false,
@@ -480,7 +333,14 @@ class _ClassesState extends State<Classes> {
                                 FilteringTextInputFormatter.deny(" ")
                               ],
                               // maxLengthEnforcement: MaxLengthEnforcement.enforced,
-                              controller: codeController,
+                              controller: nameController,
+                              onTap: (){
+                                state = 1;
+                              },
+                              onEditingComplete: (){
+                                state = 0;
+                                Keyboard.close(context);
+                              },
                               onChanged: (value) {
                                 setState((){
 
@@ -492,32 +352,26 @@ class _ClassesState extends State<Classes> {
                                   fontFamily: 'Mont'
                               ),
                               decoration: InputDecoration(
-                                labelText: 'Klasse',
-                                labelStyle: TextStyle(
-                                    color: PGUColors.background,
+                                fillColor: PGUColors.inputBackground,
+                                filled: true,
+                                hintText: "Klasse",
+                                prefix: SizedBox(width: 15,),
+                                hintStyle: TextStyle(
+                                    color: PGUColors.inactive,
                                     fontFamily: 'Mont'
                                 ),
-                                focusColor: PGUColors.background,
-                                // border: OutlineInputBorder(
-                                //   borderRadius: BorderRadius.circular(25),
-                                // ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                  borderSide: BorderSide(
-                                      color: PGUColors.background,
-                                      width: 1.5
-                                  ),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(25.0),
-                                  borderSide: BorderSide(
-                                      color: PGUColors.background,
-                                      width: 1.5
-                                  ),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15),
+                                    borderSide: BorderSide.none
                                 ),
                               ),
-                            )),
-                        Expanded(
+                            )
+                        ),
+                        Container(
+                          alignment: Alignment.bottomCenter,
+                          margin: EdgeInsets.only(
+                            bottom: 25
+                          ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: <Widget>[
@@ -551,7 +405,7 @@ class _ClassesState extends State<Classes> {
                                   //validateCode(codeController.text, context);
                                   closeKeyboard(context);
 
-                                  addClass(codeController.text.toUpperCase());
+                                  addClass(nameController.text.toUpperCase());
                                 },
                                 padding: EdgeInsets.only(
                                     left: 25,
@@ -559,7 +413,7 @@ class _ClassesState extends State<Classes> {
                                     top: 15,
                                     bottom: 15
                                 ),
-                                color: codeController.text.length < 2 ? PGUColors.red : PGUColors.accent,
+                                color: nameController.text.length < 2 ? PGUColors.red : PGUColors.accent,
                                 child: Text(
                                   "Hinzufügen",
                                   style: TextStyle(
@@ -590,55 +444,26 @@ class _ClassesState extends State<Classes> {
       return;
     }
 
-    ClassModel classCode = new ClassModel(className);
+    ClassModel classModel = new ClassModel(className);
 
-    if(entities.indexWhere((element) => element.name == classCode.name) == -1)
-      entities.add(classCode);
-
-    if(!classCode.name!.isValidClassname())
+    if(!classModel.name!.isValidClassname())
       return;
+
+    if(entities.indexWhere((element) => element.name == classModel.name) == -1)
+      entities.add(classModel);
 
     print("[Classes] Number of Classes: " + entities.length.toString());
 
     StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
 
-    //response = await dio.get("https://pgu.backslash-vr.com/api/notifications/subscribe?code=" + code + "&token=" + token!);
-
     Navigator.of(context).pop();
+
+    nameController.clear();
 
     setState(()=>null);
   }
 
   Dio dio = new Dio();
-
-  // void validateCode(String code, BuildContext context) async {
-  //   if(code.length == 8){
-  //     closeKeyboard(context);
-  //
-  //     String? token = await FirebaseMessaging.instance.getToken();
-  //
-  //     Response response = await dio.get("https://pgu.backslash-vr.com/api/user/authorize?code=" + code + "&token=" + token!);
-  //
-  //     if(response.statusCode == 200){
-  //       print(response.data.toString());
-  //
-  //       ClassModel classCode = new ClassModel.fromJson(jsonDecode(response.data.toString()));
-  //
-  //       if(entities.indexWhere((element) => element.code == classCode.code) == -1)
-  //         entities.add(classCode);
-  //
-  //       print("[Classes] Number of Classes:" + entities.length.toString());
-  //
-  //       StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
-  //
-  //       //response = await dio.get("https://pgu.backslash-vr.com/api/notifications/subscribe?code=" + code + "&token=" + token!);
-  //
-  //       Navigator.of(context).pop();
-  //
-  //       setState(()=>null);
-  //     }
-  //   }
-  // }
 
   List<Widget> classItems() {
     List<Widget> classItems = [];

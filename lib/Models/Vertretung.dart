@@ -197,7 +197,7 @@ class Vertretung{
               decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.all(Radius.circular(25)),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,

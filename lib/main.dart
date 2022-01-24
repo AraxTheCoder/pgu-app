@@ -43,7 +43,7 @@ class _PGUAppState extends State<PGUApp>{
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle(
-            statusBarColor: PGUColors.transparent,//.background,
+            statusBarColor: PGUColors.transparent,
             statusBarIconBrightness: PGUColors.brightness,
             statusBarBrightness: PGUColors.brightness,
             systemNavigationBarColor: PGUColors.transparent
