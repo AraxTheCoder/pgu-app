@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pgu/Models/ClassCode.dart';
+import 'package:pgu/Models/ClassModel.dart';
 import 'package:pgu/Models/Vertretung.dart';
 import 'package:pgu/Pages/Classes/Classes.dart';
 import 'package:pgu/Pages/Settings/Settings.dart';
@@ -41,8 +41,8 @@ class _VertretungenState extends State<Vertretungen> {
     String jsonString = StorageManager.getString(StorageKeys.classes);
 
     if (jsonString.isNotEmpty) {
-      classes = List<ClassCode>.from(
-          json.decode(jsonString).map((model) => ClassCode.fromJson(model)));
+      classes = List<ClassModel>.from(
+          json.decode(jsonString).map((model) => ClassModel.fromJson(model)));
 
       if(classes.isNotEmpty)
         loadCachedVertretungen();
@@ -70,7 +70,7 @@ class _VertretungenState extends State<Vertretungen> {
     entities = [];
     bool classnameChange = false;
     for(int a = 0; a < classes.length; a++){
-      ClassCode classCode = classes[a];
+      ClassModel classCode = classes[a];
       print("[Vertretungen] Load " + classCode.name!);
 
       //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
@@ -103,7 +103,7 @@ class _VertretungenState extends State<Vertretungen> {
     }
   }
 
-  List<ClassCode> classes = [];
+  List<ClassModel> classes = [];
 
   List<Vertretung> entities = [];
   List<Vertretung> cachedEntities = [];

@@ -9,7 +9,9 @@ class FlushbarHelper{
   static Flushbar createError(
       {required String message,
         required String title,
-        Duration duration = const Duration(seconds: 3)}) {
+        Duration duration = const Duration(seconds: 3),
+        FlushbarPosition position = FlushbarPosition.BOTTOM
+      }) {
     return Flushbar(
       title: title,
       message: message,
@@ -23,10 +25,10 @@ class FlushbarHelper{
       blockBackgroundInteraction: false,//true
       isDismissible: false,
       leftBarIndicatorColor: Colors.red[300],
-      flushbarPosition: FlushbarPosition.BOTTOM,
-      margin: EdgeInsets.only(
-        top: 10
-      ),
+      flushbarPosition: position,
+      // margin: EdgeInsets.only(
+      //   top: 10
+      // ),
       messageText: Text(
           message,
         style: TextStyle(
@@ -37,8 +39,8 @@ class FlushbarHelper{
       padding: EdgeInsets.only(
         left: 30,
         right: 16,
-        top: 30,//16
-        bottom: 30
+        top: 25,//16
+        bottom: 25
       ),
       titleText: Text(
         title,

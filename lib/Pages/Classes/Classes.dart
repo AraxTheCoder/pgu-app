@@ -7,16 +7,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Extensions/StringExtensions.dart';
 import 'package:pgu/Formatter/UpperCaseTextFormatter.dart';
-import 'package:pgu/Models/ClassCode.dart';
+import 'package:pgu/Models/ClassModel.dart';
+import 'package:pgu/Models/ClassModel.dart';
 import 'package:pgu/Pages/Settings/Settings.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
+import 'package:pgu/Utils/Keyboard.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
 import 'dart:math';
 
 import 'package:pgu/Values/Size/TextSize.dart';
+import 'package:pgu/Widgets/Output/FlushbarHelper.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
 
 /*
@@ -46,12 +49,12 @@ class _ClassesState extends State<Classes> {
     String jsonString = StorageManager.getString(StorageKeys.classes);
 
     if (jsonString.isNotEmpty) {
-      entities = List<ClassCode>.from(
-          json.decode(jsonString).map((model) => ClassCode.fromJson(model)));
+      entities = List<ClassModel>.from(
+          json.decode(jsonString).map((model) => ClassModel.fromJson(model)));
     }
   }
 
-  List<ClassCode> entities = [];
+  List<ClassModel> entities = [];
 
   @override
   Widget build(BuildContext context) {
@@ -419,6 +422,8 @@ class _ClassesState extends State<Classes> {
     //         },
     //       );
     //     });
+    //TODO: Close Dialog when Keyboard closed and Background pressed
+    //Otherwise close Keyboard when Background pressed
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -447,7 +452,8 @@ class _ClassesState extends State<Classes> {
                       children: <Widget>[
                         Padding(
                           padding: EdgeInsets.only(
-                              top: 20
+                              top: 20,
+                            bottom: 5
                           ),
                           child: Text(
                             "Klasse hinzufügen",
@@ -575,11 +581,16 @@ class _ClassesState extends State<Classes> {
         });
   }
 
-  void addClass(String text){
-    if(text.length < 2)
+  void addClass(String className){
+    if(className.length < 2) {
+      Keyboard.close(context);
+      FlushbarHelper.createError(
+          message: "So sieht eine Klasse aus: 8b", title: "Zu kurz   : ("
+      )..show(context);
       return;
+    }
 
-    ClassCode classCode = new ClassCode(text, "");
+    ClassModel classCode = new ClassModel(className);
 
     if(entities.indexWhere((element) => element.name == classCode.name) == -1)
       entities.add(classCode);
@@ -611,7 +622,7 @@ class _ClassesState extends State<Classes> {
   //     if(response.statusCode == 200){
   //       print(response.data.toString());
   //
-  //       ClassCode classCode = new ClassCode.fromJson(jsonDecode(response.data.toString()));
+  //       ClassModel classCode = new ClassModel.fromJson(jsonDecode(response.data.toString()));
   //
   //       if(entities.indexWhere((element) => element.code == classCode.code) == -1)
   //         entities.add(classCode);
@@ -633,13 +644,13 @@ class _ClassesState extends State<Classes> {
     List<Widget> classItems = [];
 
     for (int a = 0; a < entities.length; a++) {
-      classItems.add(ClassCode.item(entities[a], deleteClass));
+      classItems.add(ClassModel.item(entities[a], deleteClass));
     }
 
     return classItems;
   }
 
-  void deleteClass(ClassCode classCode){
+  void deleteClass(ClassModel classCode){
     print("[Classes] Delete " + classCode.name!);
     entities.remove(classCode);
     StorageManager.setString(StorageKeys.classes, jsonEncode(entities));

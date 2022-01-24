@@ -8,11 +8,11 @@ import 'package:pgu/Pages/Login/Login.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
+import 'package:pgu/Values/Consts/AppInfo.dart';
 import 'package:pgu/Values/Consts/Consts.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
 import 'package:pgu/Values/Size/TextSize.dart';
-import 'package:pgu/Values/Consts/AppInfo.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
 
 /*
@@ -27,7 +27,6 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
-
   Timer? splashDelay;
 
   @override

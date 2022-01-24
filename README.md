@@ -6,6 +6,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 
 ## TODO
 - Klassen nur bei Übergabe von (klartext Passwort + salt).hashed
+[ ] Replace SDP
 
 ## Features
 [ ] Lehrer Vertretungen bekommen
@@ -19,16 +20,20 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 - Ausgeblendete Kurse in neuem Schuljahr resetten
 - Benachrichtigungen einbauen
 - Firebase Token an Server senden mit Code (wenn sich token ändert überschreiben)
+- Wenn neue Vertretung Benachrichtigung senden
+
+## Optional
+[ ] Suffix Icon bei Login
 
 ## Roadmap (Nicht nach Priorität geordnet)
 - Spiele in Einstellungen unter Versionsnummer
 - Termine einbauen (https://www.pgu.de/aktuelles/termine)
 - Benachrichtigungen nur mit Filter senden (ohne ausgeblendete Kurse)
 - Benachrichtigungen gestalten (Icon)
-- Json Parsing Error behandeln
+- Json Parsing Error behandeln (Welcher?
 
 ## Working on
-- Wenn neue Vertretung Benachrichtigung senden
+
 
 ## Benutzte Resourcen
 - https://medium.com/@info_67212/flutter-swipe-your-widget-for-more-action-items-2b85866ca238
