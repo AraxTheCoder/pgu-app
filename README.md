@@ -16,7 +16,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 [ ] App Größe vermindern (https://itnext.io/reducing-flutter-app-size-570db9810ebb) \
 [x] Loading Animation\
 [x] Settings Baustelle (https://www.pexels.com/de-de/foto/person-frau-bau-arbeiten-8960933/) \
-[x] Links öffnen (https://pub.dev/packages/url_launcher) \
+[x] Links öffnen (https://pub.dev/packages/url_launcher) 
 
 ## Features
 [x] Vertretung API letzten Stand mitsenden um Geschwindigkeit zu erhöhen\
@@ -26,7 +26,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 [x] Fächer wieder anzeigen lassen\
 [ ] Benachrichtigungen bei neuen Vertretungen\
 [ ] Benachrichtigungen nur mit Filter senden (ohne ausgeblendete Kurse)\
-[ ] Firebase Token an Server senden mit Code (wenn sich token ändert überschreiben)\
+[ ] Firebase Token an Server senden mit Code (wenn sich token ändert überschreiben)
 
 ##Erweiterung
 [ ] Voreinstellungen Fächerfarben\
@@ -39,11 +39,11 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 - Ausgeblendete Kurse in neuem Schuljahr resetten\
 - Spiele in Einstellungen unter Versionsnummer\
 - Termine einbauen (https://www.pgu.de/aktuelles/termine)\
-- Json Parsing Error behandeln (Welcher?\
+- Json Parsing Error behandeln (Welcher?)
 
 ## Benutzte Resourcen
 - https://medium.com/@info_67212/flutter-swipe-your-widget-for-more-action-items-2b85866ca238\
-- https://firebase.flutter.dev/docs/messaging/notifications/\
+- https://firebase.flutter.dev/docs/messaging/notifications/
 
 ## API
 
