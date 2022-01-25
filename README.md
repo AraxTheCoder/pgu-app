@@ -13,7 +13,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 [ ] App Größe vermindern (https://itnext.io/reducing-flutter-app-size-570db9810ebb)\
 [ ] Loading Animation\
 [ ] Fehler in Backend beheben\
-[x] Settings Baustelle (https://www.pexels.com/de-de/foto/person-frau-bau-arbeiten-8960933/)\
+[x] Settings Baustelle (https://www.pexels.com/de-de/foto/person-frau-bau-arbeiten-8960933/) \
 [x] Links öffnen (https://pub.dev/packages/url_launcher)\
 
 ## Features
