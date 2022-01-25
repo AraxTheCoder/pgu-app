@@ -10,6 +10,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 [x] Lehrer Vertretungen bekommen\
 [ ] Tagestitel anzeigen + fetchen\
 [ ] Fehler in Backend beheben\
+[ ] Intro/Tutorial Screen\
 [ ] Replace SDP\
 [ ] Versionsnummer check\
 [ ] App Größe vermindern (https://itnext.io/reducing-flutter-app-size-570db9810ebb) \
