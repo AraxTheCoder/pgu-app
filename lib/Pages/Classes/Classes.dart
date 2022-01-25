@@ -97,7 +97,7 @@ class _ClassesState extends State<Classes> {
                             color: PGUColors.background),
                         children: [
                           TextSpan(
-                              text: "Klassen",
+                              text: StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel",
                               style:
                                   TextStyle(fontFamily: 'Mont', fontSize: 32))
                         ]),
@@ -119,7 +119,7 @@ class _ClassesState extends State<Classes> {
                                 child: Stack(
                                   children: [
                                     Text(
-                                      "Keine Klassen",
+                                      "Keine " + (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel"),
                                       style: TextStyle(
                                         fontSize: TextSize.big,
                                         fontFamily: 'Mont',
@@ -130,7 +130,7 @@ class _ClassesState extends State<Classes> {
                                       ),
                                     ),
                                     Text(
-                                      "Keine Klassen",
+                                      "Keine " + (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel"),
                                       style: TextStyle(
                                         color: PGUColors.text,
                                         fontSize: TextSize.big,
@@ -336,7 +336,7 @@ class _ClassesState extends State<Classes> {
                           ),
                           alignment: Alignment.topCenter,
                           child: Text(
-                            "Klasse hinzufügen",
+                            (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel") + " hinzufügen",
                             style: TextStyle(
                               color: PGUColors.background,
                               fontFamily: 'Mont',
@@ -354,7 +354,7 @@ class _ClassesState extends State<Classes> {
                             child: TextFormField(
                               maxLines: 1,
                               autofocus: false,
-                              maxLength: 2,
+                              maxLength: StorageManager.getString(StorageKeys.loggedIn) == "s" ? 2 : 5,
                               inputFormatters: [
                                 UpperCaseTextFormatter(),
                                 FilteringTextInputFormatter.deny(" ")
@@ -381,7 +381,7 @@ class _ClassesState extends State<Classes> {
                               decoration: InputDecoration(
                                 fillColor: PGUColors.inputBackground,
                                 filled: true,
-                                hintText: "Klasse",
+                                hintText: StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel",
                                 prefix: SizedBox(width: 15,),
                                 hintStyle: TextStyle(
                                     color: PGUColors.inactive,
@@ -463,20 +463,30 @@ class _ClassesState extends State<Classes> {
   }
 
   void addClass(String className){
-    if(className.length < 2) {
-      Keyboard.close(context);
-      FlushbarHelper.createError(
-          message: "So sieht eine Klasse aus: 8b", title: "Zu kurz   : ("
-      )..show(context);
-      return;
-    }
+    if(StorageManager.getString(StorageKeys.loggedIn) == "s"){
+      if(className.length < 2) {
+        Keyboard.close(context);
+        FlushbarHelper.createError(
+            message: "So sieht eine Klasse aus: 8b", title: "Zu kurz   : ("
+        )..show(context);
+        return;
+      }
 
-    if(!className.isValidClassname()) {
-      Keyboard.close(context);
-      FlushbarHelper.createError(
-          message: "So sieht eine Klasse aus: 8b", title: "Nope   : ("
-      )..show(context);
-      return;
+      if(!className.isValidClassname()) {
+        Keyboard.close(context);
+        FlushbarHelper.createError(
+            message: "So sieht eine Klasse aus: 8b", title: "Nope   : ("
+        )..show(context);
+        return;
+      }
+    }else{
+      if(className.length < 2) {
+        Keyboard.close(context);
+        FlushbarHelper.createError(
+            message: "So sieht ein Kürzel aus: RICH", title: "Zu kurz   : ("
+        )..show(context);
+        return;
+      }
     }
 
     ClassModel classModel = new ClassModel(className);
@@ -502,6 +512,7 @@ class _ClassesState extends State<Classes> {
     print("[Classes] Delete " + classCode.name!);
     entities.remove(classCode);
     StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
+    StorageManager.setString(StorageKeys.lastFetched, "");
 
     setState(()=>null);
   }

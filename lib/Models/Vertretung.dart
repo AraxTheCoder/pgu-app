@@ -50,11 +50,14 @@ class Vertretung{
     List<ActionItems> items = [];
 
     if(vertretung.kurs != "/"){
-      items = <ActionItems>[//TODO: Check if vertretung.vertreter!.split("→")[0] return original teacher
-        ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ hideKurs(context, vertretung.klasse!, vertretung.kurs!, vertretung.vertreter!.split("→")[0], refresh); }, backgroudColor: Colors.white),
-        ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.klasse!, vertretung.kurs!, refresh);}, backgroudColor: Colors.white),
-      ];
+      items = <ActionItems>[];
+
+      if(StorageManager.getString(StorageKeys.loggedIn) == "s")
+        items.add(ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ hideKurs(context, vertretung.klasse!, vertretung.kurs!, vertretung.vertreter!.split("→")[0], refresh); }, backgroudColor: Colors.white));
+
+      items.add(ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.klasse!, vertretung.kurs!, refresh);}, backgroudColor: Colors.white));
     }
+
     return OnSlide(
         items: items,
         child: Padding(

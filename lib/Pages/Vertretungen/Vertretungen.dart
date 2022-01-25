@@ -85,7 +85,9 @@ class _VertretungenState extends State<Vertretungen> {
 
     //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
     //FIXME: to fetch all old use 'old' instead of 'get'
-    Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?type=s&content=" + params + "&apikey=" + StorageManager.getString(StorageKeys.apikey) + "&lastFetched=" + StorageManager.getString(StorageKeys.lastFetched));
+    String url = "https://pgu.backslash-vr.com/api/user/get" + "?type=" + StorageManager.getString(StorageKeys.loggedIn) + "&content=" + params + "&apikey=" + StorageManager.getString(StorageKeys.apikey) + "&lastFetched=" + StorageManager.getString(StorageKeys.lastFetched);
+    Response response = await dio.get(url);
+    //print(url);
 
     if(response.statusCode == 200){
       String responseData = response.data.toString();

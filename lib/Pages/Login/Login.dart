@@ -99,12 +99,13 @@ class _LoginState extends State<Login> {
                           onPressed: () {
                             if(usernameController.value.text.trim().toMd5() == '2d7a486f1e0c643890f817dd6764bc7b' && passwordController.value.text.trim().toMd5() == '098f6bcd4621d373cade4e832627b4f6'){
                               StorageManager.setString(StorageKeys.loggedIn, "s");
-                              StorageManager.setString(StorageKeys.apikey, (usernameController.value.text.trim() + "salt").toMd5());
+                              StorageManager.setString(StorageKeys.apikey, (passwordController.value.text.trim() + "salt").toMd5());
                               print((usernameController.value.text.trim() + "salt").toMd5());
                               NoAnimationRoute.open(context, Vertretungen());
                             }else if(usernameController.value.text.trim().toMd5() == '18a90f2c2b4484de555feb4b02904a7a' && passwordController.value.text.trim().toMd5() == '451c683642186ec715fb6574d57b57a2'){
                               StorageManager.setString(StorageKeys.loggedIn, "l");
-                              StorageManager.setString(StorageKeys.apikey, (usernameController.value.text.trim() + "salt").toMd5());
+                              StorageManager.setString(StorageKeys.apikey, (passwordController.value.text.trim() + "salt").toMd5());
+                              print((usernameController.value.text.trim() + "salt").toMd5());
                               NoAnimationRoute.open(context, Vertretungen());
                             }else{
                               Keyboard.close(context);
