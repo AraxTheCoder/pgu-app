@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Models/ClassModel.dart';
 import 'package:pgu/Models/Vertretung.dart';
@@ -34,7 +35,9 @@ class _VertretungenState extends State<Vertretungen> {
   void initState() {
     super.initState();
 
-    loadClasses();
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      loadClasses();
+    });
   }
 
   void loadClasses() {
@@ -66,6 +69,22 @@ class _VertretungenState extends State<Vertretungen> {
     });
   }
 
+  void showLoading(){
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context){
+        return SpinKitFadingCube(
+          color: PGUColors.text,
+        );
+      }
+    );
+  }
+
+  void hideLoading(){
+    Navigator.of(context).pop('dialog');
+  }
+
   void loadVertretungen() async {
     entities = [];
     bool classnameChange = false;
@@ -82,6 +101,7 @@ class _VertretungenState extends State<Vertretungen> {
     params = params.substring(0, params.length - 1);
 
     print("[Vertretungen] Load " + params);
+    showLoading();
 
     //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
     //FIXME: to fetch all old use 'old' instead of 'get'
@@ -95,6 +115,7 @@ class _VertretungenState extends State<Vertretungen> {
       if(!responseData.startsWith("[") || !responseData.endsWith("]")) {
         print("[Vertretungen] Not fetched");
         print("[Vertretungen] " + responseData);
+        hideLoading();
         return;
       }
 
@@ -116,6 +137,7 @@ class _VertretungenState extends State<Vertretungen> {
     // }
 
     StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
+    hideLoading();
 
     if(mounted)
       setState(()=>null);
