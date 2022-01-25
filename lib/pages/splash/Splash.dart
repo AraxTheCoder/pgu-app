@@ -108,7 +108,7 @@ class _SplashState extends State<Splash> {
             Container(
               alignment: Alignment.bottomCenter,
               padding: EdgeInsets.only(
-                bottom: SDP.sdp(20)
+                bottom: 25
               ),
               child: Text(
                 AppInfo.version,

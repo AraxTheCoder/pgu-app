@@ -1,18 +1,8 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:pgu/Models/ClassModel.dart';
 import 'package:pgu/Pages/Classes/Classes.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
-import 'package:pgu/Storage/StorageKeys.dart';
-import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
-import 'dart:math';
 
 import 'package:pgu/Values/Size/TextSize.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
@@ -231,10 +221,10 @@ class _SettingsState extends State<Settings> {
             Container(
                 alignment: Alignment.bottomCenter,
                 margin: EdgeInsets.only(
-                    bottom: SDP.sdp(25), right: SDP.sdp(20), left: SDP.sdp(20)),
+                    bottom: SDP.sdp(25), right: 25, left: 25),
                 child: Container(
                   width: double.infinity,
-                  height: SDP.sdp(60),
+                  height: 78.5,
                   decoration: BoxDecoration(
                     color: PGUColors.background,
                     borderRadius: BorderRadius.circular(SDP.sdp(27)),
@@ -259,7 +249,7 @@ class _SettingsState extends State<Settings> {
                             child: Icon(
                               Icons.person_outline_rounded, //person_outline_rounded
                               color: PGUColors.text,
-                              size: SDP.sdp(20),
+                              size: 25,
                             ),
                           ),
                         ),
@@ -273,7 +263,7 @@ class _SettingsState extends State<Settings> {
                             child: Icon(
                               Icons.home_outlined, //person_outline_rounded
                               color: PGUColors.text,
-                              size: SDP.sdp(20),
+                              size: 25,
                             ),
                           ),
                         ),
@@ -284,7 +274,7 @@ class _SettingsState extends State<Settings> {
                           child: Icon(
                             Icons.settings_rounded,
                             color: PGUColors.text,
-                            size: SDP.sdp(20),
+                            size: 25,
                           ),
                         ),
                       ),

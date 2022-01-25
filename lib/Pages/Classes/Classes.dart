@@ -222,10 +222,10 @@ class _ClassesState extends State<Classes> {
             Container(
                 alignment: Alignment.bottomCenter,
                 margin: EdgeInsets.only(
-                    bottom: SDP.sdp(25), right: SDP.sdp(20), left: SDP.sdp(20)),
+                    bottom: SDP.sdp(25), right: 25, left: 25),
                 child: Container(
                   width: double.infinity,
-                  height: SDP.sdp(60),
+                  height: 78.5,
                   decoration: BoxDecoration(
                     color: PGUColors.background,
                     borderRadius: BorderRadius.circular(SDP.sdp(27)),
@@ -245,7 +245,7 @@ class _ClassesState extends State<Classes> {
                         child: Icon(
                           Icons.person_rounded, //person_outline_rounded
                           color: PGUColors.text,
-                          size: SDP.sdp(20),
+                          size: 25,
                         ),
                       ),
                       Expanded(
@@ -257,7 +257,7 @@ class _ClassesState extends State<Classes> {
                             child: Icon(
                               Icons.home_outlined,
                               color: PGUColors.text,
-                              size: SDP.sdp(20),
+                              size: 25,
                             ),
                           ),
                         ),
@@ -271,7 +271,7 @@ class _ClassesState extends State<Classes> {
                             child: Icon(
                               Icons.settings_outlined,
                               color: PGUColors.text,
-                              size: SDP.sdp(20),
+                              size: 25,
                             ),
                           ),
                         ),
