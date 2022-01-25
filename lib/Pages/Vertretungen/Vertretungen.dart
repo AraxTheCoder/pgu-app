@@ -69,24 +69,43 @@ class _VertretungenState extends State<Vertretungen> {
   void loadVertretungen() async {
     entities = [];
     bool classnameChange = false;
+    if(classes.isEmpty)
+      return;
+
+    String params = "";
     for(int a = 0; a < classes.length; a++){
       ClassModel classCode = classes[a];
-      print("[Vertretungen] Load " + classCode.name!);
 
-      //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
-      //FIXME: to fetch all old use 'old' instead of 'get'
-      Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?type=s&content=" + classCode.name!);
+      params += classCode.name! + "@";
+    }
 
-      if(response.statusCode == 200){
-        print("[Vertretungen] Loaded Subsitutions");
-        entities += List<Vertretung>.from(
-            json.decode(response.data.toString()).map((model) => Vertretung.fromJson(model)));
+    params = params.substring(0, params.length - 1);
 
-        // if(entities.length >= 1 && classCode.name != entities[entities.length - 1].klasse){
-        //   classes[a].name = entities[entities.length - 1].klasse;
-        //   classnameChange = true;
-        // }
+    print("[Vertretungen] Load " + params);
+
+    //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
+    //FIXME: to fetch all old use 'old' instead of 'get'
+    Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?type=s&content=" + params + "&apikey=" + StorageManager.getString(StorageKeys.apikey) + "&lastFetched=" + StorageManager.getString(StorageKeys.lastFetched));
+
+    if(response.statusCode == 200){
+      String responseData = response.data.toString();
+
+      if(!responseData.startsWith("[") || !responseData.endsWith("]")) {
+        print("[Vertretungen] Not fetched");
+        print("[Vertretungen] " + responseData);
+        return;
       }
+
+      print("[Vertretungen] Loaded Subsitutions");
+      entities += List<Vertretung>.from(
+          json.decode(responseData).map((model) => Vertretung.fromJson(model)));
+
+      StorageManager.setString(StorageKeys.lastFetched, DateTime.now().toString());
+
+      // if(entities.length >= 1 && classCode.name != entities[entities.length - 1].klasse){
+      //   classes[a].name = entities[entities.length - 1].klasse;
+      //   classnameChange = true;
+      // }
     }
 
     // if(classnameChange) {
@@ -96,11 +115,8 @@ class _VertretungenState extends State<Vertretungen> {
 
     StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
 
-    if(mounted){
-      setState(() {
-
-      });
-    }
+    if(mounted)
+      setState(()=>null);
   }
 
   List<ClassModel> classes = [];

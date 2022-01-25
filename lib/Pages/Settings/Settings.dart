@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,6 +16,7 @@ import 'dart:math';
 
 import 'package:pgu/Values/Size/TextSize.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /*
  * By: AraxTheCoder 19.03.2021
@@ -75,39 +77,150 @@ class _SettingsState extends State<Settings> {
                   //   style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
                   Expanded(
                     child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
+                      margin: EdgeInsets.only(
+                        bottom: 110
+                      ),
+                      // child: Column(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   mainAxisSize: MainAxisSize.min,
+                      //   children: [
+                      //     // SizedBox(height: 30,),
+                      //     // Text("Tutorial",
+                      //     //   style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
+                      //     // SizedBox(height: 10,),
+                      //     // GestureDetector(
+                      //     //   onTap: (){
+                      //     //
+                      //     //   },
+                      //     //   child: Text("Tutorial ansehen",
+                      //     //     style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17, color: PGUColors.blue),),
+                      //     // ),
+                      //     SizedBox(height: 30,),
+                      //     Text("Benachrichtigungen",
+                      //       style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
+                      //     SizedBox(height: 10,),
+                      //     Text("Kommen noch",
+                      //       style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
+                      //     SizedBox(height: 30,),
+                      //     Text("Kontakt",
+                      //       style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
+                      //     SizedBox(height: 10,),
+                      //     Text("Bei Fehlern oder Wünschen:\nkrueger.jonathan@gmx.de",
+                      //       style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
+                      //     SizedBox(height: 30,),
+                      //     Text("Source Code",
+                      //       style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
+                      //     SizedBox(height: 10,),
+                      //     Text("github.com/AraxTheCoder/pgu-app",
+                      //       style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
+                      //   ],
+                      // ),
+                      child: Stack(
                         children: [
-                          // SizedBox(height: 30,),
-                          // Text("Tutorial",
-                          //   style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
-                          // SizedBox(height: 10,),
-                          // GestureDetector(
-                          //   onTap: (){
-                          //
-                          //   },
-                          //   child: Text("Tutorial ansehen",
-                          //     style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17, color: PGUColors.blue),),
-                          // ),
-                          SizedBox(height: 30,),
-                          Text("Benachrichtigungen",
-                            style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
-                          SizedBox(height: 10,),
-                          Text("Kommen noch",
-                            style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
-                          SizedBox(height: 30,),
-                          Text("Kontakt",
-                            style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
-                          SizedBox(height: 10,),
-                          Text("Bei Fehlern oder Wünschen:\nkrueger.jonathan@gmx.de",
-                            style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
-                          SizedBox(height: 30,),
-                          Text("Source Code",
-                            style: TextStyle(fontFamily: 'Mont', fontSize: 25),),
-                          SizedBox(height: 10,),
-                          Text("github.com/AraxTheCoder/pgu-app",
-                            style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Text("Source Code",
+                                style:
+                                    TextStyle(fontFamily: 'Mont', fontSize: 20),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  await launch("https://github.com/AraxTheCoder/pgu-app");
+                                },
+                                child: Container(
+                                  color: PGUColors.transparent,
+                                  height: 40,
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "github.com/AraxTheCoder/pgu-app",
+                                    style: TextStyle(
+                                        fontFamily: 'Mont-normal', fontSize: 15,
+                                        color: PGUColors.blue
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 25,
+                              ),
+                              Text("Kontakt",
+                                style:
+                                TextStyle(fontFamily: 'Mont', fontSize: 20),
+                              ),
+                              Text("Bei Fehlern oder Wünschen",
+                                style:
+                                TextStyle(fontFamily: 'Mont', fontSize: 15),
+                              ),
+                              GestureDetector(
+                                onTap: () async {
+                                  await launch("mailto:krueger.jonathan@gmx.de?subject=PGU%20App%20Fehler%20oder%20Wunsch");
+                                },
+                                child: Container(
+                                  color: PGUColors.transparent,
+                                  height: 40,
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    "krueger.jonathan@gmx.de",
+                                    style: TextStyle(
+                                        fontFamily: 'Mont-normal', fontSize: 15,
+                                        color: PGUColors.blue
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Stack(
+                                  alignment: Alignment.center,
+                                  children: [
+                                    Image.asset('assets/baustelle_cropped.png'),
+                                    Text(
+                                      "Baustelle",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: TextSize.big,
+                                        fontFamily: 'Mont',
+                                        foreground: Paint()
+                                          ..style = PaintingStyle.stroke
+                                          ..strokeWidth = 5
+                                          ..color = PGUColors.background,
+                                      ),
+                                    ),
+                                    Text(
+                                      "Baustelle",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: PGUColors.text,
+                                        fontSize: TextSize.big,
+                                        fontFamily: 'Mont',
+                                        shadows: <Shadow>[
+                                          Shadow(
+                                            offset: Offset(10.0, 10.0),
+                                            blurRadius: 3.0,
+                                            color: Color.fromARGB(255, 0, 0, 0),
+                                          ),
+                                          Shadow(
+                                            offset: Offset(10.0, 10.0),
+                                            blurRadius: 8.0,
+                                            color: Color.fromARGB(125, 0, 0, 0),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),

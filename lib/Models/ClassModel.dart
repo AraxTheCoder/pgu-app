@@ -34,7 +34,7 @@ class ClassModel{
       child: Row(
         children: [
           Container(
-            width: 20,
+            width: 15,
             margin: EdgeInsets.only(
               right: 20
             ),

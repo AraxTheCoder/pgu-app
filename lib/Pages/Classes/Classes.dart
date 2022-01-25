@@ -49,13 +49,22 @@ class _ClassesState extends State<Classes> {
   void loadClasses() {
     String jsonString = StorageManager.getString(StorageKeys.classes);
 
+    items.clear();
+
+
     if (jsonString.isNotEmpty) {
-      entities = List<ClassModel>.from(
-          json.decode(jsonString).map((model) => ClassModel.fromJson(model)));
+      items.add(SizedBox(height: 15,));
+
+      entities = List<ClassModel>.from(json.decode(jsonString).map((model) => ClassModel.fromJson(model)));
+
+      items.addAll(entities.map((e) => ClassModel.item(e, deleteClass)));
+
+      items.add(SizedBox(height: 85,));
     }
   }
 
   List<ClassModel> entities = [];
+  List<Widget> items = [];
 
   @override
   Widget build(BuildContext context) {
@@ -146,13 +155,31 @@ class _ClassesState extends State<Classes> {
                             ],
                           ),
                         ),
-                      ) : Padding(
-                        padding: EdgeInsets.only(top: SDP.sdp(30)),
+                      ) : Container(
+                        margin: EdgeInsets.only(
+                          top: 10,
+                          bottom: 130,
+                        ),
                         child: MediaQuery.removePadding(
                           context: context,
                           removeTop: true,
-                          child: ListView(
-                            children: classItems(),
+                          child: ShaderMask(
+                            shaderCallback: (Rect rect) {
+                              return LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
+                                stops: [0.0, 0.05, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
+                              ).createShader(rect);
+                            },
+                            blendMode: BlendMode.dstOut,
+                            child: ListView.builder(
+                              physics: BouncingScrollPhysics(),
+                              itemCount: items.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return items[index];
+                              },
+                            ),
                           ),
                         ),
                       )
@@ -444,10 +471,15 @@ class _ClassesState extends State<Classes> {
       return;
     }
 
-    ClassModel classModel = new ClassModel(className);
-
-    if(!classModel.name!.isValidClassname())
+    if(!className.isValidClassname()) {
+      Keyboard.close(context);
+      FlushbarHelper.createError(
+          message: "So sieht eine Klasse aus: 8b", title: "Nope   : ("
+      )..show(context);
       return;
+    }
+
+    ClassModel classModel = new ClassModel(className);
 
     if(entities.indexWhere((element) => element.name == classModel.name) == -1)
       entities.add(classModel);
@@ -455,6 +487,7 @@ class _ClassesState extends State<Classes> {
     print("[Classes] Number of Classes: " + entities.length.toString());
 
     StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
+    StorageManager.setString(StorageKeys.lastFetched, "");
 
     Navigator.of(context).pop();
 
@@ -464,16 +497,6 @@ class _ClassesState extends State<Classes> {
   }
 
   Dio dio = new Dio();
-
-  List<Widget> classItems() {
-    List<Widget> classItems = [];
-
-    for (int a = 0; a < entities.length; a++) {
-      classItems.add(ClassModel.item(entities[a], deleteClass));
-    }
-
-    return classItems;
-  }
 
   void deleteClass(ClassModel classCode){
     print("[Classes] Delete " + classCode.name!);
