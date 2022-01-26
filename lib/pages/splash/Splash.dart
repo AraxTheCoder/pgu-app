@@ -60,11 +60,15 @@ class _SplashState extends State<Splash> {
 
     if(oldToken != token){
       //Update Token to Server
-      Response response = await dio.get("https://pgu.backslash-vr.com/api/notifications/update?oldToken=" + oldToken + "&token=" + token!);
+      try{
+        Response response = await dio.get("https://pgu.backslash-vr.com/api/notifications/update?oldToken=" + oldToken + "&token=" + token!);
 
-      if(response.statusCode == 200 && response.data == "Updated"){
-        //Save Token
-        StorageManager.setString(StorageKeys.token, token);
+        if(response.statusCode == 200 && response.data == "Updated"){
+          //Save Token
+          StorageManager.setString(StorageKeys.token, token);
+        }
+      }catch (SocketException){
+        print("[Splash] offline");
       }
     }
   }

@@ -115,4 +115,10 @@ extension StringExtensions on String{
 
     return false;
   }
+
+  String dateString(){
+    DateTime dateTime = DateTime.parse(this);
+
+    return dateTime.hour.toString() + ":" + dateTime.minute.toString() + " " + dateTime.day.toString() + "." + dateTime.month.toString() + "." + dateTime.year.toString();
+  }
 }

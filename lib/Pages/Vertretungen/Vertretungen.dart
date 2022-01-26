@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pgu/Extensions/StringExtensions.dart';
 import 'package:pgu/Models/ClassModel.dart';
 import 'package:pgu/Models/Vertretung.dart';
 import 'package:pgu/Pages/Classes/Classes.dart';
@@ -56,6 +57,7 @@ class _VertretungenState extends State<Vertretungen> {
   }
 
   Dio dio = new Dio();
+  bool offline = false;
 
   void loadCachedVertretungen(){
     String jsonString = StorageManager.getString(StorageKeys.vertretungen);
@@ -107,168 +109,173 @@ class _VertretungenState extends State<Vertretungen> {
     //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
     //FIXME: to fetch all old use 'old' instead of 'get'
     String url = "https://pgu.backslash-vr.com/api/user/get" + "?type=" + StorageManager.getString(StorageKeys.loggedIn) + "&content=" + params + "&apikey=" + StorageManager.getString(StorageKeys.apikey) + "&lastFetched=" + StorageManager.getString(StorageKeys.lastFetched) + "&version=" + AppInfo.clientVersion.toString();
-    Response response = await dio.get(url);
-    //print(url);
+    try{
+      Response response = await dio.get(url);
 
-    if(response.statusCode == 200){
-      String responseData = response.data.toString();
+      if(response.statusCode == 200){
+        String responseData = response.data.toString();
 
-      if(!responseData.startsWith("[") || !responseData.endsWith("]")) {
-        print("[Vertretungen] Not fetched");
-        print("[Vertretungen] " + responseData);
-        hideLoading();
+        if(!responseData.startsWith("[") || !responseData.endsWith("]")) {
+          print("[Vertretungen] Not fetched");
+          print("[Vertretungen] " + responseData);
+          hideLoading();
 
-        if(responseData == "Invalid Client Version"){
-          //TODO: Show download new version
-          showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (b){
-                return StatefulBuilder(
-                    builder: (c, setState){
-                      return Dialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        insetPadding: EdgeInsets.only(
+          if(responseData == "Invalid Client Version"){
+            showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (b){
+                  return StatefulBuilder(
+                      builder: (c, setState){
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          insetPadding: EdgeInsets.only(
                             left: 20,
                             right: 20,
-                        ),
-                        elevation: 6,
-                        backgroundColor: Colors.transparent,
-                        child: Container(
-                          height: 500,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.rectangle,
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
                           ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Container(
-                                width: double.infinity,
-                                alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.only(
-                                    top: 50,
-                                    left: 50
+                          elevation: 6,
+                          backgroundColor: Colors.transparent,
+                          child: Container(
+                            height: 500,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.rectangle,
+                              borderRadius: BorderRadius.all(Radius.circular(25)),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Container(
+                                  width: double.infinity,
+                                  alignment: Alignment.centerLeft,
+                                  padding: EdgeInsets.only(
+                                      top: 50,
+                                      left: 50
+                                  ),
+                                  child: RichText(
+                                    text: TextSpan(
+                                        text: "Neue\n",
+                                        style: TextStyle(
+                                            fontFamily: 'Mont-normal',
+                                            fontSize: 18,
+                                            color: PGUColors.background),
+                                        children: [
+                                          TextSpan(
+                                              text: "Version",
+                                              style:
+                                              TextStyle(fontFamily: 'Mont', fontSize: 32))
+                                        ]),
+                                  ),
                                 ),
-                                child: RichText(
-                                  text: TextSpan(
-                                      text: "Neue\n",
-                                      style: TextStyle(
-                                          fontFamily: 'Mont-normal',
-                                          fontSize: 18,
-                                          color: PGUColors.background),
+                                Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.only(
+                                        top: 35,
+                                        bottom: 35,
+                                        right: 35,
+                                        left: 35
+                                    ),
+                                    child: Column(
                                       children: [
-                                        TextSpan(
-                                            text: "Version",
-                                            style:
-                                            TextStyle(fontFamily: 'Mont', fontSize: 32))
-                                      ]),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  margin: EdgeInsets.only(
-                                      top: 35,
-                                      bottom: 35,
-                                      right: 35,
-                                      left: 35
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Image.asset(
+                                        Image.asset(
                                           'assets/amongus.png',
-                                        height: 150,
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.bottomCenter,
-                                          child: Text(
-                                            "Um die PGU App zu benutzen, musst du die neuste Version herunterladen.",
-                                            style: TextStyle(
-                                                fontFamily: 'Mont-normal',
-                                                fontSize: 18,
-                                                color: PGUColors.background
-                                            ),
-                                          ),
+                                          height: 150,
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                // color: Colors.red,
-                                alignment: Alignment.bottomCenter,
-                                padding: EdgeInsets.only(
-                                    top: 10,
-                                    bottom: 30,
-                                    left: 30,
-                                    right: 30
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: <Widget>[
-                                    Expanded(
-                                        child: FlatButton(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(25),
-                                          ),
-                                          onPressed: () {
-                                            //TODO: Open link
-                                            Navigator.of(context).pop('dialog');
-                                          },
-                                          padding: EdgeInsets.only(
-                                              left: 25,
-                                              right: 25,
-                                              top: 15,
-                                              bottom: 15
-                                          ),
-                                          color: PGUColors.accent,
-                                          child: Text(
-                                            "Herunterladen",
-                                            style: TextStyle(
-                                                color: PGUColors.text,
-                                                fontFamily: 'Mont'
+                                        Expanded(
+                                          child: Container(
+                                            alignment: Alignment.bottomCenter,
+                                            child: Text(
+                                              "Um die PGU App zu benutzen, musst du die neuste Version herunterladen.",
+                                              style: TextStyle(
+                                                  fontFamily: 'Mont-normal',
+                                                  fontSize: 18,
+                                                  color: PGUColors.background
+                                              ),
                                             ),
                                           ),
                                         )
+                                      ],
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              )
-                            ],
+                                Container(
+                                  // color: Colors.red,
+                                  alignment: Alignment.bottomCenter,
+                                  padding: EdgeInsets.only(
+                                      top: 10,
+                                      bottom: 30,
+                                      left: 30,
+                                      right: 30
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      Expanded(
+                                          child: FlatButton(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(25),
+                                            ),
+                                            onPressed: () {
+                                              //TODO: Open link
+                                              Navigator.of(context).pop('dialog');
+                                            },
+                                            padding: EdgeInsets.only(
+                                                left: 25,
+                                                right: 25,
+                                                top: 15,
+                                                bottom: 15
+                                            ),
+                                            color: PGUColors.accent,
+                                            child: Text(
+                                              "Herunterladen",
+                                              style: TextStyle(
+                                                  color: PGUColors.text,
+                                                  fontFamily: 'Mont'
+                                              ),
+                                            ),
+                                          )
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                );
-              }
-          );
+                        );
+                      }
+                  );
+                }
+            );
+          }
+          return;
         }
-        return;
+
+        print("[Vertretungen] Loaded Subsitutions");
+        entities += List<Vertretung>.from(
+            json.decode(responseData).map((model) => Vertretung.fromJson(model)));
+
+        StorageManager.setString(StorageKeys.lastFetched, DateTime.now().toString());
+
+        // if(entities.length >= 1 && classCode.name != entities[entities.length - 1].klasse){
+        //   classes[a].name = entities[entities.length - 1].klasse;
+        //   classnameChange = true;
+        // }
+        StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
       }
-
-      print("[Vertretungen] Loaded Subsitutions");
-      entities += List<Vertretung>.from(
-          json.decode(responseData).map((model) => Vertretung.fromJson(model)));
-
-      StorageManager.setString(StorageKeys.lastFetched, DateTime.now().toString());
-
-      // if(entities.length >= 1 && classCode.name != entities[entities.length - 1].klasse){
-      //   classes[a].name = entities[entities.length - 1].klasse;
-      //   classnameChange = true;
-      // }
+    }catch(SocketException){
+      print("[Vertretungen] Offline");
+      offline = true;
     }
+    //print(url);
 
     // if(classnameChange) {
     //   StorageManager.setString(StorageKeys.classes, jsonEncode(classes));
     //   StorageManager.setString(StorageKeys.ausgeblendeteKurse, jsonEncode([]));
     // }
 
-    StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
+
     hideLoading();
 
     if(mounted)
@@ -310,19 +317,65 @@ class _VertretungenState extends State<Vertretungen> {
                       left: SDP.sdp(25),
                       right: SDP.sdp(25)
                     ),
-                    child: RichText(
-                      text: TextSpan(
-                          text: "Deine\n",
-                          style: TextStyle(
-                              fontFamily: 'Mont-normal',
-                              fontSize: 18,
-                              color: PGUColors.background),
-                          children: [
-                            TextSpan(
-                                text: "Vertretungen",
-                                style:
-                                TextStyle(fontFamily: 'Mont', fontSize: 32))
-                          ]),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          text: TextSpan(
+                              text: "Deine\n",
+                              style: TextStyle(
+                                  fontFamily: 'Mont-normal',
+                                  fontSize: 18,
+                                  color: PGUColors.background),
+                              children: [
+                                TextSpan(
+                                    text: "Vertretungen",
+                                    style:
+                                    TextStyle(fontFamily: 'Mont', fontSize: 32))
+                              ]),
+                        ),
+                        //TODO: Enable Optional
+                        // Container(
+                        //   margin: EdgeInsets.only(
+                        //     top: 10
+                        //   ),
+                        //   child: Row(
+                        //     mainAxisSize: MainAxisSize.max,
+                        //     children: [
+                        //       Container(
+                        //         height: 15,
+                        //         width: 15,
+                        //         decoration: BoxDecoration(
+                        //           borderRadius: BorderRadius.circular(10),
+                        //           color: offline? PGUColors.red : PGUColors.accent,
+                        //         ),
+                        //       ),
+                        //       SizedBox(
+                        //         width: 10,
+                        //       ),
+                        //       Text(
+                        //         offline ? "Offline" : "Online",
+                        //         style: TextStyle(
+                        //             fontFamily: 'Mont',
+                        //             fontSize: 15
+                        //         )
+                        //       ),
+                        //       Expanded(
+                        //         child: Align(
+                        //           alignment: Alignment.centerRight,
+                        //           child: Text(
+                        //               "Stand:  " + StorageManager.getString(StorageKeys.lastFetched).dateString(),
+                        //               style: TextStyle(
+                        //                   fontFamily: 'Mont',
+                        //                   fontSize: 15
+                        //               )
+                        //           ),
+                        //         ),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                      ],
                     ),
                   ),
                   Expanded(

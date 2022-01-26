@@ -12,7 +12,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 [ ] Fehler in Backend beheben\
 [ ] Intro/Tutorial Screen\
 [ ] Replace SDP\
-[ ] Offline letzte sehen (Stand der Vertretungen + Offline Error Handling)\
+[ ] Bei neuer Internetverbindung automatisch neuladen\
 [ ] App Größe vermindern (https://itnext.io/reducing-flutter-app-size-570db9810ebb) \
 [x] Versionsnummer check\
 [x] Loading Animation\
@@ -21,6 +21,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 
 ##Check
 [x] Exclude from Backups\
+[x] Offline letzte sehen (Stand der Vertretungen + Offline Error Handling)\
 
 ## Features
 [x] Vertretung API letzten Stand mitsenden um Geschwindigkeit zu erhöhen\
