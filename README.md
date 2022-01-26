@@ -13,8 +13,8 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 [ ] Intro/Tutorial Screen\
 [ ] Replace SDP\
 [ ] Offline letzte sehen (Stand der Vertretungen + Offline Error Handling)\
-[ ] Versionsnummer check\
 [ ] App Größe vermindern (https://itnext.io/reducing-flutter-app-size-570db9810ebb) \
+[x] Versionsnummer check\
 [x] Loading Animation\
 [x] Settings Baustelle (https://www.pexels.com/de-de/foto/person-frau-bau-arbeiten-8960933/) \
 [x] Links öffnen (https://pub.dev/packages/url_launcher)

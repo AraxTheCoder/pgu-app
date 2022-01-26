@@ -12,6 +12,7 @@ import 'package:pgu/Pages/Settings/Settings.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Utils/ColorChooser.dart';
+import 'package:pgu/Values/Consts/AppInfo.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
 import 'dart:math';
@@ -105,7 +106,7 @@ class _VertretungenState extends State<Vertretungen> {
 
     //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
     //FIXME: to fetch all old use 'old' instead of 'get'
-    String url = "https://pgu.backslash-vr.com/api/user/get" + "?type=" + StorageManager.getString(StorageKeys.loggedIn) + "&content=" + params + "&apikey=" + StorageManager.getString(StorageKeys.apikey) + "&lastFetched=" + StorageManager.getString(StorageKeys.lastFetched);
+    String url = "https://pgu.backslash-vr.com/api/user/get" + "?type=" + StorageManager.getString(StorageKeys.loggedIn) + "&content=" + params + "&apikey=" + StorageManager.getString(StorageKeys.apikey) + "&lastFetched=" + StorageManager.getString(StorageKeys.lastFetched) + "&version=" + AppInfo.clientVersion.toString();
     Response response = await dio.get(url);
     //print(url);
 
@@ -116,6 +117,137 @@ class _VertretungenState extends State<Vertretungen> {
         print("[Vertretungen] Not fetched");
         print("[Vertretungen] " + responseData);
         hideLoading();
+
+        if(responseData == "Invalid Client Version"){
+          //TODO: Show download new version
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (b){
+                return StatefulBuilder(
+                    builder: (c, setState){
+                      return Dialog(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        insetPadding: EdgeInsets.only(
+                            left: 20,
+                            right: 20,
+                        ),
+                        elevation: 6,
+                        backgroundColor: Colors.transparent,
+                        child: Container(
+                          height: 500,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.rectangle,
+                            borderRadius: BorderRadius.all(Radius.circular(25)),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Container(
+                                width: double.infinity,
+                                alignment: Alignment.centerLeft,
+                                padding: EdgeInsets.only(
+                                    top: 50,
+                                    left: 50
+                                ),
+                                child: RichText(
+                                  text: TextSpan(
+                                      text: "Neue\n",
+                                      style: TextStyle(
+                                          fontFamily: 'Mont-normal',
+                                          fontSize: 18,
+                                          color: PGUColors.background),
+                                      children: [
+                                        TextSpan(
+                                            text: "Version",
+                                            style:
+                                            TextStyle(fontFamily: 'Mont', fontSize: 32))
+                                      ]),
+                                ),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  margin: EdgeInsets.only(
+                                      top: 35,
+                                      bottom: 35,
+                                      right: 35,
+                                      left: 35
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Image.asset(
+                                          'assets/amongus.png',
+                                        height: 150,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Text(
+                                            "Um die PGU App zu benutzen, musst du die neuste Version herunterladen.",
+                                            style: TextStyle(
+                                                fontFamily: 'Mont-normal',
+                                                fontSize: 18,
+                                                color: PGUColors.background
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                // color: Colors.red,
+                                alignment: Alignment.bottomCenter,
+                                padding: EdgeInsets.only(
+                                    top: 10,
+                                    bottom: 30,
+                                    left: 30,
+                                    right: 30
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    Expanded(
+                                        child: FlatButton(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(25),
+                                          ),
+                                          onPressed: () {
+                                            //TODO: Open link
+                                            Navigator.of(context).pop('dialog');
+                                          },
+                                          padding: EdgeInsets.only(
+                                              left: 25,
+                                              right: 25,
+                                              top: 15,
+                                              bottom: 15
+                                          ),
+                                          color: PGUColors.accent,
+                                          child: Text(
+                                            "Herunterladen",
+                                            style: TextStyle(
+                                                color: PGUColors.text,
+                                                fontFamily: 'Mont'
+                                            ),
+                                          ),
+                                        )
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                );
+              }
+          );
+        }
         return;
       }
 
