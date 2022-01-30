@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Extensions/StringExtensions.dart';
 import 'package:pgu/Models/ClassModel.dart';
+import 'package:pgu/Models/Info.dart';
 import 'package:pgu/Models/Vertretung.dart';
 import 'package:pgu/Pages/Classes/Classes.dart';
 import 'package:pgu/Pages/Settings/Settings.dart';
@@ -109,6 +111,7 @@ class _VertretungenState extends State<Vertretungen> {
     //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
     //FIXME: to fetch all old use 'old' instead of 'get'
     String url = "https://pgu.backslash-vr.com/api/user/get" + "?type=" + StorageManager.getString(StorageKeys.loggedIn) + "&content=" + params + "&apikey=" + StorageManager.getString(StorageKeys.apikey) + "&lastFetched=" + StorageManager.getString(StorageKeys.lastFetched) + "&version=" + AppInfo.clientVersion.toString();
+    print("[Vertretungen] " + url);
     try{
       Response response = await dio.get(url);
 
@@ -253,8 +256,29 @@ class _VertretungenState extends State<Vertretungen> {
         }
 
         print("[Vertretungen] Loaded Subsitutions");
-        entities += List<Vertretung>.from(
+        List<Vertretung> newV = List<Vertretung>.from(
             json.decode(responseData).map((model) => Vertretung.fromJson(model)));
+        entities += newV;
+
+        url = "https://pgu.backslash-vr.com/api/user/info";
+        response = await dio.get(url);
+        if(response.statusCode == 200){
+          responseData = response.data.toString();
+
+          if(responseData.startsWith("[") && responseData.endsWith("]")) {
+            print("[Vertretungen] Loaded Infos");
+            List<Info> infos = List<Info>.from(
+                json.decode(responseData).map((model) =>
+                    Info.fromJson(model)));
+
+            for(Info i in infos){
+              int index = entities.indexWhere((element) => element.datum == i.date);
+
+              if(index >= 0)
+                entities.insert(index, new Vertretung("INFO", "/", "/", "/", "/", i.content, i.date));
+            }
+          }
+        }
 
         StorageManager.setString(StorageKeys.lastFetched, DateTime.now().toString());
 
@@ -264,7 +288,8 @@ class _VertretungenState extends State<Vertretungen> {
         // }
         StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
       }
-    }catch(SocketException){
+    }on SocketException catch(s){
+      print(s);
       print("[Vertretungen] Offline");
       offline = true;
     }
@@ -589,7 +614,7 @@ class _VertretungenState extends State<Vertretungen> {
       Vertretung v = entities.isNotEmpty ? entities[a] : cachedEntities[a];
 
       if(!ausgeblendeteKurse.contains(v.klasse! + "|" + v.kurs! + "|" + v.vertreter!.split("→")[0]))
-        vertretungenItems.add(Vertretung.item(v, context, refresh));
+        vertretungenItems.add(Vertretung.item(v, context, refresh, a));
     }
 
     // if(ausgeblendeteKurse.isNotEmpty){

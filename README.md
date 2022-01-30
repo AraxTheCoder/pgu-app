@@ -8,18 +8,18 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 [x] Klassen nur bei Übergabe von (klartext Passwort + salt).hashed\
 [x] Alle Klassen auf einmal bekommen\
 [x] Lehrer Vertretungen bekommen\
-[ ] Tagestitel anzeigen + fetchen\
-[ ] Fehler in Backend beheben\
+[x] Tagestitel anzeigen + fetchen\
 [ ] Intro/Tutorial Screen\
-[ ] Replace SDP\
 [ ] Bei neuer Internetverbindung automatisch neuladen\
+[ ] Parsing Fehler im Backend beheben\
+[ ] Replace SDP\
 [ ] App Größe vermindern (https://itnext.io/reducing-flutter-app-size-570db9810ebb) \
 [x] Versionsnummer check\
 [x] Loading Animation\
 [x] Settings Baustelle (https://www.pexels.com/de-de/foto/person-frau-bau-arbeiten-8960933/) \
 [x] Links öffnen (https://pub.dev/packages/url_launcher)
 
-##Check
+## Check
 [x] Exclude from Backups\
 [x] Offline letzte sehen (Stand der Vertretungen + Offline Error Handling)\
 

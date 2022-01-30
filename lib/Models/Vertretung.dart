@@ -46,7 +46,52 @@ class Vertretung{
     };
   }
 
-  static Widget item(Vertretung vertretung, BuildContext context, Function refresh) {
+  static Widget item(Vertretung vertretung, BuildContext context, Function refresh, int index) {
+
+    if(vertretung.klasse == "INFO"){
+      return Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            color: PGUColors.background.withOpacity(0.055),
+            borderRadius: BorderRadius.circular(15)
+        ),
+        margin: EdgeInsets.only(
+            bottom: 20,
+            top: index != 0 ? 30 : 0,
+            left: SDP.sdp(25),
+            right: SDP.sdp(25)
+        ),
+        padding: EdgeInsets.all(20),
+        clipBehavior: Clip.hardEdge,
+        child: Column(
+          children: [
+            Text(
+              vertretung.datum!.split("-")[2] + "." + vertretung.datum!.split("-")[1],
+              style: TextStyle(
+                  fontFamily: 'Mont',
+                  fontSize: 17
+              ),
+            ),
+            vertretung.art!.isNotEmpty ? Container(
+              margin: EdgeInsets.only(
+                top: 10,
+                right: 10,
+                left: 10
+              ),
+              child: Text(
+                vertretung.art!,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: 'Mont-normal',
+                    fontSize: 15
+                ),
+              ),
+            ) : Container()
+          ],
+        ),
+      );
+    }
+
     List<ActionItems> items = [];
 
     if(vertretung.kurs != "/"){
