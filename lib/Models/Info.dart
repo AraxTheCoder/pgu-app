@@ -5,8 +5,8 @@ class Info{
   Info(this.date, this.content);
 
   Info.fromJson(Map<String, dynamic> json){
-    this.date = json["date"];
-    this.content = json["content"];
+    date = json["date"];
+    content = json["content"];
   }
 
   Map<String, dynamic> toJson() {

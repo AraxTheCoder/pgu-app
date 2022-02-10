@@ -11,7 +11,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 [ ] Parsing Fehler im Backend beheben\
 [ ] Replace SDP\
 [ ] App Größe vermindern (https://itnext.io/reducing-flutter-app-size-570db9810ebb) \
-[x] Settings Baustelle (https://www.pexels.com/de-de/foto/person-frau-bau-arbeiten-8960933/) \
+[x] Settings Baustelle (https://www.pexels.com/de-de/foto/person-frau-bau-arbeiten-8960933/)
 
 ## Check
 [x] Exclude from Backups\
@@ -39,7 +39,7 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 [ ] Json Parsing Error behandeln (Welcher?)
 
 ## Benutzte Resourcen
-[ ] https://medium.com/@info_67212/flutter-swipe-your-widget-for-more-action-items-2b85866ca238\
+[ ] https://medium.com/@info_67212/flutter-swipe-your-widget-for-more-action-items-2b85866ca238 \
 [ ] https://firebase.flutter.dev/docs/messaging/notifications
 
 ## API

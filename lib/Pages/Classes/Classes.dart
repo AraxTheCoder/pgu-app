@@ -1,13 +1,11 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Extensions/StringExtensions.dart';
 import 'package:pgu/Formatter/UpperCaseTextFormatter.dart';
-import 'package:pgu/Models/ClassModel.dart';
 import 'package:pgu/Models/ClassModel.dart';
 import 'package:pgu/Pages/Settings/Settings.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
@@ -29,7 +27,7 @@ import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
 class Classes extends StatefulWidget {
   bool forced = false;
 
-  Classes(this.forced);
+  Classes(this.forced, {Key? key}) : super(key: key);
 
   @override
   _ClassesState createState() {
@@ -38,7 +36,7 @@ class Classes extends StatefulWidget {
 }
 
 class _ClassesState extends State<Classes> {
-  final TextEditingController nameController = new TextEditingController();
+  final TextEditingController nameController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -53,13 +51,13 @@ class _ClassesState extends State<Classes> {
 
 
     if (jsonString.isNotEmpty) {
-      items.add(SizedBox(height: 15,));
+      items.add(const SizedBox(height: 15,));
 
       entities = List<ClassModel>.from(json.decode(jsonString).map((model) => ClassModel.fromJson(model)));
 
       items.addAll(entities.map((e) => ClassModel.item(e, deleteClass)));
 
-      items.add(SizedBox(height: 85,));
+      items.add(const SizedBox(height: 85,));
     }
   }
 
@@ -75,7 +73,7 @@ class _ClassesState extends State<Classes> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         //resizeToAvoidBottomPadding: true,
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Stack(
           children: [
             Container(
@@ -91,7 +89,7 @@ class _ClassesState extends State<Classes> {
                   RichText(
                     text: TextSpan(
                         text: "Deine\n",
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Mont-normal',
                             fontSize: 18,
                             color: PGUColors.background),
@@ -99,64 +97,62 @@ class _ClassesState extends State<Classes> {
                           TextSpan(
                               text: StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel",
                               style:
-                                  TextStyle(fontFamily: 'Mont', fontSize: 32))
+                                  const TextStyle(fontFamily: 'Mont', fontSize: 32))
                         ]),
                   ),
                   Expanded(
-                      child: entities.isEmpty ? Container(
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            bottom: SDP.sdp(110)
-                          ),
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: Alignment.center,
-                                child: Image.asset('assets/dog_small_nb_cropped.png'),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Stack(
-                                  children: [
-                                    Text(
-                                      "Keine " + (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel"),
-                                      style: TextStyle(
-                                        fontSize: TextSize.big,
-                                        fontFamily: 'Mont',
-                                        foreground: Paint()
-                                          ..style = PaintingStyle.stroke
-                                          ..strokeWidth = 5
-                                          ..color = PGUColors.background,
-                                      ),
+                      child: entities.isEmpty ? Padding(
+                        padding: EdgeInsets.only(
+                          bottom: SDP.sdp(110)
+                        ),
+                        child: Stack(
+                          children: [
+                            Align(
+                              alignment: Alignment.center,
+                              child: Image.asset('assets/dog_small_nb_cropped.png'),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: Stack(
+                                children: [
+                                  Text(
+                                    "Keine " + (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel"),
+                                    style: TextStyle(
+                                      fontSize: TextSize.big,
+                                      fontFamily: 'Mont',
+                                      foreground: Paint()
+                                        ..style = PaintingStyle.stroke
+                                        ..strokeWidth = 5
+                                        ..color = PGUColors.background,
                                     ),
-                                    Text(
-                                      "Keine " + (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel"),
-                                      style: TextStyle(
-                                        color: PGUColors.text,
-                                        fontSize: TextSize.big,
-                                        fontFamily: 'Mont',
-                                        shadows: <Shadow>[
-                                          Shadow(
-                                            offset: Offset(10.0, 10.0),
-                                            blurRadius: 3.0,
-                                            color: Color.fromARGB(255, 0, 0, 0),
-                                          ),
-                                          Shadow(
-                                            offset: Offset(10.0, 10.0),
-                                            blurRadius: 8.0,
-                                            color: Color.fromARGB(125, 0, 0, 0),
-                                          ),
-                                        ],
-                                      ),
+                                  ),
+                                  Text(
+                                    "Keine " + (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel"),
+                                    style: TextStyle(
+                                      color: PGUColors.text,
+                                      fontSize: TextSize.big,
+                                      fontFamily: 'Mont',
+                                      shadows: const <Shadow>[
+                                        Shadow(
+                                          offset: Offset(10.0, 10.0),
+                                          blurRadius: 3.0,
+                                          color: Color.fromARGB(255, 0, 0, 0),
+                                        ),
+                                        Shadow(
+                                          offset: Offset(10.0, 10.0),
+                                          blurRadius: 8.0,
+                                          color: Color.fromARGB(125, 0, 0, 0),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ) : Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 10,
                           bottom: 130,
                         ),
@@ -165,7 +161,7 @@ class _ClassesState extends State<Classes> {
                           removeTop: true,
                           child: ShaderMask(
                             shaderCallback: (Rect rect) {
-                              return LinearGradient(
+                              return const LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                                 colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
@@ -174,7 +170,7 @@ class _ClassesState extends State<Classes> {
                             },
                             blendMode: BlendMode.dstOut,
                             child: ListView.builder(
-                              physics: BouncingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               itemCount: items.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return items[index];
@@ -197,7 +193,7 @@ class _ClassesState extends State<Classes> {
                   children: [
                     Transform.rotate(
                       angle: -pi / 4,
-                      child: Container(
+                      child: SizedBox(
                         height: 75,
                         width: 75,
                         child: ClipRRect(
@@ -235,13 +231,13 @@ class _ClassesState extends State<Classes> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 7), // changes position of shadow
+                        offset: const Offset(0, 7), // changes position of shadow
                       ),
                     ],
                   ),
                   child: Row(
                     children: [
-                      Expanded(
+                      const Expanded(
                         child: Icon(
                           Icons.person_rounded, //person_outline_rounded
                           color: PGUColors.text,
@@ -253,8 +249,8 @@ class _ClassesState extends State<Classes> {
                           onTap: openVertretungen,
                           child: Container(
                             color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
-                            padding: EdgeInsets.all(20),
-                            child: Icon(
+                            padding: const EdgeInsets.all(20),
+                            child: const Icon(
                               Icons.home_outlined,
                               color: PGUColors.text,
                               size: 25,
@@ -267,8 +263,8 @@ class _ClassesState extends State<Classes> {
                           onTap: openSettings,
                           child: Container(
                             color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
-                            padding: EdgeInsets.all(20),
-                            child: Icon(
+                            padding: const EdgeInsets.all(20),
+                            child: const Icon(
                               Icons.settings_outlined,
                               color: PGUColors.text,
                               size: 25,
@@ -290,7 +286,7 @@ class _ClassesState extends State<Classes> {
   }
 
   void openVertretungen(){
-    NoAnimationRoute.open(context, Vertretungen());
+    NoAnimationRoute.open(context, const Vertretungen());
   }
 
   void closeKeyboard(BuildContext context){
@@ -323,7 +319,7 @@ class _ClassesState extends State<Classes> {
                   backgroundColor: Colors.transparent,
                   child: Container(
                     height: 300,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.rectangle,
                       borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -331,13 +327,13 @@ class _ClassesState extends State<Classes> {
                     child: Stack(
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             top: 30,
                           ),
                           alignment: Alignment.topCenter,
                           child: Text(
                             (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel") + " hinzufügen",
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: PGUColors.background,
                               fontFamily: 'Mont',
                               fontSize: 25,
@@ -345,7 +341,7 @@ class _ClassesState extends State<Classes> {
                           ),
                         ),
                         Container(
-                            margin: EdgeInsets.only(
+                            margin: const EdgeInsets.only(
                                 //top: 25,
                                 right: 25,
                                 left: 25
@@ -374,7 +370,7 @@ class _ClassesState extends State<Classes> {
                                 });
                               },
                               keyboardType: TextInputType.visiblePassword,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: PGUColors.background,
                                   fontFamily: 'Mont'
                               ),
@@ -382,8 +378,8 @@ class _ClassesState extends State<Classes> {
                                 fillColor: PGUColors.inputBackground,
                                 filled: true,
                                 hintText: StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel",
-                                prefix: SizedBox(width: 15,),
-                                hintStyle: TextStyle(
+                                prefix: const SizedBox(width: 15,),
+                                hintStyle: const TextStyle(
                                     color: PGUColors.inactive,
                                     fontFamily: 'Mont'
                                 ),
@@ -396,7 +392,7 @@ class _ClassesState extends State<Classes> {
                         ),
                         Container(
                           alignment: Alignment.bottomCenter,
-                          margin: EdgeInsets.only(
+                          margin: const EdgeInsets.only(
                             bottom: 25
                           ),
                           child: Row(
@@ -409,14 +405,14 @@ class _ClassesState extends State<Classes> {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     left: 25,
                                     right: 25,
                                     top: 15,
                                     bottom: 15
                                 ),
                                 // color: PGUColors.accent,
-                                child: Text(
+                                child: const Text(
                                   "Abbrechen",
                                   style: TextStyle(
                                       color: PGUColors.background,
@@ -434,14 +430,14 @@ class _ClassesState extends State<Classes> {
 
                                   addClass(nameController.text.toUpperCase());
                                 },
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     left: 25,
                                     right: 25,
                                     top: 15,
                                     bottom: 15
                                 ),
                                 color: nameController.text.length < 2 ? PGUColors.red : PGUColors.accent,
-                                child: Text(
+                                child: const Text(
                                   "Hinzufügen",
                                   style: TextStyle(
                                       color: PGUColors.text,
@@ -468,7 +464,7 @@ class _ClassesState extends State<Classes> {
         Keyboard.close(context);
         FlushbarHelper.createError(
             message: "So sieht eine Klasse aus: 8b", title: "Zu kurz   : ("
-        )..show(context);
+        ).show(context);
         return;
       }
 
@@ -476,7 +472,7 @@ class _ClassesState extends State<Classes> {
         Keyboard.close(context);
         FlushbarHelper.createError(
             message: "So sieht eine Klasse aus: 8b", title: "Nope   : ("
-        )..show(context);
+        ).show(context);
         return;
       }
     }else{
@@ -484,15 +480,16 @@ class _ClassesState extends State<Classes> {
         Keyboard.close(context);
         FlushbarHelper.createError(
             message: "So sieht ein Kürzel aus: RICH", title: "Zu kurz   : ("
-        )..show(context);
+        ).show(context);
         return;
       }
     }
 
-    ClassModel classModel = new ClassModel(className);
+    ClassModel classModel = ClassModel(className);
 
-    if(entities.indexWhere((element) => element.name == classModel.name) == -1)
+    if(entities.indexWhere((element) => element.name == classModel.name) == -1) {
       entities.add(classModel);
+    }
 
     print("[Classes] Number of Classes: " + entities.length.toString());
 

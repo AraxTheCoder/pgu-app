@@ -10,7 +10,7 @@ class ClassModel{
   ClassModel(this.name);
 
   ClassModel.fromJson(Map<String, dynamic> json){
-    this.name = json["name"];
+    name = json["name"];
   }
 
   Map<String, dynamic> toJson() {
@@ -24,7 +24,7 @@ class ClassModel{
       width: double.infinity,
       height: 90,
       alignment: Alignment.centerLeft,
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 10
       ),
       clipBehavior: Clip.hardEdge,
@@ -35,7 +35,7 @@ class ClassModel{
         children: [
           Container(
             width: 15,
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
               right: 20
             ),
             color: PGUColors.inactive.withOpacity(0.2),
@@ -46,14 +46,14 @@ class ClassModel{
             child: RichText(
               text: TextSpan(
                   text: classCode.name!.startsNumeric() ? "Klasse" : (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Stufe" : "Lehrer"),
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: 'Mont-normal',
                       fontSize: 12,
                       color: PGUColors.background),
                   children: [
                     TextSpan(
                         text: "\n" + classCode.name!.formatClass(),
-                        style: TextStyle(fontFamily: 'Mont', fontSize: 25))
+                        style: const TextStyle(fontFamily: 'Mont', fontSize: 25))
                   ]),
             ),
           ),
@@ -64,12 +64,12 @@ class ClassModel{
                 },
                 child: Container(
                   alignment: Alignment.centerRight,
-                  margin: EdgeInsets.only(
+                  margin: const EdgeInsets.only(
                       right: 30
                   ),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.delete_rounded,
                         color: PGUColors.red,

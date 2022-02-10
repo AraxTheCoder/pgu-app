@@ -1,9 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Utils/ColorChooser.dart';
@@ -25,13 +23,13 @@ class Vertretung{
   Vertretung(this.klasse, this.kurs, this.stunde, this.vertreter, this.raum, this.art, this.datum);
 
   Vertretung.fromJson(Map<String, dynamic> json){
-    this.klasse = json["klasse"];
-    this.kurs = json["kurs"];
-    this.stunde = json["stunde"];
-    this.vertreter = json["vertreter"];
-    this.raum = json["raum"];
-    this.art = json["art"];
-    this.datum = json["datum"];
+    klasse = json["klasse"];
+    kurs = json["kurs"];
+    stunde = json["stunde"];
+    vertreter = json["vertreter"];
+    raum = json["raum"];
+    art = json["art"];
+    datum = json["datum"];
   }
 
   Map<String, dynamic> toJson() {
@@ -61,19 +59,19 @@ class Vertretung{
             left: SDP.sdp(25),
             right: SDP.sdp(25)
         ),
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         clipBehavior: Clip.hardEdge,
         child: Column(
           children: [
             Text(
               vertretung.datum!.split("-")[2] + "." + vertretung.datum!.split("-")[1],
-              style: TextStyle(
+              style: const TextStyle(
                   fontFamily: 'Mont',
                   fontSize: 17
               ),
             ),
             vertretung.art!.isNotEmpty ? Container(
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                 top: 10,
                 right: 10,
                 left: 10
@@ -81,7 +79,7 @@ class Vertretung{
               child: Text(
                 vertretung.art!,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                     fontFamily: 'Mont-normal',
                     fontSize: 15
                 ),
@@ -97,10 +95,11 @@ class Vertretung{
     if(vertretung.kurs != "/"){
       items = <ActionItems>[];
 
-      if(StorageManager.getString(StorageKeys.loggedIn) == "s")
-        items.add(ActionItems(icon: Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ hideKurs(context, vertretung.klasse!, vertretung.kurs!, vertretung.vertreter!.split("→")[0], refresh); }, backgroudColor: Colors.white));
+      if(StorageManager.getString(StorageKeys.loggedIn) == "s") {
+        items.add(ActionItems(icon: const Icon(Icons.visibility_off_rounded), text: "Kurs\nverbergen", onPress: (){ hideKurs(context, vertretung.klasse!, vertretung.kurs!, vertretung.vertreter!.split("→")[0], refresh); }, backgroudColor: Colors.white));
+      }
 
-      items.add(ActionItems(icon: Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.klasse!, vertretung.kurs!, refresh);}, backgroudColor: Colors.white));
+      items.add(ActionItems(icon: const Icon(Icons.edit_rounded), text: "Farbe\nändern", onPress: (){openColorpicker(context, vertretung.klasse!, vertretung.kurs!, refresh);}, backgroudColor: Colors.white));
     }
 
     return OnSlide(
@@ -117,7 +116,7 @@ class Vertretung{
                 color: PGUColors.background.withOpacity(0.075),
                 borderRadius: BorderRadius.circular(15)
             ),
-            margin: EdgeInsets.only(
+            margin: const EdgeInsets.only(
                 bottom: 10
             ),
             clipBehavior: Clip.hardEdge,
@@ -130,14 +129,14 @@ class Vertretung{
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     child: Stack(
                       children: [
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(
                             vertretung.klasse!,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: 'Mont',
                                 fontSize: 17
                             ),
@@ -147,7 +146,7 @@ class Vertretung{
                           alignment: Alignment.centerLeft,
                           child: Text(
                             (vertretung.kurs! + " " + vertretung.vertreter!).trimEmpty().arrowFormat(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: 'Mont',
                                 fontSize: 17
                             ),
@@ -157,7 +156,7 @@ class Vertretung{
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             vertretung.art!.shortVersion(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: 'Mont',
                                 fontSize: 17
                             ),
@@ -169,7 +168,7 @@ class Vertretung{
                           alignment: Alignment.bottomRight,
                           child: Text(
                             vertretung.raum!.arrowFormat(),
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: 'Mont',
                                 fontSize: 17
                             ),
@@ -179,7 +178,7 @@ class Vertretung{
                           alignment: Alignment.centerRight,
                           child: Text(
                             vertretung.stunde!,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: 'Mont',
                                 fontSize: 17
                             ),
@@ -189,7 +188,7 @@ class Vertretung{
                           alignment: Alignment.topRight,
                           child: Text(
                             vertretung.datum!.split("-")[2] + "." + vertretung.datum!.split("-")[1],
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: 'Mont',
                                 fontSize: 17
                             ),
@@ -211,10 +210,11 @@ class Vertretung{
   static void hideKurs(BuildContext context, String klasse, String fach, String lehrer, Function refresh){
     String jsonString = StorageManager.getString(StorageKeys.ausgeblendeteKurse);
 
-    if(jsonString.isEmpty)
+    if(jsonString.isEmpty) {
       kurse = [];
-    else
+    } else {
       kurse = List<String>.from(jsonDecode(jsonString));
+    }
 
     if(!kurse!.contains(klasse + "|" + fach + "|" + lehrer)) {
       kurse!.add(klasse + "|" + fach + "|" + lehrer);
@@ -242,7 +242,7 @@ class Vertretung{
             backgroundColor: Colors.transparent,
             child: Container(
               //height: 250,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -251,13 +251,13 @@ class Vertretung{
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         top: 20
                     ),
                     child: Text(
                       fach.shortVersion(),
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: PGUColors.background,
                         fontFamily: 'Mont',
                         fontSize: 25,
@@ -265,7 +265,7 @@ class Vertretung{
                     ),
                   ),
                   Padding(
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           top: 25,
                           right: 25,
                           left: 25
@@ -280,7 +280,7 @@ class Vertretung{
                       )
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         top: 10,
                         bottom: 20
                     ),
@@ -294,14 +294,14 @@ class Vertretung{
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 25,
                               right: 25,
                               top: 15,
                               bottom: 15
                           ),
                           // color: PGUColors.accent,
-                          child: Text(
+                          child: const Text(
                             "Abbrechen",
                             style: TextStyle(
                                 color: PGUColors.background,
@@ -318,14 +318,14 @@ class Vertretung{
                             refresh();
                             Navigator.of(context).pop();
                           },
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 25,
                               right: 25,
                               top: 15,
                               bottom: 15
                           ),
                           color: PGUColors.accent,
-                          child: Text(
+                          child: const Text(
                             "Speichern",
                             style: TextStyle(
                                 color: PGUColors.text,

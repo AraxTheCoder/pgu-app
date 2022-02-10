@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
 import 'dart:math';
@@ -29,7 +28,7 @@ class _IntroductionState extends State<Introduction> {
       child: Scaffold(
         //resizeToAvoidBottomPadding: true,
         // resizeToAvoidBottomInset: true,
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Stack(
           children: [
             Container(

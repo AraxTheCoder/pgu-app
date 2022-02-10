@@ -4,21 +4,23 @@ import 'package:crypto/crypto.dart';
 
 extension StringExtensions on String{
   bool startsNumeric(){
-    if(this.isEmpty)
+    if(isEmpty) {
       return false;
+    }
 
-    return double.tryParse(this.substring(0, 1)) != null;
+    return double.tryParse(substring(0, 1)) != null;
   }
 
   bool endsNumeric(){
-    if(this.isEmpty)
+    if(isEmpty) {
       return false;
+    }
 
-    return double.tryParse(this.substring(this.length - 1)) != null;
+    return double.tryParse(substring(length - 1)) != null;
   }
 
   String trimEmpty(){
-    return this.replaceAll("/", "").trim();
+    return replaceAll("/", "").trim();
   }
 
   String toMd5() {
@@ -57,12 +59,13 @@ extension StringExtensions on String{
   String withoutNumbers(){
     String withoutNumbers = "";
 
-    this.runes.forEach((int rune) {
-      String character = new String.fromCharCode(rune);
+    for(int rune in runes) {
+      String character = String.fromCharCode(rune);
 
-      if(!character.startsNumeric())
+      if(!character.startsNumeric()) {
         withoutNumbers += character;
-    });
+      }
+    }
 
     return withoutNumbers;
   }
@@ -70,13 +73,14 @@ extension StringExtensions on String{
   String substringToNumber(){
     String substringToNumber = "";
 
-    for(int rune in this.split(" ")[0].runes){
-      String character = new String.fromCharCode(rune);
+    for(int rune in split(" ")[0].runes){
+      String character = String.fromCharCode(rune);
 
-      if(double.tryParse(character) == null)
+      if(double.tryParse(character) == null) {
         substringToNumber += character;
-      else
+      } else {
         break;
+      }
     }
 
     return substringToNumber;
@@ -84,7 +88,7 @@ extension StringExtensions on String{
 
   String arrowFormat(){
     //https://stackoverflow.com/questions/50722987/how-to-make-a-line-through-text-in-flutter
-    List<String> parts = this.split("?");
+    List<String> parts = split("?");
 
     if(parts.length == 2){
       return parts[0] + "➜" + parts[1];
@@ -94,10 +98,11 @@ extension StringExtensions on String{
   }
 
   String formatClass(){
-    if(this.startsNumeric())
-      return this.toLowerCase();
+    if(startsNumeric()) {
+      return toLowerCase();
+    }
 
-    return this.toUpperCase();
+    return toUpperCase();
   }
 
   bool isValidClassname(){
@@ -105,13 +110,15 @@ extension StringExtensions on String{
     if(startsNumeric()){
       //a = 65
       //f = 70
-      if(this.runes.toList()[1] >= 52 && this.runes.toList()[1] <= 70)
+      if(runes.toList()[1] >= 52 && runes.toList()[1] <= 70) {
         return true;
+      }
     }
 
     //EF Q1 Q2 Q3
-    if(this == "EF" || this == "Q1" || this == "Q2" || this == "Q3")
+    if(this == "EF" || this == "Q1" || this == "Q2" || this == "Q3") {
       return true;
+    }
 
     return false;
   }
