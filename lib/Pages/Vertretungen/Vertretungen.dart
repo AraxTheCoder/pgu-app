@@ -12,6 +12,7 @@ import 'package:pgu/Models/Info.dart';
 import 'package:pgu/Models/Vertretung.dart';
 import 'package:pgu/Pages/Classes/Classes.dart';
 import 'package:pgu/Pages/Settings/Settings.dart';
+import 'package:pgu/Pages/Tutorial/Tutorial.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Utils/ColorChooser.dart';
@@ -28,6 +29,8 @@ import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
  */
 
 class Vertretungen extends StatefulWidget {
+  const Vertretungen({Key? key}) : super(key: key);
+
   @override
   _VertretungenState createState() {
     return _VertretungenState();
@@ -288,6 +291,9 @@ class _VertretungenState extends State<Vertretungen> {
         // }
         StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
       }
+    }on DioError catch(s){
+      print("[Vertretungen] Offline");
+      offline = true;
     }on SocketException catch(s){
       print(s);
       print("[Vertretungen] Offline");

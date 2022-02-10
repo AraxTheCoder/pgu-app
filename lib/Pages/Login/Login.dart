@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Extensions/StringExtensions.dart';
+import 'package:pgu/Pages/Tutorial/Tutorial.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
@@ -89,7 +90,7 @@ class _LoginState extends State<Login> {
                       ),
                       Container(
                         alignment: Alignment.bottomCenter,
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                             bottom: 35
                         ),
                         child: FlatButton(
@@ -99,30 +100,26 @@ class _LoginState extends State<Login> {
                           onPressed: () {
                             if(usernameController.value.text.trim().toMd5() == '2d7a486f1e0c643890f817dd6764bc7b' && passwordController.value.text.trim().toMd5() == '098f6bcd4621d373cade4e832627b4f6'){
                               StorageManager.setString(StorageKeys.loggedIn, "s");
-                              StorageManager.setString(StorageKeys.apikey, (passwordController.value.text.trim() + "salt").toMd5());
-                              print((usernameController.value.text.trim() + "salt").toMd5());
-                              NoAnimationRoute.open(context, Vertretungen());
+                              openVertretungen();
                             }else if(usernameController.value.text.trim().toMd5() == '18a90f2c2b4484de555feb4b02904a7a' && passwordController.value.text.trim().toMd5() == '451c683642186ec715fb6574d57b57a2'){
                               StorageManager.setString(StorageKeys.loggedIn, "l");
-                              StorageManager.setString(StorageKeys.apikey, (passwordController.value.text.trim() + "salt").toMd5());
-                              print((usernameController.value.text.trim() + "salt").toMd5());
-                              NoAnimationRoute.open(context, Vertretungen());
+                              openVertretungen();
                             }else{
                               Keyboard.close(context);
                               FlushbarHelper.createError(
                                 message: "Deinen Benutzerdaten sind falsch", title: "Fehler   : (",
                                 position: FlushbarPosition.TOP
-                              )..show(context);
+                              ).show(context);
                             }
                           },
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 35,
                               right: 35,
                               top: 17.5,
                               bottom: 17.5
                           ),
                           color: PGUColors.accent,
-                          child: Text(
+                          child: const Text(
                             "Einloggen",
                             style: TextStyle(
                                 color: PGUColors.text,
@@ -141,6 +138,17 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+
+  void openVertretungen(){
+    StorageManager.setString(StorageKeys.apikey, (passwordController.value.text.trim() + "salt").toMd5());
+    print((usernameController.value.text.trim() + "salt").toMd5());
+
+    if(StorageManager.isEmpty(StorageKeys.tutorialWatched)){
+      NoAnimationRoute.open(context, const Tutorial());
+    }else{
+      NoAnimationRoute.open(context, const Vertretungen());
+    }
   }
 
   Widget fixedBackground(){

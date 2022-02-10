@@ -5,6 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Pages/Login/Login.dart';
+import 'package:pgu/Pages/Tutorial/Tutorial.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
@@ -44,8 +45,10 @@ class _SplashState extends State<Splash> {
     splashDelay = Timer(Duration(seconds: Consts.splashDelay), (){
       if(StorageManager.getString(StorageKeys.loggedIn) == "") {
         NoAnimationRoute.open(context, Login());
+      }else if(StorageManager.isEmpty(StorageKeys.tutorialWatched)) {
+        NoAnimationRoute.open(context, Tutorial());
       }else{
-        NoAnimationRoute.open(context, Vertretungen());
+          NoAnimationRoute.open(context, Vertretungen());
       }
     });
   }

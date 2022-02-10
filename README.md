@@ -5,23 +5,17 @@
 Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 
 ## TODO
-[x] Klassen nur bei Übergabe von (klartext Passwort + salt).hashed\
-[x] Alle Klassen auf einmal bekommen\
-[x] Lehrer Vertretungen bekommen\
-[x] Tagestitel anzeigen + fetchen\
 [ ] Intro/Tutorial Screen\
+[ ] Benachrichtigungen bei neuen Vertretungen\
 [ ] Bei neuer Internetverbindung automatisch neuladen\
 [ ] Parsing Fehler im Backend beheben\
 [ ] Replace SDP\
 [ ] App Größe vermindern (https://itnext.io/reducing-flutter-app-size-570db9810ebb) \
-[x] Versionsnummer check\
-[x] Loading Animation\
 [x] Settings Baustelle (https://www.pexels.com/de-de/foto/person-frau-bau-arbeiten-8960933/) \
-[x] Links öffnen (https://pub.dev/packages/url_launcher)
 
 ## Check
 [x] Exclude from Backups\
-[x] Offline letzte sehen (Stand der Vertretungen + Offline Error Handling)\
+[x] Offline letzte sehen (Stand der Vertretungen + Offline Error Handling)
 
 ## Features
 [x] Vertretung API letzten Stand mitsenden um Geschwindigkeit zu erhöhen\
@@ -29,29 +23,32 @@ Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 [x] Fächerfarbe selber auswählen\
 [x] Filter für Kurse in einem Jahrgang (Nicht alle haben Französisch)\
 [x] Fächer wieder anzeigen lassen\
-[ ] Benachrichtigungen bei neuen Vertretungen\
 [ ] Benachrichtigungen nur mit Filter senden (ohne ausgeblendete Kurse)\
-[ ] Firebase Token an Server senden mit Code (wenn sich token ändert überschreiben) \
+[ ] Firebase Token an Server senden mit Code (wenn sich token ändert überschreiben)
 
 ## Erweiterung
-[ ] Voreinstellungen Fächerfarben\
+[ ] Voreinstellungen Fächerfarben
 
 ## Optional
-[x] Suffix Icon bei Login\
 [ ] Fehlermeldungen (Wo?)\
-- Benachrichtigungen gestalten (Icon)\
-- Benachrichtigungen einbauen\
-- Ausgeblendete Kurse in neuem Schuljahr resetten\
-- Spiele in Einstellungen unter Versionsnummer\
-- Termine einbauen (https://www.pgu.de/aktuelles/termine)\
-- Json Parsing Error behandeln (Welcher?)
+[ ] Benachrichtigungen gestalten (Icon)\
+[ ] Benachrichtigungen einbauen\
+[ ] Ausgeblendete Kurse in neuem Schuljahr resetten\
+[ ] Spiele in Einstellungen unter Versionsnummer\
+[ ] Termine einbauen (https://www.pgu.de/aktuelles/termine)\
+[ ] Json Parsing Error behandeln (Welcher?)
 
 ## Benutzte Resourcen
-- https://medium.com/@info_67212/flutter-swipe-your-widget-for-more-action-items-2b85866ca238\
-- https://firebase.flutter.dev/docs/messaging/notifications/
+[ ] https://medium.com/@info_67212/flutter-swipe-your-widget-for-more-action-items-2b85866ca238\
+[ ] https://firebase.flutter.dev/docs/messaging/notifications
 
 ## API
 
 ### Vertretungen bekommen
-https://pgu.backslash-vr.com/api/user/get?type=s&content=Q2@Q1&lastFetched=2022-01-25%2016:51:58.948476&apikey=
+type: 's' für Schüler und 'l' für Lehrer\
+content: Klassen/Stufen/Lehrer mit '@' getrennt (Q1@Q2)\
+lastFetched: Timespamp der letzten Abfrage (2022-01-25%2016:51:58.948476)\
+apikey: (Passwort + "salt").md5\
+
+https://pgu.backslash-vr.com/api/user/get?type&content&lastFetched&apikey
 
