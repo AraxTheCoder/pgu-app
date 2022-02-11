@@ -8,8 +8,8 @@ import 'flushbar_route.dart' as route;
 
 const String FLUSHBAR_ROUTE_NAME = "/flushbarRoute";
 
-typedef void FlushbarStatusCallback(FlushbarStatus? status);
-typedef void OnTap(Flushbar flushbar);
+typedef FlushbarStatusCallback = void Function(FlushbarStatus? status);
+typedef OnTap = void Function(Flushbar flushbar);
 
 /// A highly customizable widget so you can notify your user when you fell like he needs a beautiful explanation.
 class Flushbar<T> extends StatefulWidget {
@@ -52,42 +52,42 @@ class Flushbar<T> extends StatefulWidget {
         double? routeBlur,
         Color? routeColor,
         Form? userInputForm})
-      : this.title = title,
-        this.message = message,
-        this.titleText = titleText,
-        this.messageText = messageText,
-        this.icon = icon,
-        this.shouldIconPulse = shouldIconPulse,
-        this.maxWidth = maxWidth,
-        this.margin = margin,
-        this.padding = padding,
-        this.borderRadius = borderRadius,
-        this.borderColor = borderColor,
-        this.borderWidth = borderWidth,
-        this.backgroundColor = backgroundColor,
-        this.leftBarIndicatorColor = leftBarIndicatorColor,
-        this.boxShadows = boxShadows,
-        this.backgroundGradient = backgroundGradient,
-        this.mainButton = mainButton,
-        this.onTap = onTap,
-        this.duration = duration,
-        this.isDismissible = isDismissible,
-        this.dismissDirection = dismissDirection,
-        this.showProgressIndicator = showProgressIndicator,
-        this.progressIndicatorController = progressIndicatorController,
-        this.progressIndicatorBackgroundColor =
+      : title = title,
+        message = message,
+        titleText = titleText,
+        messageText = messageText,
+        icon = icon,
+        shouldIconPulse = shouldIconPulse,
+        maxWidth = maxWidth,
+        margin = margin,
+        padding = padding,
+        borderRadius = borderRadius,
+        borderColor = borderColor,
+        borderWidth = borderWidth,
+        backgroundColor = backgroundColor,
+        leftBarIndicatorColor = leftBarIndicatorColor,
+        boxShadows = boxShadows,
+        backgroundGradient = backgroundGradient,
+        mainButton = mainButton,
+        onTap = onTap,
+        duration = duration,
+        isDismissible = isDismissible,
+        dismissDirection = dismissDirection,
+        showProgressIndicator = showProgressIndicator,
+        progressIndicatorController = progressIndicatorController,
+        progressIndicatorBackgroundColor =
             progressIndicatorBackgroundColor,
-        this.progressIndicatorValueColor = progressIndicatorValueColor,
-        this.flushbarPosition = flushbarPosition,
-        this.flushbarStyle = flushbarStyle,
-        this.forwardAnimationCurve = forwardAnimationCurve,
-        this.reverseAnimationCurve = reverseAnimationCurve,
-        this.animationDuration = animationDuration,
-        this.barBlur = barBlur,
-        this.blockBackgroundInteraction = blockBackgroundInteraction,
-        this.routeBlur = routeBlur,
-        this.routeColor = routeColor,
-        this.userInputForm = userInputForm,
+        progressIndicatorValueColor = progressIndicatorValueColor,
+        flushbarPosition = flushbarPosition,
+        flushbarStyle = flushbarStyle,
+        forwardAnimationCurve = forwardAnimationCurve,
+        reverseAnimationCurve = reverseAnimationCurve,
+        animationDuration = animationDuration,
+        barBlur = barBlur,
+        blockBackgroundInteraction = blockBackgroundInteraction,
+        routeBlur = routeBlur,
+        routeColor = routeColor,
+        userInputForm = userInputForm,
         super(key: key) {
     this.onStatusChanged = onStatusChanged ?? (status) {};
   }
@@ -711,11 +711,9 @@ class _FlushbarState<K extends Object?> extends State<Flushbar>
   }
 
   Widget? _getTitleText() {
-    return widget.titleText != null
-        ? widget.titleText
-        : Text(
+    return widget.titleText ?? Text(
       widget.title ?? "",
-      style: TextStyle(
+      style: const TextStyle(
           fontSize: 16.0,
           color: Colors.white,
           fontWeight: FontWeight.bold),
@@ -725,7 +723,7 @@ class _FlushbarState<K extends Object?> extends State<Flushbar>
   Text _getDefaultNotificationText() {
     return Text(
       widget.message ?? "",
-      style: TextStyle(fontSize: 14.0, color: Colors.white),
+      style: const TextStyle(fontSize: 14.0, color: Colors.white),
     );
   }
 

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 import 'flushbar.dart';
 
@@ -32,21 +31,21 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
   }),
         _onStatusChanged = flushbar.onStatusChanged,
         super(settings: settings) {
-    _configureAlignment(this.flushbar.flushbarPosition);
+    _configureAlignment(flushbar.flushbarPosition);
   }
 
   void _configureAlignment(FlushbarPosition flushbarPosition) {
     switch (flushbar.flushbarPosition) {
       case FlushbarPosition.TOP:
         {
-          _initialAlignment = Alignment(-1.0, -2.0);
-          _endAlignment = Alignment(-1.0, -1.0);
+          _initialAlignment = const Alignment(-1.0, -2.0);
+          _endAlignment = const Alignment(-1.0, -1.0);
           break;
         }
       case FlushbarPosition.BOTTOM:
         {
-          _initialAlignment = Alignment(-1.0, 2.0);
-          _endAlignment = Alignment(-1.0, 1.0);
+          _initialAlignment = const Alignment(-1.0, 2.0);
+          _endAlignment = const Alignment(-1.0, 1.0);
           break;
         }
     }
@@ -106,7 +105,7 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
                 sigmaX: _filterBlurAnimation!.value,
                 sigmaY: _filterBlurAnimation!.value),
             child: Container(
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               color: _filterColorAnimation!.value,
             ),
           );
@@ -123,7 +122,7 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
                 sigmaX: _filterBlurAnimation!.value,
                 sigmaY: _filterBlurAnimation!.value),
             child: Container(
-              constraints: BoxConstraints.expand(),
+              constraints: const BoxConstraints.expand(),
               color: Colors.transparent,
             ),
           );
@@ -136,7 +135,7 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
         animation: _filterColorAnimation!,
         builder: (context, child) {
           return Container(
-            constraints: BoxConstraints.expand(),
+            constraints: const BoxConstraints.expand(),
             color: _filterColorAnimation!.value,
           );
         },
@@ -144,7 +143,7 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
     }
 
     return Container(
-      constraints: BoxConstraints.expand(),
+      constraints: const BoxConstraints.expand(),
       color: Colors.transparent,
     );
   }
@@ -220,8 +219,7 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
   AnimationController createAnimationController() {
     assert(!_transitionCompleter.isCompleted,
     'Cannot reuse a $runtimeType after disposing it.');
-    assert(flushbar.animationDuration != null &&
-        flushbar.animationDuration >= Duration.zero);
+    assert(flushbar.animationDuration >= Duration.zero);
     return AnimationController(
       duration: flushbar.animationDuration,
       debugLabel: debugLabel,
@@ -251,7 +249,7 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
     return Tween(begin: 0.0, end: flushbar.routeBlur).animate(
       CurvedAnimation(
         parent: _controller!,
-        curve: Interval(
+        curve: const Interval(
           0.0,
           0.35,
           curve: Curves.easeInOutCirc,
@@ -267,7 +265,7 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
         .animate(
       CurvedAnimation(
         parent: _controller!,
-        curve: Interval(
+        curve: const Interval(
           0.0,
           0.35,
           curve: Curves.easeInOutCirc,
@@ -347,8 +345,9 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
     '$runtimeType.didReplace called before calling install() or after calling dispose().');
     assert(!_transitionCompleter.isCompleted,
     'Cannot reuse a $runtimeType after disposing it.');
-    if (oldRoute is FlushbarRoute)
+    if (oldRoute is FlushbarRoute) {
       _controller!.value = oldRoute._controller!.value;
+    }
     _animation!.addStatusListener(_handleStatusChanged);
     super.didReplace(oldRoute);
   }
@@ -364,7 +363,7 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
     _cancelTimer();
 
     if (_wasDismissedBySwipe) {
-      Timer(Duration(milliseconds: 200), () {
+      Timer(const Duration(milliseconds: 200), () {
         _controller!.reset();
       });
 
@@ -382,9 +381,9 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
         _timer!.cancel();
       }
       _timer = Timer(flushbar.duration!, () {
-        if (this.isCurrent) {
+        if (isCurrent) {
           navigator!.pop();
-        } else if (this.isActive) {
+        } else if (isActive) {
           navigator!.removeRoute(this);
         }
       });
@@ -431,10 +430,9 @@ class FlushbarRoute<T> extends OverlayRoute<T> {
 
 FlushbarRoute showFlushbar<T>(
     {required BuildContext context, required Flushbar flushbar}) {
-  assert(flushbar != null);
 
   return FlushbarRoute<T>(
     flushbar: flushbar,
-    settings: RouteSettings(name: FLUSHBAR_ROUTE_NAME),
+    settings: const RouteSettings(name: FLUSHBAR_ROUTE_NAME),
   );
 }

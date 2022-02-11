@@ -6,7 +6,7 @@ Widget OnelineInput(TextEditingController controller, String hint, IconData suff
     maxLines: 1,
     autofocus: false,
     keyboardType: TextInputType.name,
-    style: TextStyle(
+    style: const TextStyle(
         color: PGUColors.background,
         fontFamily: 'Mont'
     ),
@@ -15,8 +15,8 @@ Widget OnelineInput(TextEditingController controller, String hint, IconData suff
       fillColor: PGUColors.inputBackground,
       filled: true,
       hintText: hint,
-      prefix: SizedBox(width: 15,),
-      suffixIconConstraints: BoxConstraints(
+      prefix: const SizedBox(width: 15,),
+      suffixIconConstraints: const BoxConstraints(
         minHeight: 60,
         minWidth: 60
       ),
@@ -33,7 +33,7 @@ Widget OnelineInput(TextEditingController controller, String hint, IconData suff
           color: PGUColors.background.withOpacity(0.2),
         ),
       ),
-      hintStyle: TextStyle(
+      hintStyle: const TextStyle(
           color: PGUColors.inactive,
           fontFamily: 'Mont'
       ),

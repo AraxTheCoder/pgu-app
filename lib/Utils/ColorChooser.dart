@@ -1,9 +1,6 @@
-import 'dart:collection';
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
@@ -16,13 +13,13 @@ class ColorChooser{
   static Color pickColor(String fach){
     fach = fach.substringToNumber().toUpperCase();
 
-    if(colors == null)
+    if(colors == null) {
       loadColors();
+    }
 
     int? color = colors![fach];
 
-    if(color == null)
-      color = PGUColors.background.value;
+    color ??= PGUColors.background.value;
 
     return Color(color);
   }
@@ -53,7 +50,8 @@ class ColorChooser{
         "LI" : Colors.cyan.value,
         "PA" : Colors.pinkAccent.value,
       };
-    }else
+    }else {
       colors = Map<String, int>.from(jsonDecode(jsonString));
+    }
   }
 }

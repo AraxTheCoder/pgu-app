@@ -42,7 +42,7 @@ class _IntroductionState extends State<Introduction> {
                 children: [
                   Transform.rotate(
                     angle: -pi / 4,
-                    child: Container(
+                    child: SizedBox(
                       height: SDP.sdp(55),
                       width: SDP.sdp(55),
                       child: ClipRRect(
@@ -73,7 +73,7 @@ class _IntroductionState extends State<Introduction> {
                 left: SDP.sdp(25)
               ),
               child: RichText(
-                text: TextSpan(
+                text: const TextSpan(
                   text: "Willkommen in der\n",
                   style: TextStyle(
                       fontFamily: 'Mont-normal',
@@ -94,7 +94,7 @@ class _IntroductionState extends State<Introduction> {
             ),
             Container(
               alignment: Alignment.center,
-              child: Text(
+              child: const Text(
                 "Im folgenden "
               ),
             )

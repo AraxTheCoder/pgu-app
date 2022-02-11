@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'size_change_notifier.dart';
 
 class ActionItems extends Object{
-  ActionItems({required this.icon, required this.text ,required this.onPress, this.backgroudColor:Colors.grey});
+  ActionItems({required this.icon, required this.text ,required this.onPress, this.backgroudColor = Colors.grey});
 
   final Widget icon;
   final String text;
@@ -14,7 +13,7 @@ class ActionItems extends Object{
 }
 
 class OnSlide extends StatefulWidget {
-  OnSlide({Key? key, required this.items, required this.child, this.backgroundColor:Colors.white}):super(key:key){
+  OnSlide({Key? key, required this.items, required this.child, this.backgroundColor = Colors.white}):super(key:key){
     assert(items.length <= 6);
   }
 
@@ -24,11 +23,11 @@ class OnSlide extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return new _OnSlideState();
+    return _OnSlideState();
   }
 }
 class _OnSlideState extends State<OnSlide> {
-  ScrollController controller = new ScrollController();
+  ScrollController controller = ScrollController();
   bool isOpen = false;
 
   Size? childSize;
@@ -49,18 +48,19 @@ class _OnSlideState extends State<OnSlide> {
           && notification.metrics.pixels < widget.items.length * iconWidth10){
         scheduleMicrotask((){
           controller.animateTo(widget.items.length * iconWidth,
-              duration: new Duration(milliseconds: 600), curve: Curves.decelerate);
+              duration: const Duration(milliseconds: 600), curve: Curves.decelerate);
 
-          Timer(Duration(seconds: 1), (){
+          Timer(const Duration(seconds: 1), (){
             scheduleMicrotask((){
-              if(controller.positions.isNotEmpty)
-                controller.animateTo(0.0, duration: new Duration(milliseconds: 600), curve: Curves.decelerate);
+              if(controller.positions.isNotEmpty) {
+                controller.animateTo(0.0, duration: const Duration(milliseconds: 600), curve: Curves.decelerate);
+              }
             });
           });
         });
       }else if (notification.metrics.pixels > 0.0 && notification.metrics.pixels < (widget.items.length * iconWidth10)/2){
         scheduleMicrotask((){
-          controller.animateTo(0.0, duration: new Duration(milliseconds: 600), curve: Curves.decelerate);
+          controller.animateTo(0.0, duration: const Duration(milliseconds: 600), curve: Curves.decelerate);
         });
       }
     }
@@ -71,8 +71,8 @@ class _OnSlideState extends State<OnSlide> {
   @override
   Widget build(BuildContext context) {
     if (childSize == null){
-      return new NotificationListener(
-        child: new LayoutSizeChangeNotifier(
+      return NotificationListener(
+        child: LayoutSizeChangeNotifier(
           child: widget.child
         ),
         onNotification: (LayoutSizeChangeNotification notification){
@@ -80,8 +80,9 @@ class _OnSlideState extends State<OnSlide> {
           //print(notification.newSize);
 
           scheduleMicrotask((){
-            if(!mounted)
+            if(!mounted) {
               return;
+            }
 
             setState((){
             });
@@ -93,14 +94,14 @@ class _OnSlideState extends State<OnSlide> {
       );
     }
 
-    List<Widget> above = <Widget>[new Container(
+    List<Widget> above = <Widget>[Container(
       width: childSize!.width,
       height: childSize!.height,
       color: widget.backgroundColor,
       child: GestureDetector(
         onTap: (){
           //controller.jumpTo(2.0);
-          controller.animateTo(0.0, duration: new Duration(milliseconds: 200), curve: Curves.decelerate);
+          controller.animateTo(0.0, duration: const Duration(milliseconds: 200), curve: Curves.decelerate);
         },
         child: widget.child,
       ),
@@ -108,8 +109,8 @@ class _OnSlideState extends State<OnSlide> {
 
     for (ActionItems item in widget.items){
       above.add(
-          new GestureDetector(//InkWell
-              child: new Container(
+          GestureDetector(//InkWell
+              child: Container(
                 alignment: Alignment.centerLeft,
                 width: iconWidth,
                 height: childSize!.height,
@@ -121,7 +122,7 @@ class _OnSlideState extends State<OnSlide> {
                     Text(
                       item.text,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Mont',
                         fontSize: 10
                       ),
@@ -137,12 +138,12 @@ class _OnSlideState extends State<OnSlide> {
       );
     }
 
-    Widget items = new Container(
+    Widget items = SizedBox(
       width: childSize!.width,
       height: childSize!.height,
     );
 
-    Widget scrollview = new NotificationListener(
+    Widget scrollview = NotificationListener(
       child: ListView(
         controller: controller,
         scrollDirection: Axis.horizontal,

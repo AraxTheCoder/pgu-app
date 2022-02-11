@@ -15,16 +15,20 @@ import 'Notifications/PushNotificationService.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp();
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true,
     badge: true,
     sound: true,
   );
-  runApp(PGUApp());
+
+  runApp(const PGUApp());
 }
 
 class PGUApp extends StatefulWidget{
+  const PGUApp({Key? key}) : super(key: key);
+
   @override
   _PGUAppState createState() {
     final pushNotificationService = PushNotificationService();
@@ -42,7 +46,7 @@ class _PGUAppState extends State<PGUApp>{
   @override
   Widget build(BuildContext context) {
     return AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle(
+        value: const SystemUiOverlayStyle(
             statusBarColor: PGUColors.transparent,
             statusBarIconBrightness: PGUColors.brightness,
             statusBarBrightness: PGUColors.brightness,

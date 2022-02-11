@@ -27,8 +27,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final TextEditingController usernameController = new TextEditingController();
-  final TextEditingController passwordController = new TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class _LoginState extends State<Login> {
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   height: 400,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft:  Radius.circular(50),
@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
                   child: Stack(
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                             right: 40,
                             left: 40,
                         ),
@@ -66,12 +66,12 @@ class _LoginState extends State<Login> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(
+                              margin: const EdgeInsets.only(
                                   top: 40,
                                   bottom: 40,
                               ),
                               alignment: Alignment.topCenter,
-                              child: Text(
+                              child: const Text(
                                 "Login",
                                 style: TextStyle(
                                   color: PGUColors.background,
@@ -81,7 +81,7 @@ class _LoginState extends State<Login> {
                               ),
                             ),
                             OnelineInput(usernameController, "Benutzername", Icons.person_rounded),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             OnelineInput(passwordController, "Passwort", Icons.vpn_key_rounded)
@@ -153,7 +153,7 @@ class _LoginState extends State<Login> {
 
   Widget fixedBackground(){
     return SingleChildScrollView(
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       child: SvgPicture.asset(
         'assets/background.svg',
         allowDrawingOutsideViewBox: true,

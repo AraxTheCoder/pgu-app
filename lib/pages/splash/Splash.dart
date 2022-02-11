@@ -42,13 +42,13 @@ class _SplashState extends State<Splash> {
 
     checkTokenUpdate();
 
-    splashDelay = Timer(Duration(seconds: Consts.splashDelay), (){
+    splashDelay = Timer(const Duration(seconds: Consts.splashDelay), (){
       if(StorageManager.getString(StorageKeys.loggedIn) == "") {
-        NoAnimationRoute.open(context, Login());
+        NoAnimationRoute.open(context, const Login());
       }else if(StorageManager.isEmpty(StorageKeys.tutorialWatched)) {
-        NoAnimationRoute.open(context, Tutorial());
+        NoAnimationRoute.open(context, const Tutorial());
       }else{
-          NoAnimationRoute.open(context, Vertretungen());
+          NoAnimationRoute.open(context, const Vertretungen());
       }
     });
   }
@@ -114,7 +114,7 @@ class _SplashState extends State<Splash> {
             ),
             Container(
               alignment: Alignment.bottomCenter,
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 bottom: 25
               ),
               child: Text(

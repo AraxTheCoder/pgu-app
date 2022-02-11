@@ -503,7 +503,7 @@ class _ClassesState extends State<Classes> {
     setState(()=>null);
   }
 
-  Dio dio = new Dio();
+  Dio dio = Dio();
 
   void deleteClass(ClassModel classCode){
     print("[Classes] Delete " + classCode.name!);

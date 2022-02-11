@@ -54,14 +54,15 @@ class _VertretungenState extends State<Vertretungen> {
       classes = List<ClassModel>.from(
           json.decode(jsonString).map((model) => ClassModel.fromJson(model)));
 
-      if(classes.isNotEmpty)
+      if(classes.isNotEmpty) {
         loadCachedVertretungen();
+      }
     }
 
     loadVertretungen();
   }
 
-  Dio dio = new Dio();
+  Dio dio = Dio();
   bool offline = false;
 
   void loadCachedVertretungen(){
@@ -82,7 +83,7 @@ class _VertretungenState extends State<Vertretungen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context){
-        return SpinKitFadingCube(
+        return const SpinKitFadingCube(
           color: PGUColors.text,
         );
       }
@@ -96,8 +97,9 @@ class _VertretungenState extends State<Vertretungen> {
   void loadVertretungen() async {
     entities = [];
     bool classnameChange = false;
-    if(classes.isEmpty)
+    if(classes.isEmpty) {
       return;
+    }
 
     String params = "";
     for(int a = 0; a < classes.length; a++){
@@ -113,7 +115,7 @@ class _VertretungenState extends State<Vertretungen> {
 
     //Response response = await dio.get("https://pgu.backslash-vr.com/api/user/get" + "?code=" + classCode.code!);
     //FIXME: to fetch all old use 'old' instead of 'get'
-    String url = "https://pgu.backslash-vr.com/api/user/get" + "?type=" + StorageManager.getString(StorageKeys.loggedIn) + "&content=" + params + "&apikey=" + StorageManager.getString(StorageKeys.apikey) + "&lastFetched=" + StorageManager.getString(StorageKeys.lastFetched) + "&version=" + AppInfo.clientVersion.toString();
+    String url = "https://pgu.backslash-vr.com/api/user/get" "?type=" + StorageManager.getString(StorageKeys.loggedIn) + "&content=" + params + "&apikey=" + StorageManager.getString(StorageKeys.apikey) + "&lastFetched=" + StorageManager.getString(StorageKeys.lastFetched) + "&version=" + AppInfo.clientVersion.toString();
     print("[Vertretungen] " + url);
     try{
       Response response = await dio.get(url);
@@ -137,7 +139,7 @@ class _VertretungenState extends State<Vertretungen> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          insetPadding: EdgeInsets.only(
+                          insetPadding: const EdgeInsets.only(
                             left: 20,
                             right: 20,
                           ),
@@ -145,7 +147,7 @@ class _VertretungenState extends State<Vertretungen> {
                           backgroundColor: Colors.transparent,
                           child: Container(
                             height: 500,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.white,
                               shape: BoxShape.rectangle,
                               borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -156,12 +158,12 @@ class _VertretungenState extends State<Vertretungen> {
                                 Container(
                                   width: double.infinity,
                                   alignment: Alignment.centerLeft,
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       top: 50,
                                       left: 50
                                   ),
                                   child: RichText(
-                                    text: TextSpan(
+                                    text: const TextSpan(
                                         text: "Neue\n",
                                         style: TextStyle(
                                             fontFamily: 'Mont-normal',
@@ -177,7 +179,7 @@ class _VertretungenState extends State<Vertretungen> {
                                 ),
                                 Expanded(
                                   child: Container(
-                                    margin: EdgeInsets.only(
+                                    margin: const EdgeInsets.only(
                                         top: 35,
                                         bottom: 35,
                                         right: 35,
@@ -192,7 +194,7 @@ class _VertretungenState extends State<Vertretungen> {
                                         Expanded(
                                           child: Container(
                                             alignment: Alignment.bottomCenter,
-                                            child: Text(
+                                            child: const Text(
                                               "Um die PGU App zu benutzen, musst du die neuste Version herunterladen.",
                                               style: TextStyle(
                                                   fontFamily: 'Mont-normal',
@@ -209,7 +211,7 @@ class _VertretungenState extends State<Vertretungen> {
                                 Container(
                                   // color: Colors.red,
                                   alignment: Alignment.bottomCenter,
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       top: 10,
                                       bottom: 30,
                                       left: 30,
@@ -227,14 +229,14 @@ class _VertretungenState extends State<Vertretungen> {
                                               //TODO: Open link
                                               Navigator.of(context).pop('dialog');
                                             },
-                                            padding: EdgeInsets.only(
+                                            padding: const EdgeInsets.only(
                                                 left: 25,
                                                 right: 25,
                                                 top: 15,
                                                 bottom: 15
                                             ),
                                             color: PGUColors.accent,
-                                            child: Text(
+                                            child: const Text(
                                               "Herunterladen",
                                               style: TextStyle(
                                                   color: PGUColors.text,
@@ -277,8 +279,9 @@ class _VertretungenState extends State<Vertretungen> {
             for(Info i in infos){
               int index = entities.indexWhere((element) => element.datum == i.date);
 
-              if(index >= 0)
-                entities.insert(index, new Vertretung("INFO", "/", "/", "/", "/", i.content, i.date));
+              if(index >= 0) {
+                entities.insert(index, Vertretung("INFO", "/", "/", "/", "/", i.content, i.date));
+              }
             }
           }
         }
@@ -291,7 +294,7 @@ class _VertretungenState extends State<Vertretungen> {
         // }
         StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
       }
-    }on DioError catch(s){
+    }on DioError {
       print("[Vertretungen] Offline");
       offline = true;
     }on SocketException catch(s){
@@ -309,8 +312,9 @@ class _VertretungenState extends State<Vertretungen> {
 
     hideLoading();
 
-    if(mounted)
+    if(mounted) {
       setState(()=>null);
+    }
   }
 
   List<ClassModel> classes = [];
@@ -318,7 +322,7 @@ class _VertretungenState extends State<Vertretungen> {
   List<Vertretung> entities = [];
   List<Vertretung> cachedEntities = [];
 
-  ScrollController _controller = ScrollController();
+  final ScrollController _controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -329,7 +333,7 @@ class _VertretungenState extends State<Vertretungen> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         //resizeToAvoidBottomPadding: true,
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Stack(
           children: [
             Container(
@@ -352,7 +356,7 @@ class _VertretungenState extends State<Vertretungen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         RichText(
-                          text: TextSpan(
+                          text: const TextSpan(
                               text: "Deine\n",
                               style: TextStyle(
                                   fontFamily: 'Mont-normal',
@@ -446,7 +450,7 @@ class _VertretungenState extends State<Vertretungen> {
                                         color: PGUColors.text,
                                         fontSize: TextSize.big,
                                         fontFamily: 'Mont',
-                                        shadows: <Shadow>[
+                                        shadows: const <Shadow>[
                                           Shadow(
                                             offset: Offset(10.0, 10.0),
                                             blurRadius: 3.0,
@@ -472,7 +476,7 @@ class _VertretungenState extends State<Vertretungen> {
                         ),
                       ) :
                       Container(
-                        margin: EdgeInsets.only(
+                        margin: const EdgeInsets.only(
                           top: 10,
                           bottom: 130,
                         ),
@@ -481,7 +485,7 @@ class _VertretungenState extends State<Vertretungen> {
                           removeTop: true,
                           child: ShaderMask(
                             shaderCallback: (Rect rect) {
-                              return LinearGradient(
+                              return const LinearGradient(
                                 begin: Alignment.topCenter,
                                 end: Alignment.bottomCenter,
                                 colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
@@ -490,7 +494,7 @@ class _VertretungenState extends State<Vertretungen> {
                             },
                             blendMode: BlendMode.dstOut,
                             child: ListView.builder(
-                              physics: BouncingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               itemCount: items.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return items[index];
@@ -519,7 +523,7 @@ class _VertretungenState extends State<Vertretungen> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 7), // changes position of shadow
+                        offset: const Offset(0, 7), // changes position of shadow
                       ),
                     ],
                   ),
@@ -530,8 +534,8 @@ class _VertretungenState extends State<Vertretungen> {
                           onTap: openClasses,
                           child: Container(
                             color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
-                            padding: EdgeInsets.all(20),
-                            child: Icon(
+                            padding: const EdgeInsets.all(20),
+                            child: const Icon(
                               Icons.person_outline_rounded, //person_outline_rounded
                               color: PGUColors.text,
                               size: 25,
@@ -539,7 +543,7 @@ class _VertretungenState extends State<Vertretungen> {
                           ),
                         ),
                       ),
-                      Expanded(
+                      const Expanded(
                         child: Icon(
                           Icons.home_rounded,
                           color: PGUColors.text,
@@ -551,8 +555,8 @@ class _VertretungenState extends State<Vertretungen> {
                           onTap: openSettings,
                           child: Container(
                             color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
-                            padding: EdgeInsets.all(20),
-                            child: Icon(
+                            padding: const EdgeInsets.all(20),
+                            child: const Icon(
                               Icons.settings_outlined, //person_outline_rounded
                               color: PGUColors.text,
                               size: 25,
@@ -574,21 +578,22 @@ class _VertretungenState extends State<Vertretungen> {
 
     String jsonString = StorageManager.getString(StorageKeys.ausgeblendeteKurse);
 
-    if(jsonString.isEmpty)
+    if(jsonString.isEmpty) {
       ausgeblendeteKurse = [];
-    else
+    } else {
       ausgeblendeteKurse = List<String>.from(jsonDecode(jsonString));
+    }
 
     if(ausgeblendeteKurse.isNotEmpty){
       return GestureDetector(
           onTap: showAusgeblendeteKurse,
           child: Container(
             color: PGUColors.transparent,
-            padding: EdgeInsets.only(
+            padding: const EdgeInsets.only(
                 top: 20,
                 bottom: 30
             ),
-            child: Text(
+            child: const Text(
               "Ausgeblendete Kurse anzeigen",
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -609,18 +614,20 @@ class _VertretungenState extends State<Vertretungen> {
 
     String jsonString = StorageManager.getString(StorageKeys.ausgeblendeteKurse);
 
-    if(jsonString.isEmpty)
+    if(jsonString.isEmpty) {
       ausgeblendeteKurse = [];
-    else
+    } else {
       ausgeblendeteKurse = List<String>.from(jsonDecode(jsonString));
+    }
 
-    vertretungenItems.add(SizedBox(height: 15,));
+    vertretungenItems.add(const SizedBox(height: 15,));
 
     for (int a = 0; a < (entities.isNotEmpty ? entities.length : cachedEntities.length); a++) {
       Vertretung v = entities.isNotEmpty ? entities[a] : cachedEntities[a];
 
-      if(!ausgeblendeteKurse.contains(v.klasse! + "|" + v.kurs! + "|" + v.vertreter!.split("→")[0]))
+      if(!ausgeblendeteKurse.contains(v.klasse! + "|" + v.kurs! + "|" + v.vertreter!.split("→")[0])) {
         vertretungenItems.add(Vertretung.item(v, context, refresh, a));
+      }
     }
 
     // if(ausgeblendeteKurse.isNotEmpty){
@@ -646,7 +653,7 @@ class _VertretungenState extends State<Vertretungen> {
     // }
     vertretungenItems.add(hiddenCoursesButton());
 
-    vertretungenItems.add(SizedBox(height: 15,));
+    vertretungenItems.add(const SizedBox(height: 15,));
 
     return vertretungenItems;
   }
@@ -656,12 +663,13 @@ class _VertretungenState extends State<Vertretungen> {
 
     String jsonString = StorageManager.getString(StorageKeys.ausgeblendeteKurse);
 
-    if(jsonString.isEmpty)
+    if(jsonString.isEmpty) {
       ausgeblendeteKurse = [];
-    else
+    } else {
       ausgeblendeteKurse = List<String>.from(jsonDecode(jsonString));
+    }
 
-    changed = Map<String, bool>();
+    changed = <String, bool>{};
 
     for(String s in ausgeblendeteKurse){
       changed![s] = false;
@@ -676,7 +684,7 @@ class _VertretungenState extends State<Vertretungen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                insetPadding: EdgeInsets.only(
+                insetPadding: const EdgeInsets.only(
                   left: 20,
                   right: 20,
                   bottom: 100,
@@ -686,7 +694,7 @@ class _VertretungenState extends State<Vertretungen> {
                 backgroundColor: Colors.transparent,
                 child: Container(
                   height: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -697,12 +705,12 @@ class _VertretungenState extends State<Vertretungen> {
                       Container(
                         width: double.infinity,
                         alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             top: 50,
                           left: 50
                         ),
                         child: RichText(
-                          text: TextSpan(
+                          text: const TextSpan(
                               text: "Deine\n",
                               style: TextStyle(
                                   fontFamily: 'Mont-normal',
@@ -718,13 +726,13 @@ class _VertretungenState extends State<Vertretungen> {
                       ),
                       Expanded(
                         child: Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               top: 10,
                               right: 25,
                               left: 25
                           ),
                           child: ListView.builder(
-                            physics: BouncingScrollPhysics(),
+                            physics: const BouncingScrollPhysics(),
                             itemCount: ausgeblendeteKurse!.length,
                             itemBuilder: (BuildContext context, int index) {
                               return ausgeblendeterKursWidget(ausgeblendeteKurse![index], setState);
@@ -735,7 +743,7 @@ class _VertretungenState extends State<Vertretungen> {
                       Container(
                         // color: Colors.red,
                         alignment: Alignment.bottomCenter,
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                             top: 10,
                             bottom: 30,
                             left: 30,
@@ -752,14 +760,14 @@ class _VertretungenState extends State<Vertretungen> {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                padding: EdgeInsets.only(
+                                padding: const EdgeInsets.only(
                                     left: 25,
                                     right: 25,
                                     top: 15,
                                     bottom: 15
                                 ),
                                 // color: PGUColors.accent,
-                                child: Text(
+                                child: const Text(
                                   "Abbrechen",
                                   style: TextStyle(
                                       color: PGUColors.background,
@@ -777,8 +785,9 @@ class _VertretungenState extends State<Vertretungen> {
                                     List<String> ak = [];
 
                                     for(MapEntry<String, bool> b in changed!.entries){
-                                      if(!b.value)
+                                      if(!b.value) {
                                         ak.add(b.key);
+                                      }
                                     }
 
                                     StorageManager.setString(
@@ -787,14 +796,14 @@ class _VertretungenState extends State<Vertretungen> {
                                     refresh();
                                     Navigator.of(context).pop();
                                   },
-                                  padding: EdgeInsets.only(
+                                  padding: const EdgeInsets.only(
                                       left: 25,
                                       right: 25,
                                       top: 15,
                                       bottom: 15
                                   ),
                                   color: PGUColors.accent,
-                                  child: Text(
+                                  child: const Text(
                                     "Speichern",
                                     style: TextStyle(
                                         color: PGUColors.text,
@@ -826,7 +835,7 @@ class _VertretungenState extends State<Vertretungen> {
         color: PGUColors.background.withOpacity(0.075),
         borderRadius: BorderRadius.circular(15)
       ),
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         bottom: 15,
         left: 15,
         right: 15
@@ -840,14 +849,14 @@ class _VertretungenState extends State<Vertretungen> {
             width: 15,
             color: ColorChooser.pickColor(kurs.split("|")[1]).withOpacity(0.75),
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Expanded(
             child: RichText(
               text: TextSpan(
                   text: kurs.split("|")[0] + "\n",
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontFamily: 'Mont-normal',
                       fontSize: 15,
                       color: PGUColors.background),
@@ -855,16 +864,17 @@ class _VertretungenState extends State<Vertretungen> {
                     TextSpan(
                         text: kurs.split("|")[1] + " " + kurs.split("|")[2],
                         style:
-                        TextStyle(fontFamily: 'Mont', fontSize: 22.5))
+                        const TextStyle(fontFamily: 'Mont', fontSize: 22.5))
                   ]),
             ),
           ),
           GestureDetector(
             onTap: (){
-              if(changed![kurs]!)
+              if(changed![kurs]!) {
                 changed![kurs] = false;
-              else
+              } else {
                 changed![kurs] = true;
+              }
 
               setState(() {
 
@@ -876,9 +886,9 @@ class _VertretungenState extends State<Vertretungen> {
                 children: [
                   Text(
                     changed![kurs]! ? "Verbergen" : "Anzeigen",
-                    style: TextStyle(fontFamily: 'Mont-normal', fontSize: 15),
+                    style: const TextStyle(fontFamily: 'Mont-normal', fontSize: 15),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Icon(
@@ -889,7 +899,7 @@ class _VertretungenState extends State<Vertretungen> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
         ],

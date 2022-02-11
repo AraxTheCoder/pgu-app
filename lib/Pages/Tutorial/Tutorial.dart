@@ -82,7 +82,7 @@ class _TutorialState extends State<Tutorial> {
                     top: 40
                 ),
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: const Text(
                     "Überspringen",
                     style: TextStyle(
@@ -103,7 +103,7 @@ class _TutorialState extends State<Tutorial> {
                     bottom: 40
                 ),
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: Text(
                     currentPageIndex >= introductionPages.length - 1 ? "Auf geht's" : "Weiter",
                     style: const TextStyle(
@@ -124,7 +124,7 @@ class _TutorialState extends State<Tutorial> {
                     bottom: 40
                 ),
                 child: Container(
-                  padding: EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(20),
                   child: const Text(
                     "Zurück",
                     style: TextStyle(

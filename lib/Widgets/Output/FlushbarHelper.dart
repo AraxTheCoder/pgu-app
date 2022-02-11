@@ -36,7 +36,7 @@ class FlushbarHelper{
           fontSize: TextSize.medium
         ),
       ),
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
         left: 30,
         right: 16,
         top: 25,//16

@@ -32,7 +32,7 @@ class _SettingsState extends State<Settings> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         //resizeToAvoidBottomPadding: true,
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Stack(
           children: [
             Container(
@@ -46,7 +46,7 @@ class _SettingsState extends State<Settings> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                         text: "Deine\n",
                         style: TextStyle(
                             fontFamily: 'Mont-normal',
@@ -67,7 +67,7 @@ class _SettingsState extends State<Settings> {
                   //   style: TextStyle(fontFamily: 'Mont-normal', fontSize: 17),),
                   Expanded(
                     child: Container(
-                      margin: EdgeInsets.only(
+                      margin: const EdgeInsets.only(
                         bottom: 110
                       ),
                       // child: Column(
@@ -110,10 +110,10 @@ class _SettingsState extends State<Settings> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 25,
                               ),
-                              Text("Source Code",
+                              const Text("Source Code",
                                 style:
                                     TextStyle(fontFamily: 'Mont', fontSize: 20),
                               ),
@@ -125,7 +125,7 @@ class _SettingsState extends State<Settings> {
                                   color: PGUColors.transparent,
                                   height: 40,
                                   alignment: Alignment.centerLeft,
-                                  child: Text(
+                                  child: const Text(
                                     "github.com/AraxTheCoder/pgu-app",
                                     style: TextStyle(
                                         fontFamily: 'Mont-normal', fontSize: 15,
@@ -134,14 +134,14 @@ class _SettingsState extends State<Settings> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 25,
                               ),
-                              Text("Kontakt",
+                              const Text("Kontakt",
                                 style:
                                 TextStyle(fontFamily: 'Mont', fontSize: 20),
                               ),
-                              Text("Bei Fehlern oder Wünschen",
+                              const Text("Bei Fehlern oder Wünschen",
                                 style:
                                 TextStyle(fontFamily: 'Mont', fontSize: 15),
                               ),
@@ -153,7 +153,7 @@ class _SettingsState extends State<Settings> {
                                   color: PGUColors.transparent,
                                   height: 40,
                                   alignment: Alignment.centerLeft,
-                                  child: Text(
+                                  child: const Text(
                                     "krueger.jonathan@gmx.de",
                                     style: TextStyle(
                                         fontFamily: 'Mont-normal', fontSize: 15,
@@ -192,7 +192,7 @@ class _SettingsState extends State<Settings> {
                                         color: PGUColors.text,
                                         fontSize: TextSize.big,
                                         fontFamily: 'Mont',
-                                        shadows: <Shadow>[
+                                        shadows: const <Shadow>[
                                           Shadow(
                                             offset: Offset(10.0, 10.0),
                                             blurRadius: 3.0,
@@ -234,7 +234,7 @@ class _SettingsState extends State<Settings> {
                         color: Colors.grey.withOpacity(0.5),
                         spreadRadius: 5,
                         blurRadius: 7,
-                        offset: Offset(0, 7), // changes position of shadow
+                        offset: const Offset(0, 7), // changes position of shadow
                       ),
                     ],
                   ),
@@ -245,8 +245,8 @@ class _SettingsState extends State<Settings> {
                           onTap: openClasses,
                           child: Container(
                             color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
-                            padding: EdgeInsets.all(20),
-                            child: Icon(
+                            padding: const EdgeInsets.all(20),
+                            child: const Icon(
                               Icons.person_outline_rounded, //person_outline_rounded
                               color: PGUColors.text,
                               size: 25,
@@ -259,8 +259,8 @@ class _SettingsState extends State<Settings> {
                           onTap: openVertretungen,
                           child: Container(
                             color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
-                            padding: EdgeInsets.all(20),
-                            child: Icon(
+                            padding: const EdgeInsets.all(20),
+                            child: const Icon(
                               Icons.home_outlined, //person_outline_rounded
                               color: PGUColors.text,
                               size: 25,
@@ -270,8 +270,8 @@ class _SettingsState extends State<Settings> {
                       ),
                       Expanded(
                         child: Container(
-                          padding: EdgeInsets.all(20),
-                          child: Icon(
+                          padding: const EdgeInsets.all(20),
+                          child: const Icon(
                             Icons.settings_rounded,
                             color: PGUColors.text,
                             size: 25,
@@ -292,7 +292,7 @@ class _SettingsState extends State<Settings> {
   }
 
   void openVertretungen(){
-    NoAnimationRoute.open(context, Vertretungen());
+    NoAnimationRoute.open(context, const Vertretungen());
   }
 
   void closeKeyboard(BuildContext context){
