@@ -95,21 +95,7 @@ class _LoginState extends State<Login> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          onPressed: () {
-                            if(usernameController.value.text.trim().toMd5() == '2d7a486f1e0c643890f817dd6764bc7b' && passwordController.value.text.trim().toMd5() == '098f6bcd4621d373cade4e832627b4f6'){
-                              StorageManager.setString(StorageKeys.loggedIn, "s");
-                              openVertretungen();
-                            }else if(usernameController.value.text.trim().toMd5() == '18a90f2c2b4484de555feb4b02904a7a' && passwordController.value.text.trim().toMd5() == '451c683642186ec715fb6574d57b57a2'){
-                              StorageManager.setString(StorageKeys.loggedIn, "l");
-                              openVertretungen();
-                            }else{
-                              Keyboard.close(context);
-                              FlushbarHelper.createError(
-                                  message: "Deine Benutzerdaten sind falsch", title: "Fehler   : (",
-                                  position: FlushbarPosition.TOP
-                              ).show(context);
-                            }
-                          },
+                          onPressed: loginPressed,
                           padding: const EdgeInsets.only(
                               left: 35,
                               right: 35,
@@ -138,9 +124,26 @@ class _LoginState extends State<Login> {
     );
   }
 
+  void loginPressed(){
+    if(usernameController.value.text.trim().toMd5() == '2d7a486f1e0c643890f817dd6764bc7b' && passwordController.value.text.trim().toMd5() == '098f6bcd4621d373cade4e832627b4f6'){
+      StorageManager.setString(StorageKeys.loggedIn, "s");
+      openVertretungen();
+    }else if(usernameController.value.text.trim().toMd5() == '18a90f2c2b4484de555feb4b02904a7a' && passwordController.value.text.trim().toMd5() == '451c683642186ec715fb6574d57b57a2'){
+      StorageManager.setString(StorageKeys.loggedIn, "l");
+      openVertretungen();
+    }else{
+      Keyboard.close(context);
+      FlushbarHelper.createError(
+          message: "Deine Benutzerdaten sind falsch", title: "Fehler   : (",
+          position: FlushbarPosition.TOP
+      ).show(context);
+    }
+  }
+
   void openVertretungen(){
-    StorageManager.setString(StorageKeys.apikey, (passwordController.value.text.trim() + "salt").toMd5());
-    print((usernameController.value.text.trim() + "salt").toMd5());
+    String apikey = (passwordController.value.text.trim() + "salt").toMd5();
+    StorageManager.setString(StorageKeys.apikey, apikey);
+    print(apikey);
 
     if(StorageManager.isEmpty(StorageKeys.tutorialWatched)){
       NoAnimationRoute.open(context, const Tutorial());
