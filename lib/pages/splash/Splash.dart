@@ -38,13 +38,13 @@ class _SplashState extends State<Splash> {
     checkTokenUpdate();
 
     splashDelay = Timer(const Duration(seconds: Consts.splashDelay), (){
-      // if(StorageManager.getString(StorageKeys.loggedIn) == "") {
-      //   NoAnimationRoute.push(context, const Login());
-      // }else if(StorageManager.isEmpty(StorageKeys.tutorialWatched)) {
-      //   NoAnimationRoute.push(context, const Tutorial());
-      // }else{
-      //   NoAnimationRoute.push(context, const Vertretungen());
-      // }
+      if(StorageManager.getString(StorageKeys.loggedIn) == "") {
+        NoAnimationRoute.push(context, const Login());
+      }else if(StorageManager.isEmpty(StorageKeys.tutorialWatched)) {
+        NoAnimationRoute.push(context, const Tutorial());
+      }else{
+        NoAnimationRoute.push(context, const Vertretungen());
+      }
     });
   }
 

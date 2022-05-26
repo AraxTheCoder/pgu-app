@@ -32,21 +32,19 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: onBackPressed,
-      child: Scaffold(
-        backgroundColor: PGUColors.background,
-        body: GestureDetector(
-          onTap: (){
-            Keyboard.close(context);
-          },
-          child: Stack(
-            children: [
-              fixedBackground(),
-              Align(
-                alignment: Alignment.bottomCenter,
+    return Scaffold(
+      body: GestureDetector(
+        onTap: (){
+          Keyboard.close(context);
+        },
+        child: Stack(
+          children: [
+            fixedBackground(),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: AspectRatio(
+                aspectRatio: 1 / 1.125,
                 child: Container(
-                  height: 400,
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -58,8 +56,8 @@ class _LoginState extends State<Login> {
                     children: <Widget>[
                       Container(
                         margin: const EdgeInsets.only(
-                            right: 40,
-                            left: 40,
+                          right: 40,
+                          left: 40,
                         ),
                         alignment: Alignment.topCenter,
                         child: Column(
@@ -67,8 +65,8 @@ class _LoginState extends State<Login> {
                           children: [
                             Container(
                               margin: const EdgeInsets.only(
-                                  top: 40,
-                                  bottom: 40,
+                                top: 40,
+                                bottom: 40,
                               ),
                               alignment: Alignment.topCenter,
                               child: const Text(
@@ -91,7 +89,7 @@ class _LoginState extends State<Login> {
                       Container(
                         alignment: Alignment.bottomCenter,
                         margin: const EdgeInsets.only(
-                            bottom: 35
+                            bottom: 50
                         ),
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
@@ -107,8 +105,8 @@ class _LoginState extends State<Login> {
                             }else{
                               Keyboard.close(context);
                               FlushbarHelper.createError(
-                                message: "Deinen Benutzerdaten sind falsch", title: "Fehler   : (",
-                                position: FlushbarPosition.TOP
+                                  message: "Deine Benutzerdaten sind falsch", title: "Fehler   : (",
+                                  position: FlushbarPosition.TOP
                               ).show(context);
                             }
                           },
@@ -132,9 +130,9 @@ class _LoginState extends State<Login> {
                     ],
                   ),
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -162,10 +160,5 @@ class _LoginState extends State<Login> {
         fit: BoxFit.cover,
       ),
     );
-  }
-
-  //Just return false -> Don't left the App
-  Future<bool> onBackPressed() async{
-    return false;
   }
 }
