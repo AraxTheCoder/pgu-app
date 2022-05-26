@@ -16,11 +16,9 @@ import 'package:pgu/Values/Size/SDP.dart';
 import 'package:pgu/Values/Size/TextSize.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
 
-/*
- * By: AraxTheCoder 19.03.2021
- */
-
 class Splash extends StatefulWidget {
+  const Splash({Key? key}) : super(key: key);
+
   @override
   _SplashState createState() {
     return _SplashState();

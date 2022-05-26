@@ -32,7 +32,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   shared_preferences: any
-  flutter_svg: any
+  flutter_svg: ^1.0.2
   dio: any
   flutter_colorpicker: any
   firebase_messaging: any
@@ -43,44 +43,30 @@ dependencies:
   flutter_spinkit: ^5.1.0
 
 dev_dependencies:
-  flutter_launcher_icons: any
+  flutter_launcher_icons_maker: ^0.10.1
   flutter_launcher_name: any
   #flutter pub run dart_code_metrics:metrics lib
   dart_code_metrics: any
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
+
   flutter_lints: ^1.0.0
 
-#flutter pub get
-#flutter pub run flutter_launcher_icons:main
+#flutter pub run flutter_launcher_icons_maker:main
 flutter_icons:
   android: true
   ios: true
-  image_path_android: "assets/icon.png"
-  image_path_ios: "assets/icon.png"
+  image_path: "assets/icon.png"
 
-#flutter pub get
 #flutter pub run flutter_launcher_name:main
 flutter_launcher_name:
   name: "PGU App"
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
-
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
   assets:
     - assets/
 
+  #TODO: Refactor into one default Font Family with different Weights
   fonts:
     - family: Mont
       fonts:

@@ -5,12 +5,13 @@
 Die PGU Vertretungsplan App um seine Vertretungen schnell und einfach zu finden.
 
 ## TODO
-[ ] Intro/Tutorial Screen\
+[ ] Anzeigen welche Vertretungenseit letzenmal neu\
 [ ] Benachrichtigungen bei neuen Vertretungen\
 [ ] Bei neuer Internetverbindung automatisch neuladen\
 [ ] Parsing Fehler im Backend beheben\
 [ ] Replace SDP\
 [ ] App Größe vermindern (https://itnext.io/reducing-flutter-app-size-570db9810ebb) \
+[x] Intro/Tutorial Screen\
 [x] Settings Baustelle (https://www.pexels.com/de-de/foto/person-frau-bau-arbeiten-8960933/)
 
 ## Check

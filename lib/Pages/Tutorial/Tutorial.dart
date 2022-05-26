@@ -184,10 +184,10 @@ class _TutorialState extends State<Tutorial> {
           children: [
             Container(
               width: 270,
-              height: 85,
+              height: 80,
               alignment: Alignment.centerLeft,
               decoration: BoxDecoration(
-                  color: Color.fromARGB(255,236,236,236),
+                  color: const Color.fromARGB(255,236,236,236),
                   borderRadius: BorderRadius.circular(15)
               ),
               margin: const EdgeInsets.only(
@@ -203,14 +203,14 @@ class _TutorialState extends State<Tutorial> {
                   ),
                   Expanded(
                     child: Container(
-                      padding: const EdgeInsets.all(15),
+                      padding: const EdgeInsets.all(10),
                       child: Stack(
                         children: [
-                          Align(
+                          const Align(
                             alignment: Alignment.topLeft,
                             child: Text(
                               "Klasse",
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontFamily: 'Mont',
                                   fontSize: 17
                               ),
@@ -248,21 +248,21 @@ class _TutorialState extends State<Tutorial> {
                               ),
                             ),
                           ),
-                          Align(
+                          const Align(
                             alignment: Alignment.centerRight,
                             child: Text(
                               "Stunde",
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontFamily: 'Mont',
                                   fontSize: 17
                               ),
                             ),
                           ),
-                          Align(
+                          const Align(
                             alignment: Alignment.topRight,
                             child: Text(
                               "Datum",
-                              style: const TextStyle(
+                              style: TextStyle(
                                   fontFamily: 'Mont',
                                   fontSize: 17
                               ),
@@ -277,7 +277,7 @@ class _TutorialState extends State<Tutorial> {
             ),
             Container(
               height: 90,
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                   right: 60
               ),
               alignment: Alignment.centerRight,
@@ -285,12 +285,12 @@ class _TutorialState extends State<Tutorial> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.visibility_off_rounded),
                   Text(
                     "Kurs\nverbergen",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'Mont',
                         fontSize: 10
                     ),
@@ -300,19 +300,19 @@ class _TutorialState extends State<Tutorial> {
             ),
             Container(
               height: 90,
-              margin: EdgeInsets.only(
+              margin: const EdgeInsets.only(
                   right: 10
               ),
               alignment: Alignment.centerRight,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   Icon(Icons.edit_rounded),
                   Text(
                     "Farbe\nändern",
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontFamily: 'Mont',
                         fontSize: 10
                     ),
