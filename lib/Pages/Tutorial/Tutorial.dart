@@ -57,6 +57,7 @@ class _TutorialState extends State<Tutorial> {
 
   @override
   void initState() {
+    //TODO: Maybe Update Sample Widgets
     introductionPages = [
       tutorialPage("Füg einfach deine Klasse/Stufe hinzu und bekomme nur dich betreffende Vertretungen angezeigt!", 0.75, Container(
         height: 300,
