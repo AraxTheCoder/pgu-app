@@ -339,91 +339,84 @@ class _VertretungenState extends State<Vertretungen> {
                       left: 35,
                       right: 35
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      RichText(
-                        text: const TextSpan(
-                            text: "Deine\n",
-                            style: TextStyle(
-                                fontFamily: 'Mont-normal',
-                                fontSize: 18,
-                                color: PGUColors.background
-                            ),
-                            children: [
-                              TextSpan(
-                                  text: "Vertretungen",
-                                  style: TextStyle(
-                                      fontFamily: 'Mont',
-                                      fontSize: 32
-                                  )
-                              )
-                            ]
+                  child: RichText(
+                    text: const TextSpan(
+                        text: "Deine\n",
+                        style: TextStyle(
+                            fontFamily: 'Mont-normal',
+                            fontSize: 18,
+                            color: PGUColors.background
                         ),
-                      ),
-                    ],
+                        children: [
+                          TextSpan(
+                              text: "Vertretungen",
+                              style: TextStyle(
+                                  fontFamily: 'Mont',
+                                  fontSize: 32
+                              )
+                          )
+                        ]
+                    ),
                   ),
                 ),
                 Expanded(
-                    child: (entities.isNotEmpty ? entities.isEmpty : cachedEntities.isEmpty) ? Container(
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                            bottom: SDP.sdp(110),
-                            left: SDP.sdp(25),
-                            right: SDP.sdp(25)
-                        ),
-                        child: Stack(
-                          children: [
-                            Align(
-                              alignment: Alignment.center,
-                              child: Image.asset('assets/dog_small_nb_cropped.png'),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Stack(
-                                children: [
-                                  Text(
-                                    "Keine\nVertretungen",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 30,
-                                      fontFamily: 'Mont',
-                                      foreground: Paint()
-                                        ..style = PaintingStyle.stroke
-                                        ..strokeWidth = 5
-                                        ..color = PGUColors.background,
-                                    ),
+                    child: (entities.isNotEmpty ? entities.isEmpty : cachedEntities.isEmpty) ? Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: 100,
+                          left: 35,
+                          right: 35
+                      ),
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Image.asset('assets/dog_small_nb_cropped.png'),
+                          ),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Stack(
+                              children: [
+                                Text(
+                                  "Keine\nVertretungen",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontFamily: 'Mont',
+                                    foreground: Paint()
+                                      ..style = PaintingStyle.stroke
+                                      ..strokeWidth = 5
+                                      ..color = PGUColors.background,
                                   ),
-                                  const Text(
-                                    "Keine\nVertretungen",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: PGUColors.text,
-                                      fontSize: 30,
-                                      fontFamily: 'Mont',
-                                      shadows: <Shadow>[
-                                        Shadow(
-                                          offset: Offset(10.0, 10.0),
-                                          blurRadius: 3.0,
-                                          color: Color.fromARGB(255, 0, 0, 0),
-                                        ),
-                                        Shadow(
-                                          offset: Offset(10.0, 10.0),
-                                          blurRadius: 8.0,
-                                          color: Color.fromARGB(125, 0, 0, 0),
-                                        ),
-                                      ],
-                                    ),
+                                ),
+                                const Text(
+                                  "Keine\nVertretungen",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: PGUColors.text,
+                                    fontSize: 30,
+                                    fontFamily: 'Mont',
+                                    shadows: <Shadow>[
+                                      Shadow(
+                                        offset: Offset(10.0, 10.0),
+                                        blurRadius: 3.0,
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                      ),
+                                      Shadow(
+                                        offset: Offset(10.0, 10.0),
+                                        blurRadius: 8.0,
+                                        color: Color.fromARGB(125, 0, 0, 0),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                            Align(
-                              alignment: Alignment.bottomCenter,
-                              child: hiddenCoursesButton(),
-                            )
-                          ],
-                        ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: hiddenCoursesButton(),
+                          )
+                        ],
                       ),
                     ) :
                     Container(
