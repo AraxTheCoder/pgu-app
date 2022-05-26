@@ -5,13 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:pgu/Pages/Splash/Splash.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Consts/AppInfo.dart';
-import 'package:pgu/Widgets/Behaviors/DefaultScrollBehavior.dart';
 
 import 'Notifications/PushNotificationService.dart';
-
-/*
- * By: AraxTheCoder 19.03.2021
- */
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,23 +18,21 @@ void main() async {
     sound: true,
   );
 
-  runApp(const PGUApp());
+  runApp(PGUApp());
 }
 
 class PGUApp extends StatefulWidget{
-  const PGUApp({Key? key}) : super(key: key);
-
-  @override
-  _PGUAppState createState() {
+  PGUApp({Key? key}) : super(key: key){
     final pushNotificationService = PushNotificationService();
     pushNotificationService.initialise();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
-
-    return _PGUAppState();
   }
+
+  @override
+  _PGUAppState createState() => _PGUAppState();
 }
 
 class _PGUAppState extends State<PGUApp>{
@@ -48,21 +41,21 @@ class _PGUAppState extends State<PGUApp>{
     return AnnotatedRegion<SystemUiOverlayStyle>(
         value: const SystemUiOverlayStyle(
             statusBarColor: PGUColors.transparent,
-            statusBarIconBrightness: PGUColors.brightness,
-            statusBarBrightness: PGUColors.brightness,
-            systemNavigationBarColor: PGUColors.transparent
+            systemNavigationBarColor: PGUColors.transparent,
         ),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: AppInfo.name,
-          home: Splash(),
-          builder: (context, child) {
-            return ScrollConfiguration(
-              behavior: DefaultScrollBehavior(),
-              child: child!,
-            );
-          },
+        child: WillPopScope(
+          onWillPop: popHandler,
+          child: const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: AppInfo.name,
+            home: Splash(),
+          ),
         )
     );
+  }
+
+  //Dont Pop Base Route -> Don't leave the App
+  Future<bool> popHandler() async{
+    return false;
   }
 }

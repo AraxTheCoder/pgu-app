@@ -9,23 +9,19 @@ import 'package:pgu/Pages/Tutorial/Tutorial.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
-import 'package:pgu/Values/Consts/AppInfo.dart';
 import 'package:pgu/Values/Consts/Consts.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
-import 'package:pgu/Values/Size/SDP.dart';
-import 'package:pgu/Values/Size/TextSize.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
 
   @override
-  _SplashState createState() {
-    return _SplashState();
-  }
+  _SplashState createState() => _SplashState();
 }
 
 class _SplashState extends State<Splash> {
+  final Dio dio = Dio();
   Timer? splashDelay;
 
   @override
@@ -35,6 +31,7 @@ class _SplashState extends State<Splash> {
     asnycInit();
   }
 
+  //TODO: Refactoring
   void asnycInit() async{
     await StorageManager.init();
 
@@ -42,16 +39,14 @@ class _SplashState extends State<Splash> {
 
     splashDelay = Timer(const Duration(seconds: Consts.splashDelay), (){
       if(StorageManager.getString(StorageKeys.loggedIn) == "") {
-        NoAnimationRoute.open(context, const Login());
+        NoAnimationRoute.push(context, const Login());
       }else if(StorageManager.isEmpty(StorageKeys.tutorialWatched)) {
-        NoAnimationRoute.open(context, const Tutorial());
+        NoAnimationRoute.push(context, const Tutorial());
       }else{
-          NoAnimationRoute.open(context, const Vertretungen());
+        NoAnimationRoute.push(context, const Vertretungen());
       }
     });
   }
-
-  Dio dio = Dio();
 
   Future<void> checkTokenUpdate() async {
     //await StorageManager.init();
@@ -80,58 +75,31 @@ class _SplashState extends State<Splash> {
     super.dispose();
   }
 
-  void setupValues(BuildContext context){
-    SDP.init(context);
-    TextSize.build();
-  }
-
   @override
   Widget build(BuildContext context) {
-    setupValues(context);
-
-    return WillPopScope(
-      onWillPop: onBackPressed,
-      child: Scaffold(
-        backgroundColor: PGUColors.background,
-        body: Stack(
-          children: [
-            SvgPicture.asset(
-              'assets/background.svg',
-              allowDrawingOutsideViewBox: true,
-              fit: BoxFit.cover,
+    return Scaffold(
+      backgroundColor: PGUColors.background,
+      body: Stack(
+        children: [
+          SvgPicture.asset(
+            'assets/background.svg',
+            allowDrawingOutsideViewBox: true,
+            fit: BoxFit.cover,
+          ),
+          Container(
+            alignment: Alignment.center,
+            margin: const EdgeInsets.only(
+              bottom: 100,
+              left: 100,
+              right: 100
             ),
-            Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(
-                  bottom: SDP.sdp(100)
-                ),
-                child: SvgPicture.asset(
-                  'assets/pgu.svg',
-                  height: SDP.sdp(100),
-                ),
+            child: SvgPicture.asset(
+              'assets/pgu.svg',
+              height: 250,
             ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              padding: const EdgeInsets.only(
-                bottom: 25
-              ),
-              child: Text(
-                AppInfo.version,
-                style: TextStyle(
-                    color: PGUColors.text,
-                    fontFamily: 'Mont',
-                    fontSize: TextSize.small
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
-  }
-
-  //Just return false -> Don't left the App
-  Future<bool> onBackPressed() async{
-    return false;
   }
 }
