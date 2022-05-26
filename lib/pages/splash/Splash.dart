@@ -77,29 +77,26 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: PGUColors.background,
-      body: Stack(
-        children: [
-          SvgPicture.asset(
-            'assets/background.svg',
-            allowDrawingOutsideViewBox: true,
-            fit: BoxFit.cover,
-          ),
-          Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.only(
+    return Stack(
+      children: [
+        SvgPicture.asset(
+          'assets/background.svg',
+          allowDrawingOutsideViewBox: true,
+          fit: BoxFit.cover,
+        ),
+        Container(
+          alignment: Alignment.center,
+          margin: const EdgeInsets.only(
               bottom: 100,
               left: 100,
               right: 100
-            ),
-            child: SvgPicture.asset(
-              'assets/pgu.svg',
-              height: 250,
-            ),
           ),
-        ],
-      ),
+          child: SvgPicture.asset(
+            'assets/pgu.svg',
+            height: 250,
+          ),
+        ),
+      ],
     );
   }
 }
