@@ -361,47 +361,6 @@ class _VertretungenState extends State<Vertretungen> {
                             ]
                         ),
                       ),
-                      //TODO: Enable Optional
-                      // Container(
-                      //   margin: EdgeInsets.only(
-                      //     top: 10
-                      //   ),
-                      //   child: Row(
-                      //     mainAxisSize: MainAxisSize.max,
-                      //     children: [
-                      //       Container(
-                      //         height: 15,
-                      //         width: 15,
-                      //         decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(10),
-                      //           color: offline? PGUColors.red : PGUColors.accent,
-                      //         ),
-                      //       ),
-                      //       SizedBox(
-                      //         width: 10,
-                      //       ),
-                      //       Text(
-                      //         offline ? "Offline" : "Online",
-                      //         style: TextStyle(
-                      //             fontFamily: 'Mont',
-                      //             fontSize: 15
-                      //         )
-                      //       ),
-                      //       Expanded(
-                      //         child: Align(
-                      //           alignment: Alignment.centerRight,
-                      //           child: Text(
-                      //               "Stand:  " + StorageManager.getString(StorageKeys.lastFetched).dateString(),
-                      //               style: TextStyle(
-                      //                   fontFamily: 'Mont',
-                      //                   fontSize: 15
-                      //               )
-                      //           ),
-                      //         ),
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
