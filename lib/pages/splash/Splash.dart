@@ -38,13 +38,13 @@ class _SplashState extends State<Splash> {
     checkTokenUpdate();
 
     splashDelay = Timer(const Duration(seconds: Consts.splashDelay), (){
-      if(StorageManager.getString(StorageKeys.loggedIn) == "") {
-        NoAnimationRoute.push(context, const Login());
-      }else if(StorageManager.isEmpty(StorageKeys.tutorialWatched)) {
-        NoAnimationRoute.push(context, const Tutorial());
-      }else{
-        NoAnimationRoute.push(context, const Vertretungen());
-      }
+      // if(StorageManager.getString(StorageKeys.loggedIn) == "") {
+      //   NoAnimationRoute.push(context, const Login());
+      // }else if(StorageManager.isEmpty(StorageKeys.tutorialWatched)) {
+      //   NoAnimationRoute.push(context, const Tutorial());
+      // }else{
+      //   NoAnimationRoute.push(context, const Vertretungen());
+      // }
     });
   }
 
@@ -88,12 +88,10 @@ class _SplashState extends State<Splash> {
           alignment: Alignment.center,
           margin: const EdgeInsets.only(
               bottom: 100,
-              left: 100,
-              right: 100
           ),
           child: SvgPicture.asset(
             'assets/pgu.svg',
-            height: 250,
+            height: 175,
           ),
         ),
       ],
