@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +120,7 @@ class _VertretungenState extends State<Vertretungen> {
         if(!responseData.startsWith("[") || !responseData.endsWith("]")) {
           print("[Vertretungen] Not fetched");
           print("[Vertretungen] " + responseData);
-          hideLoading();
+          //hideLoading();
 
           if(responseData == "Invalid Client Version"){
             showDialog(
@@ -250,13 +251,13 @@ class _VertretungenState extends State<Vertretungen> {
                 }
             );
           }
-          return;
+          //return;
+        }else{
+          print("[Vertretungen] Loaded Subsitutions");
+          List<Vertretung> newV = List<Vertretung>.from(
+              json.decode(responseData).map((model) => Vertretung.fromJson(model)));
+          entities += newV;
         }
-
-        print("[Vertretungen] Loaded Subsitutions");
-        List<Vertretung> newV = List<Vertretung>.from(
-            json.decode(responseData).map((model) => Vertretung.fromJson(model)));
-        entities += newV;
 
         url = "https://pgu.backslash-vr.com/api/user/info";
         response = await dio.get(url);
@@ -272,9 +273,7 @@ class _VertretungenState extends State<Vertretungen> {
             for(Info i in infos){
               int index = entities.indexWhere((element) => element.datum == i.date);
 
-              if(index >= 0) {
-                entities.insert(index, Vertretung("INFO", "/", "/", "/", "/", i.content, i.date));
-              }
+              entities.insert(max(index, 0), Vertretung("INFO", "/", "/", "/", "/", i.content, i.date));
             }
           }
         }
