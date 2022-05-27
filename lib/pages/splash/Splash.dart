@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pgu/Pages/Home/Home.dart';
 import 'package:pgu/Pages/Login/Login.dart';
 import 'package:pgu/Pages/Tutorial/Tutorial.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
@@ -43,7 +44,7 @@ class _SplashState extends State<Splash> {
       }else if(StorageManager.isEmpty(StorageKeys.tutorialWatched)) {
         NoAnimationRoute.push(context, const Tutorial());
       }else{
-        NoAnimationRoute.push(context, const Vertretungen());
+        NoAnimationRoute.push(context, const Home());
       }
     });
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Extensions/StringExtensions.dart';
+import 'package:pgu/Pages/Home/Home.dart';
 import 'package:pgu/Pages/Tutorial/Tutorial.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
@@ -148,7 +149,7 @@ class _LoginState extends State<Login> {
     if(StorageManager.isEmpty(StorageKeys.tutorialWatched)){
       NoAnimationRoute.open(context, const Tutorial());
     }else{
-      NoAnimationRoute.open(context, const Vertretungen());
+      NoAnimationRoute.open(context, const Home());
     }
   }
 

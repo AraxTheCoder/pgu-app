@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Extensions/StringExtensions.dart';
+import 'package:pgu/Pages/Home/Home.dart';
 import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
@@ -436,6 +437,6 @@ class _TutorialState extends State<Tutorial> {
 
   void skip(){
     StorageManager.setString(StorageKeys.tutorialWatched, "true");
-    NoAnimationRoute.open(context, const Vertretungen());
+    NoAnimationRoute.open(context, const Home());
   }
 }

@@ -17,10 +17,7 @@ import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
 
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
-
-/*
- * By: AraxTheCoder 19.03.2021
- */
+import 'package:pgu/Widgets/intern/EmptyState.dart';
 
 class Vertretungen extends StatefulWidget {
   const Vertretungen({Key? key}) : super(key: key);
@@ -34,11 +31,11 @@ class Vertretungen extends StatefulWidget {
 class _VertretungenState extends State<Vertretungen> {
   @override
   void initState() {
-    super.initState();
-
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       loadClasses();
     });
+
+    super.initState();
   }
 
   void loadClasses() {
@@ -52,6 +49,10 @@ class _VertretungenState extends State<Vertretungen> {
         loadCachedVertretungen();
       }
     }
+
+    setState(() {
+      initialLoaded = true;
+    });
 
     loadVertretungen();
   }
@@ -67,9 +68,9 @@ class _VertretungenState extends State<Vertretungen> {
           json.decode(jsonString).map((model) => Vertretung.fromJson(model)));
     }
 
-    setState(() {
-
-    });
+    // setState(() {
+    //
+    // });
   }
 
   void showLoading(){
@@ -315,206 +316,56 @@ class _VertretungenState extends State<Vertretungen> {
 
   List<Vertretung> entities = [];
   List<Vertretung> cachedEntities = [];
+  bool initialLoaded = false;
 
   @override
   Widget build(BuildContext context) {
     SDP.init(context);
     List<Widget> items = vertretungenItems();
 
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-      body: Stack(
+    if(!initialLoaded){
+      return Container();
+    }
+
+    if(entities.isEmpty && cachedEntities.isEmpty){
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            alignment: Alignment.topLeft,
-            margin: const EdgeInsets.only(
-              top: 60,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: 35,
-                      right: 35
-                  ),
-                  child: RichText(
-                    text: const TextSpan(
-                        text: "Deine\n",
-                        style: TextStyle(
-                            fontFamily: 'Mont-normal',
-                            fontSize: 18,
-                            color: PGUColors.background
-                        ),
-                        children: [
-                          TextSpan(
-                              text: "Vertretungen",
-                              style: TextStyle(
-                                  fontFamily: 'Mont',
-                                  fontSize: 32
-                              )
-                          )
-                        ]
-                    ),
-                  ),
-                ),
-                Expanded(
-                    child: (entities.isNotEmpty ? entities.isEmpty : cachedEntities.isEmpty) ? Padding(
-                      padding: const EdgeInsets.only(
-                          bottom: 100,
-                          left: 35,
-                          right: 35
-                      ),
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: Image.asset('assets/dog_small_nb_cropped.png'),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Stack(
-                              children: [
-                                Text(
-                                  "Keine\nVertretungen",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontFamily: 'Mont',
-                                    foreground: Paint()
-                                      ..style = PaintingStyle.stroke
-                                      ..strokeWidth = 5
-                                      ..color = PGUColors.background,
-                                  ),
-                                ),
-                                const Text(
-                                  "Keine\nVertretungen",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: PGUColors.text,
-                                    fontSize: 30,
-                                    fontFamily: 'Mont',
-                                    shadows: <Shadow>[
-                                      Shadow(
-                                        offset: Offset(10.0, 10.0),
-                                        blurRadius: 3.0,
-                                        color: Color.fromARGB(255, 0, 0, 0),
-                                      ),
-                                      Shadow(
-                                        offset: Offset(10.0, 10.0),
-                                        blurRadius: 8.0,
-                                        color: Color.fromARGB(125, 0, 0, 0),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                            child: hiddenCoursesButton(),
-                          )
-                        ],
-                      ),
-                    ) :
-                    Container(
-                      margin: const EdgeInsets.only(
-                        top: 10,
-                        bottom: 130,
-                      ),
-                      child: MediaQuery.removePadding(
-                        context: context,
-                        removeTop: true,
-                        child: ShaderMask(
-                          shaderCallback: (Rect rect) {
-                            return const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
-                              stops: [0.0, 0.05, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
-                            ).createShader(rect);
-                          },
-                          blendMode: BlendMode.dstOut,
-                          child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            itemCount: items.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return items[index];
-                            },
-                          ),
-                        ),
-                      ),
-                    )
-                )
-              ],
-            ),
-          ),
-          Container(
-              alignment: Alignment.bottomCenter,
-              margin: const EdgeInsets.only(
-                  bottom: 35,
-                  right: 25,
-                  left: 25
-              ),
-              child: Container(
-                width: double.infinity,
-                height: 78.5,
-                decoration: BoxDecoration(
-                  color: PGUColors.background,
-                  borderRadius: BorderRadius.circular(SDP.sdp(27)),
-                  border: Border.all(width: 0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: const Offset(0, 7), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: openClasses,
-                        child: Container(
-                          color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
-                          padding: const EdgeInsets.all(20),
-                          child: const Icon(
-                            Icons.person_outline_rounded, //person_outline_rounded
-                            color: PGUColors.text,
-                            size: 25,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const Expanded(
-                      child: Icon(
-                        Icons.home_rounded,
-                        color: PGUColors.text,
-                        size: 25,
-                      ),
-                    ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: openSettings,
-                        child: Container(
-                          color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
-                          padding: const EdgeInsets.all(20),
-                          child: const Icon(
-                            Icons.settings_outlined, //person_outline_rounded
-                            color: PGUColors.text,
-                            size: 25,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )),
+          EmptyState("Keine\nVertretungen"),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: hiddenCoursesButton(),
+          )
         ],
+      );
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 10,
+        bottom: 130,
+      ),
+      child: MediaQuery.removePadding(
+        context: context,
+        removeTop: true,
+        child: ShaderMask(
+          shaderCallback: (Rect rect) {
+            return const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
+              stops: [0.0, 0.05, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
+            ).createShader(rect);
+          },
+          blendMode: BlendMode.dstOut,
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: items.length,
+            itemBuilder: (BuildContext context, int index) {
+              return items[index];
+            },
+          ),
+        ),
       ),
     );
   }

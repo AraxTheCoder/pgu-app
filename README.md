@@ -53,6 +53,11 @@ apikey: (Passwort + "salt").md5\
 
 https://pgu.backslash-vr.com/api/user/get?type&content&lastFetched&apikey
 
+## Generelle Informationen
+
+### GestureDetector
+Reagiert nur auf ausgefüllte/farbige Flächen => Container muss transparenten Hintergund haben
+
 ## Android Studio
 - https://stackoverflow.com/a/67021737
 

@@ -25,7 +25,9 @@ class ClassModel{
       height: 90,
       alignment: Alignment.centerLeft,
       margin: const EdgeInsets.only(
-        bottom: 10
+        bottom: 10,
+        left: 35,
+        right: 35
       ),
       clipBehavior: Clip.hardEdge,
       decoration: BoxDecoration(
