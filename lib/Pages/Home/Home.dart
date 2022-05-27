@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pgu/Pages/Home/tabs/Classes.dart';
+import 'package:pgu/Pages/Home/tabs/Settings.dart';
 import 'package:pgu/Pages/Home/tabs/Vertretungen.dart';
-import 'package:pgu/Pages/Settings/Settings.dart';
+import 'package:pgu/Storage/StorageKeys.dart';
+import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
@@ -16,7 +18,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final double NAVBAR_ICON_SIZE = 27.5;
   List<String> tabTitles = [
-    "Klassen",//TODO: Lehrer hinzufügen
+    StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel",//TODO: Lehrer hinzufügen
     "Vertretungen",
     "Einstellungen"
   ];
@@ -36,7 +38,7 @@ class _HomeState extends State<Home> {
   List<Widget> tabWidgets = [
     Classes(),
     Vertretungen(),
-    Container(),
+    Settings(),
   ];
 
   int currentTab = 1;
@@ -56,6 +58,7 @@ class _HomeState extends State<Home> {
                   left: 35,
                   right: 35,
                   top: 70,
+                  bottom: 10
                 ),
                 child: RichText(
                   text: TextSpan(
@@ -79,6 +82,9 @@ class _HomeState extends State<Home> {
               ),
               Expanded(
                 child: tabWidgets[currentTab],
+              ),
+              const SizedBox(
+                height: 110,
               )
             ],
           ),

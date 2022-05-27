@@ -7,7 +7,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pgu/Models/ClassModel.dart';
 import 'package:pgu/Models/Info.dart';
 import 'package:pgu/Models/Vertretung.dart';
-import 'package:pgu/Pages/Settings/Settings.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Utils/ColorChooser.dart';
@@ -328,43 +327,35 @@ class _VertretungenState extends State<Vertretungen> {
 
     if(entities.isEmpty && cachedEntities.isEmpty){
       return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          EmptyState("Keine\nVertretungen"),
+          EmptyState("Keine\nVertretungen", 'assets/dog_small_nb_cropped.png'),
           Align(
             alignment: Alignment.bottomCenter,
             child: hiddenCoursesButton(),
-          )
+          ),
         ],
       );
     }
 
-    return Container(
-      margin: const EdgeInsets.only(
-        top: 10,
-        bottom: 130,
-      ),
-      child: MediaQuery.removePadding(
-        context: context,
-        removeTop: true,
-        child: ShaderMask(
-          shaderCallback: (Rect rect) {
-            return const LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
-              stops: [0.0, 0.05, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
-            ).createShader(rect);
-          },
-          blendMode: BlendMode.dstOut,
-          child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: items.length,
-            itemBuilder: (BuildContext context, int index) {
-              return items[index];
-            },
-          ),
+    return ShaderMask(
+      shaderCallback: (Rect rect) {
+        return const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
+          stops: [0.0, 0.05, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
+        ).createShader(rect);
+      },
+      blendMode: BlendMode.dstOut,
+      child: ListView.builder(
+        padding: const EdgeInsets.only(
+          top: 15,
+          bottom: 15
         ),
+        physics: const BouncingScrollPhysics(),
+        itemCount: items.length,
+        itemBuilder: (BuildContext context, int index) => items[index],
       ),
     );
   }
@@ -416,8 +407,6 @@ class _VertretungenState extends State<Vertretungen> {
       ausgeblendeteKurse = List<String>.from(jsonDecode(jsonString));
     }
 
-    vertretungenItems.add(const SizedBox(height: 15,));
-
     for (int a = 0; a < (entities.isNotEmpty ? entities.length : cachedEntities.length); a++) {
       Vertretung v = entities.isNotEmpty ? entities[a] : cachedEntities[a];
 
@@ -448,8 +437,6 @@ class _VertretungenState extends State<Vertretungen> {
     //   );
     // }
     vertretungenItems.add(hiddenCoursesButton());
-
-    vertretungenItems.add(const SizedBox(height: 15,));
 
     return vertretungenItems;
   }

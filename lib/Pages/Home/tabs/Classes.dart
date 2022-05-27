@@ -40,15 +40,10 @@ class _ClassesState extends State<Classes> {
 
     items.clear();
 
-
     if (jsonString.isNotEmpty) {
-      items.add(const SizedBox(height: 15,));
-
       entities = List<ClassModel>.from(json.decode(jsonString).map((model) => ClassModel.fromJson(model)));
 
       items.addAll(entities.map((e) => ClassModel.item(e, deleteClass)));
-
-      items.add(const SizedBox(height: 85,));
     }
   }
 
@@ -59,79 +54,42 @@ class _ClassesState extends State<Classes> {
   Widget build(BuildContext context) {
     loadClasses();
 
-    if(entities.isEmpty){
-      return Stack(
-        children: [
-          EmptyState("Keine " + (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel")),
-          Container(
-            alignment: Alignment.bottomRight,
-            margin: EdgeInsets.only(bottom: SDP.sdp(110), right: SDP.sdp(25)),
-            child: GestureDetector(
-              onTap: addClicked,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Transform.rotate(
-                    angle: -pi / 4,
-                    child: SizedBox(
-                      height: 75,
-                      width: 75,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: SvgPicture.asset(
-                          'assets/background.svg',
-                          allowDrawingOutsideViewBox: false,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Icon(
-                    Icons.add_rounded,
-                    color: PGUColors.text,
-                    size: SDP.sdp(35),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ],
-      );
-    }
-
     return Stack(
       children: [
-        Container(
-          margin: const EdgeInsets.only(
-            top: 10,
-            bottom: 130,
-          ),
-          child: MediaQuery.removePadding(
-            context: context,
-            removeTop: true,
-            child: ShaderMask(
-              shaderCallback: (Rect rect) {
-                return const LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
-                  stops: [0.0, 0.05, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
-                ).createShader(rect);
-              },
-              blendMode: BlendMode.dstOut,
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: items.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return items[index];
-                },
-              ),
+        entities.isEmpty ? Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            EmptyState("Keine " + (StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel"), 'assets/dog_small_nb_cropped.png'),
+            const SizedBox()
+          ],
+        ) : ShaderMask(
+          shaderCallback: (Rect rect) {
+            return const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.purple, Colors.transparent, Colors.transparent, Colors.purple],
+              stops: [0.0, 0.05, 0.9, 1.0], // 10% purple, 80% transparent, 10% purple
+            ).createShader(rect);
+          },
+          blendMode: BlendMode.dstOut,
+          child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: items.length,
+            padding: const EdgeInsets.only(
+                top: 15,
+                bottom: 85
             ),
+            itemBuilder: (BuildContext context, int index) {
+              return items[index];
+            },
           ),
         ),
         Container(
           alignment: Alignment.bottomRight,
-          margin: EdgeInsets.only(bottom: SDP.sdp(110), right: SDP.sdp(25)),
+          margin: const EdgeInsets.only(
+            right: 35,
+            bottom: 35
+          ),
           child: GestureDetector(
             onTap: addClicked,
             child: Stack(
@@ -378,11 +336,11 @@ class _ClassesState extends State<Classes> {
   Dio dio = Dio();
 
   void deleteClass(ClassModel classCode){
-    print("[Classes] Delete " + classCode.name!);
-    entities.remove(classCode);
-    StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
-    StorageManager.setString(StorageKeys.lastFetched, "");
-
-    setState(()=>null);
+    setState((){
+      print("[Classes] Delete " + classCode.name!);
+      entities.remove(classCode);
+      StorageManager.setString(StorageKeys.classes, jsonEncode(entities));
+      StorageManager.setString(StorageKeys.lastFetched, "");
+    });
   }
 }
