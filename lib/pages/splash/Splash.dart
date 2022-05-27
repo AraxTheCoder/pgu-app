@@ -7,11 +7,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Pages/Home/Home.dart';
 import 'package:pgu/Pages/Login/Login.dart';
 import 'package:pgu/Pages/Tutorial/Tutorial.dart';
-import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Consts/Consts.dart';
-import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
 
 class Splash extends StatefulWidget {

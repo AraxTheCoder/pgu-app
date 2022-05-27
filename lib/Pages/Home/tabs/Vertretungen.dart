@@ -7,7 +7,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:pgu/Models/ClassModel.dart';
 import 'package:pgu/Models/Info.dart';
 import 'package:pgu/Models/Vertretung.dart';
-import 'package:pgu/Pages/Classes/Classes.dart';
 import 'package:pgu/Pages/Settings/Settings.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
@@ -708,13 +707,5 @@ class _VertretungenState extends State<Vertretungen> {
     setState(() {
 
     });
-  }
-
-  void openClasses(){
-    NoAnimationRoute.open(context, Classes(false));
-  }
-
-  void openSettings(){
-    NoAnimationRoute.open(context, Settings());
   }
 }

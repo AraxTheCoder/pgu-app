@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pgu/Pages/Classes/Classes.dart';
-import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
 
@@ -242,7 +240,9 @@ class _SettingsState extends State<Settings> {
                     children: [
                       Expanded(
                         child: GestureDetector(
-                          onTap: openClasses,
+                          onTap: (){
+
+                          },
                           child: Container(
                             color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
                             padding: const EdgeInsets.all(20),
@@ -256,7 +256,9 @@ class _SettingsState extends State<Settings> {
                       ),
                       Expanded(
                         child: GestureDetector(
-                          onTap: openVertretungen,
+                          onTap: (){
+
+                          },
                           child: Container(
                             color: PGUColors.debug ? PGUColors.red : PGUColors.transparent,
                             padding: const EdgeInsets.all(20),
@@ -285,14 +287,6 @@ class _SettingsState extends State<Settings> {
         ),
       ),
     );
-  }
-
-  void openClasses(){
-    NoAnimationRoute.open(context, Classes(false));
-  }
-
-  void openVertretungen(){
-    NoAnimationRoute.open(context, const Vertretungen());
   }
 
   void closeKeyboard(BuildContext context){

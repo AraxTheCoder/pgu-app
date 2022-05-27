@@ -7,8 +7,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:pgu/Extensions/StringExtensions.dart';
 import 'package:pgu/Formatter/UpperCaseTextFormatter.dart';
 import 'package:pgu/Models/ClassModel.dart';
-import 'package:pgu/Pages/Settings/Settings.dart';
-import 'package:pgu/Pages/Vertretungen/Vertretungen.dart';
 import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Utils/Keyboard.dart';
@@ -16,9 +14,7 @@ import 'package:pgu/Values/Design/PGUColors.dart';
 import 'package:pgu/Values/Size/SDP.dart';
 import 'dart:math';
 
-import 'package:pgu/Values/Size/TextSize.dart';
 import 'package:pgu/Widgets/Output/FlushbarHelper.dart';
-import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
 import 'package:pgu/Widgets/intern/EmptyState.dart';
 
 class Classes extends StatefulWidget {
