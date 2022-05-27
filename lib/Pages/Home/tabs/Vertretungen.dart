@@ -257,34 +257,34 @@ class _VertretungenState extends State<Vertretungen> {
           List<Vertretung> newV = List<Vertretung>.from(
               json.decode(responseData).map((model) => Vertretung.fromJson(model)));
           entities += newV;
-        }
 
-        url = "https://pgu.backslash-vr.com/api/user/info";
-        response = await dio.get(url);
-        if(response.statusCode == 200){
-          responseData = response.data.toString();
+          url = "https://pgu.backslash-vr.com/api/user/info";
+          response = await dio.get(url);
+          if(response.statusCode == 200){
+            responseData = response.data.toString();
 
-          if(responseData.startsWith("[") && responseData.endsWith("]")) {
-            print("[Vertretungen] Loaded Infos");
-            List<Info> infos = List<Info>.from(
-                json.decode(responseData).map((model) =>
-                    Info.fromJson(model)));
+            if(responseData.startsWith("[") && responseData.endsWith("]")) {
+              print("[Vertretungen] Loaded Infos");
+              List<Info> infos = List<Info>.from(
+                  json.decode(responseData).map((model) =>
+                      Info.fromJson(model)));
 
-            for(Info i in infos){
-              int index = entities.indexWhere((element) => element.datum == i.date);
+              for(Info i in infos){
+                int index = entities.indexWhere((element) => element.datum == i.date);
 
-              entities.insert(max(index, 0), Vertretung("INFO", "/", "/", "/", "/", i.content, i.date));
+                entities.insert(max(index, 0), Vertretung("INFO", "/", "/", "/", "/", i.content, i.date));
+              }
             }
           }
+
+          StorageManager.setString(StorageKeys.lastFetched, DateTime.now().toString());
+
+          // if(entities.length >= 1 && classCode.name != entities[entities.length - 1].klasse){
+          //   classes[a].name = entities[entities.length - 1].klasse;
+          //   classnameChange = true;
+          // }
+          StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
         }
-
-        StorageManager.setString(StorageKeys.lastFetched, DateTime.now().toString());
-
-        // if(entities.length >= 1 && classCode.name != entities[entities.length - 1].klasse){
-        //   classes[a].name = entities[entities.length - 1].klasse;
-        //   classnameChange = true;
-        // }
-        StorageManager.setString(StorageKeys.vertretungen, jsonEncode(entities));
       }
     }on DioError {
       print("[Vertretungen] Offline");
