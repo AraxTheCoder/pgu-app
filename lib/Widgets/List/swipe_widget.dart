@@ -114,6 +114,7 @@ class _OnSlideState extends State<OnSlide> {
                 alignment: Alignment.centerLeft,
                 width: iconWidth,
                 height: childSize!.height,
+                color: Colors.transparent,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,

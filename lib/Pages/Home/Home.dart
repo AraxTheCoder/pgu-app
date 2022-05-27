@@ -6,8 +6,6 @@ import 'package:pgu/Storage/StorageKeys.dart';
 import 'package:pgu/Storage/StorageManager.dart';
 import 'package:pgu/Values/Design/PGUColors.dart';
 
-import 'package:pgu/Widgets/Routes/NoAnimationRoute.dart';
-
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
@@ -18,7 +16,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final double NAVBAR_ICON_SIZE = 27.5;
   List<String> tabTitles = [
-    StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel",//TODO: Lehrer hinzufügen
+    StorageManager.getString(StorageKeys.loggedIn) == "s" ? "Klassen" : "Kürzel",
     "Vertretungen",
     "Einstellungen"
   ];
